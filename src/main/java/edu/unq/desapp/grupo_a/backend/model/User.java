@@ -26,6 +26,10 @@ public class User {
 		this.email = email;
 		this.reputation = 0;
 	}
+	
+	public User() {
+		
+	}
 
 	public String getCuil() {
 		return cuil;
