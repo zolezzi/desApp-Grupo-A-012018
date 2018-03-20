@@ -12,7 +12,7 @@ public class UserTest {
     	//Only a proof
         User user = new User();
         user.setName("Charlie");
-        assertEquals(user.getName(), "TPI");
+        assertEquals(user.getName(), "Charlie");
     }
 
 }
