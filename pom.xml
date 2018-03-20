@@ -310,6 +310,142 @@
 		
 	</dependencies>
 
+	<build>
+		<finalName>desapp-grupo_a</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+						
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>9.3.3.v20150827</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+			</plugin>
+			
+			<plugin>
+			    <groupId>org.eclipse.jetty</groupId>
+			    <artifactId>jetty-maven-plugin</artifactId>
+			    <version>9.3.19.v20170502</version>
+			</plugin>
 
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+					<executions>
+						<execution>
+							<id>clean-jar-artifacts</id>
+							<phase>install</phase>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+							<configuration>
+								<excludeDefaultDirectories>true</excludeDefaultDirectories>
+								<filesets>
+									<fileset>
+										<directory>target</directory>
+										<excludes>
+											<exclude>*.war</exclude>
+											<exclude>dependency/*.jar</exclude>
+										</excludes>
+									</fileset>
+								</filesets>
+							</configuration>
+						</execution>
+					</executions>
+			</plugin>
+	        
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<includes>
+						<include>**/Test*.java</include>
+						<include>**/*Test.java</include>
+						<include>**/*Tests.java</include>
+						<include>**/*TestCase.java</include>
+					</includes>
+					<properties>
+						<!-- <includeTags>fast</includeTags> -->
+						<excludeTags>slow</excludeTags>
+					</properties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>${junit.platform.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.junit.jupiter</groupId>
+						<artifactId>junit-jupiter-engine</artifactId>
+						<version>${junit.jupiter.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.junit.vintage</groupId>
+						<artifactId>junit-vintage-engine</artifactId>
+						<version>${junit.vintage.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			
+			<plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
+			    <version>4.3.0</version>
+			</plugin>
+			
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.7.6.201602180812</version>
+			    <executions>
+			        <execution>
+			            <id>prepare-agent</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			    <configuration>
+			        <excludes>
+			            <exclude>**/beans/*</exclude>
+			            <exclude>**/webservice/*</exclude>
+			            <exclude>**/dto/*</exclude>
+			            <exclude>**/exceptions/*</exclude>
+			            <exclude>**/repository/*</exclude>
+			            <exclude>**/utils/*</exclude>
+			            <exclude>**/service/provider/*</exclude>
+			        </excludes>
+			    </configuration>
+			</plugin> 
+					
+		</plugins>
+
+	</build>
 
 </project>
