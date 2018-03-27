@@ -14,5 +14,12 @@ public class UserTest {
         user.setName("Charlie");
         assertEquals(user.getName(), "Charlie");
     }
+    
+    @Test
+    public void testUserCuil() {
+    	User user = new User();
+    	user.setCuil("20-11111111-3");
+    	assertEquals(user.getCuil(), "20-11111111-3");
+    }
 
 }
