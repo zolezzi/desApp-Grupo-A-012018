@@ -1,34 +1,33 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 public class User {
 
 	private String cuil;
-	
 	private String name;
-	
 	private Address address;
-
 	private String email;
-	
-	private Integer reputation;
-	
-	private List<Vehicle> vehicles;
-	
+	private Double reputation;
+	private Collection<Vehicle> vehicles;
 	private CreditAccount creditAccount;
 	
-	public User(String cuil, String name, Address address, String email) {
-		
+	public User(String cuil, String name, Address address, String email) throws UserInitException{
+		try {
+			check(cuil, name, address, email);
+		} catch (UserInitException e) {
+			throw e;
+		}
 		this.cuil = cuil;
 		this.name = name;
 		this.address = address;
 		this.email = email;
-		this.reputation = 0;
-	}
-	
-	public User() {
-		
+		this.reputation = (double) 0;
+		this.vehicles = new ArrayList<>();
+		this.creditAccount = new CreditAccount();
 	}
 
 	public String getCuil() {
@@ -63,12 +62,46 @@ public class User {
 		this.email = email;
 	}
 
-	public Integer getReputation() {
+	public Double getReputation() {
 		return reputation;
 	}
 
-	public void setReputation(Integer reputation) {
+	public void setReputation(Double reputation) {
 		this.reputation = reputation;
 	}
+	
+	public Collection<Vehicle> getVehicles() {
+		return vehicles;
+	}
 
+	public void addVehicle(Vehicle vehicle) {
+		this.vehicles.add(vehicle);
+	}
+	
+	public void removeVehicle(Vehicle vehicle) {
+		this.vehicles.remove(vehicle);
+	}
+
+	public CreditAccount getCreditAccount() {
+		return creditAccount;
+	}
+
+	public void addCredit(Double amount) {
+		this.creditAccount.addAmount(amount);
+	}
+	
+	public void loseCredit(Double amount) {
+		this.creditAccount.loseAmount(amount);
+	}
+	
+	private static void check(String cuil, String name, Address address,
+			String email) throws UserInitException {
+		if (name == null || name.trim().isEmpty() ||
+				cuil == null || cuil.trim().isEmpty() ||
+				email == null || email.trim().isEmpty()) {
+			throw new UserInitException();
+		} else {
+			Address.check(address);
+		}
+	}
 }
