@@ -435,9 +435,10 @@
 			        <excludes>
 			            <exclude>**/beans/*</exclude>
 			            <exclude>**/webservice/*</exclude>
+			            <exclude>**/rest/*</exclude>
 			            <exclude>**/dto/*</exclude>
 			            <exclude>**/exceptions/*</exclude>
-			            <exclude>**/repository/*</exclude>
+			            <exclude>**/dao/*</exclude>
 			            <exclude>**/utils/*</exclude>
 			            <exclude>**/service/provider/*</exclude>
 			        </excludes>
