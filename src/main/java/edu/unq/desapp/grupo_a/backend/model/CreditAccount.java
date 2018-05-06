@@ -1,8 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 

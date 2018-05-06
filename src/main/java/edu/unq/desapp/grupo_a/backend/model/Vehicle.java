@@ -5,13 +5,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 import org.hibernate.annotations.LazyCollection;
@@ -73,7 +71,6 @@ public class Vehicle extends PersistenceEntity{
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-    //@LazyCollection(LazyCollectionOption.FALSE)
 	public List<Address> getReturnAddresses() {
 		return returnAddresses;
 	}

@@ -18,15 +18,12 @@ public class Address implements java.io.Serializable{
 	private Long id;
 
 	private String streetName;
-
 	private String comments;
 	private Double coordLat;
 	private Double coordLong;
 	private String streetNumber;
 	private String department;
-
 	private String districtName;
-
 	private String zipCode;
 	private String floor;
 	private String betweenStreet1;
