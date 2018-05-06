@@ -1,5 +1,104 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-public class Vehicle {
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+@Entity
+@Table(name = "vehicles")
+public class Vehicle extends PersistenceEntity{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private VehicleData vehicleData;
+	
+	private Address withdrawAddress;
+	
+	private List<Address> returnAddresses;
+
+	private Boolean availability;
+	
+	private Double rentPrice;
+	
+	private User user;
+	
+	public Vehicle (VehicleData vehicleData, Address withdrawAddress,
+			List<Address> returnAddresses, Boolean availability, Double rentPrice,
+			List<Photo> photos) {
+		this.vehicleData = vehicleData;
+		this.setWithdrawAddress(withdrawAddress);
+		this.setReturnAddresses(returnAddresses);
+		this.setAvailability(availability);
+		this.setRentPrice(rentPrice);
+	}
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public VehicleData getVehicleData() {
+		return this.vehicleData;
+	}
+
+	@OneToOne
+	public Address getWithdrawAddress() {
+		return withdrawAddress;
+	}
+
+	public void setWithdrawAddress(Address withdrawAddress) {
+		this.withdrawAddress = withdrawAddress;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL)
+    //@LazyCollection(LazyCollectionOption.FALSE)
+	public List<Address> getReturnAddresses() {
+		return returnAddresses;
+	}
+
+	public void setReturnAddresses(List<Address> returnAddresses) {
+		this.returnAddresses = returnAddresses;
+	}
+	
+	@Column(name = "availability")
+	public Boolean getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(Boolean availability) {
+		this.availability = availability;
+	}
+	
+	@Column(name = "rent_price")
+	public Double getRentPrice() {
+		return rentPrice;
+	}
+
+	public void setRentPrice(Double rentPrice) {
+		this.rentPrice = rentPrice;
+	}
+	
+	@ManyToOne
+	@JoinColumn
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }
