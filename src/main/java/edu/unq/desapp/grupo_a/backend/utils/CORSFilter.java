@@ -30,9 +30,10 @@ public class CORSFilter implements Filter{
         
     }
 
+    //ToDo... implement
     @Override
     public void destroy() {
-
+    	
     }
 
 

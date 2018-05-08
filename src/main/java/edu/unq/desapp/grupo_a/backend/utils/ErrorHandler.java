@@ -12,7 +12,7 @@ import edu.unq.desapp.grupo_a.backend.error.CarpndError;
 
 public class ErrorHandler {
 
-	List<CarpndError> errors = new ArrayList<CarpndError>();
+	private List<CarpndError> errors = new ArrayList<CarpndError>();
 	
 	@Autowired
 	Logger logger;

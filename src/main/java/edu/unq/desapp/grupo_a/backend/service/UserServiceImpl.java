@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unq.desapp.grupo_a.backend.dao.UserDao;
-import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
 
 @Transactional
@@ -30,9 +29,9 @@ public class UserServiceImpl extends GenericService<User> {
 		this.repository = repository;
 	}
 
-	public void saveuser(UserDto dto) {
-	
+	//ToDo... implement
+	//public void saveuser(UserDto dto) {
 		
-	}
+	//}
 
 }

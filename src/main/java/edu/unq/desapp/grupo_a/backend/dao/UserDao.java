@@ -13,8 +13,6 @@ public class UserDao extends HibernateGenericDao<User> implements GenericDao<Use
 		return serialVersionUID;
 	}
 
-	public UserDao() {	}
-
 	@Override
 	public Class<User> getDomainClass() {
 		return User.class;

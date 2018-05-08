@@ -43,7 +43,7 @@ public class User extends PersistenceEntity{
 	
 	private Integer reputation;
 	
-	private List<Vehicle> vehicles;
+	private Collection<Vehicle> vehicles;
 	
 	private CreditAccount creditAccount;
 	
