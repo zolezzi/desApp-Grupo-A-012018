@@ -37,10 +37,7 @@
     <bean id="persistence.sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
 
 		<property name="dataSource" ref="persistence.dataSource" />
-<!--  
-		<property name="entityCacheStrategies" ref="persistence.hibernateClassCacheProperties" />
-		<property name="collectionCacheStrategies" ref="persistence.hibernateCollectionCacheProperties" />
--->
+
 
 		<property name="hibernateProperties">
 			<props>
@@ -49,16 +46,8 @@
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
 
-				<!-- Propiedades para la configuración de la cache de segundo nivel -->
-<!--
-                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
-                <prop key="hibernate.cache.use_second_level_cache">false</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
--->
 				<prop key="hibernate.connection.autocommit">false</prop>
-<!--
-                <prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>
--->
+
 			</props>
 		</property>
 		
@@ -69,6 +58,7 @@
                 <value>edu.unq.desapp.grupo_a.backend.model.CreditAccount</value>
                	<value>edu.unq.desapp.grupo_a.backend.model.Photo</value>
                 <value>edu.unq.desapp.grupo_a.backend.model.Vehicle</value>
+                <value>edu.unq.desapp.grupo_a.backend.model.VehicleData</value>
                 <value>edu.unq.desapp.grupo_a.backend.model.User</value>
 
             </list>

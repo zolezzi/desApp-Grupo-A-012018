@@ -2,11 +2,13 @@ package edu.unq.desapp.grupo_a.backend.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -28,23 +30,28 @@ public class User extends PersistenceEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	private int idUser;
 
+	@Column(name = "cuil", nullable = false)
 	private String cuil;
 	
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
+	@JoinColumn(name = "address_id",nullable=false)
 	private Address address;
 
+	@Column(name = "user_email", length = 50)
 	private String email;
 	
+	@Column(name = "user_reputation", nullable = false)
 	private Integer reputation;
 	
-	private Collection<Vehicle> vehicles;
+	@OneToMany(targetEntity=Vehicle.class, mappedBy="user", fetch=FetchType.EAGER)
+	private List<Vehicle> vehicles;
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private CreditAccount creditAccount;
 	
 	public User(String cuil, String name, Address address, String email) throws UserInitException{
@@ -58,12 +65,11 @@ public class User extends PersistenceEntity{
 		this.address = address;
 		this.email = email;
 		this.reputation = 0;
-		this.vehicles = new ArrayList<>();
+//		this.vehicles = new ArrayList<>();
 		this.creditAccount = new CreditAccount();
 	}
 
 	
-	@Column(name = "cuil", nullable = false)
 	public String getCuil() {
 		return cuil;
 	}
@@ -72,7 +78,6 @@ public class User extends PersistenceEntity{
 		this.cuil = cuil;
 	}
 	
-	@Column(name = "name", length = 100, nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -81,9 +86,6 @@ public class User extends PersistenceEntity{
 		this.name = name;
 	}
 	
-	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
-	@JoinColumn(name = "address_id",nullable=false)
 	public Address getAddress() {
 		return address;
 	}
@@ -92,7 +94,6 @@ public class User extends PersistenceEntity{
 		this.address = address;
 	}
 	
-	@Column(name = "user_email", length = 50)
 	public String getEmail() {
 		return email;
 	}
@@ -101,7 +102,6 @@ public class User extends PersistenceEntity{
 		this.email = email;
 	}
 	
-	@Column(name = "user_reputation", nullable = false)
 	public Integer getReputation() {
 		return reputation;
 	}
@@ -110,7 +110,6 @@ public class User extends PersistenceEntity{
 		this.reputation = reputation;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public CreditAccount getCreditAccount() {
 		return creditAccount;
 	}
@@ -119,20 +118,23 @@ public class User extends PersistenceEntity{
 		this.creditAccount = creditAccount;
 	}
 
-	@OneToMany(mappedBy="user", orphanRemoval=true)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	public Collection<Vehicle> getVehicles() {
+//	@OneToMany(mappedBy="user")
+	//@LazyCollection(LazyCollectionOption.FALSE)
+//	@Column(name = "vehicle_id")
+//	@ElementCollection(targetClass=Vehicle.class)
+//	@OneToMany(targetEntity=Vehicle.class, mappedBy="user", fetch=FetchType.EAGER)
+	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
-
-
-    public void addVehicle(Vehicle vehicle) {
-        this.vehicles.add(vehicle);
-    }
-
-    public void removeVehicle(Vehicle vehicle) {
-        this.vehicles.remove(vehicle);
-    }
+//
+//
+//    public void addVehicle(Vehicle vehicle) {
+//        this.vehicles.add(vehicle);
+//    }
+//
+//    public void removeVehicle(Vehicle vehicle) {
+//        this.vehicles.remove(vehicle);
+//    }
 
     public void addCredit(Double amount) {
         this.creditAccount.addAmount(amount);

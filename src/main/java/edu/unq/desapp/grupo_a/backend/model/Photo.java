@@ -17,15 +17,16 @@ public class Photo extends PersistenceEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Vehicle vehicle;
 	
 	@ManyToOne
 	@JoinColumn
-	public Vehicle getVehicle() {
-		return vehicle;
+	private VehicleData vehicleData;
+	
+	public VehicleData getVehicleData() {
+		return vehicleData;
 	}
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicle(VehicleData vehicleData) {
+		this.vehicleData = vehicleData;
 	}
 
 	public static void check(List<Photo> photos) throws VehicleDataException {

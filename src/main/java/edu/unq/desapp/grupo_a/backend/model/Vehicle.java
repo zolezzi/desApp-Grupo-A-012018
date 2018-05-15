@@ -25,77 +25,27 @@ public class Vehicle extends PersistenceEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@OneToOne(cascade=CascadeType.ALL)
+	//@LazyCollection(LazyCollectionOption.FALSE)
 	private VehicleData vehicleData;
 	
-	private Address withdrawAddress;
-	
-	private List<Address> returnAddresses;
-
-	private Boolean availability;
-	
-	private Double rentPrice;
-	
+	@ManyToOne
 	private User user;
 	
-	public Vehicle (VehicleData vehicleData, Address withdrawAddress,
-			List<Address> returnAddresses, Boolean availability, Double rentPrice,
-			List<Photo> photos) throws VehicleDataException {
+	public Vehicle (VehicleData vehicleData) throws VehicleDataException {
         try {
             VehicleData.check(vehicleData);
         } catch(VehicleDataException e) {
             throw e;
         }
 		this.vehicleData = vehicleData;
-		this.setWithdrawAddress(withdrawAddress);
-		this.setReturnAddresses(returnAddresses);
-		this.setAvailability(availability);
-		this.setRentPrice(rentPrice);
+
 	}
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	public VehicleData getVehicleData() {
 		return this.vehicleData;
 	}
-
-	@OneToOne
-	public Address getWithdrawAddress() {
-		return withdrawAddress;
-	}
-
-	public void setWithdrawAddress(Address withdrawAddress) {
-		this.withdrawAddress = withdrawAddress;
-	}
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	public List<Address> getReturnAddresses() {
-		return returnAddresses;
-	}
-
-	public void setReturnAddresses(List<Address> returnAddresses) {
-		this.returnAddresses = returnAddresses;
-	}
-	
-	@Column(name = "availability")
-	public Boolean getAvailability() {
-		return availability;
-	}
-
-	public void setAvailability(Boolean availability) {
-		this.availability = availability;
-	}
-	
-	@Column(name = "rent_price")
-	public Double getRentPrice() {
-		return rentPrice;
-	}
-
-	public void setRentPrice(Double rentPrice) {
-		this.rentPrice = rentPrice;
-	}
-	
-	@ManyToOne
-	@JoinColumn
 	public User getUser() {
 		return user;
 	}
