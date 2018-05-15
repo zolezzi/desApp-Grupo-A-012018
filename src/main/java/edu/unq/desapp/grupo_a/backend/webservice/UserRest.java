@@ -37,7 +37,8 @@ public class UserRest extends GenericRest<User> {
 	@Path("/saveuser")
 	public Response saveuser(@Context HttpServletRequest request, UserDto dto) {
 		try {
-			userService.saveuser(dto);
+			//ToDo... implement
+			//userService.saveuser(dto);
 			return this.getResponseGenerator().buildSuccessResponse("Success");
 		} catch (Exception e) {
 			return this.getResponseGenerator().buildErrorResponse(new RuntimeException(e.getMessage()));

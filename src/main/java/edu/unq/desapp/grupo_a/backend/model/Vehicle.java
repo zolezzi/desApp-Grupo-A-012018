@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -38,12 +39,18 @@ public class Vehicle extends PersistenceEntity{
 	
 	public Vehicle (VehicleData vehicleData, Address withdrawAddress,
 			List<Address> returnAddresses, Boolean availability, Double rentPrice,
-			List<Photo> photos) {
+			List<Photo> photos) throws VehicleDataException {
+        try {
+            VehicleData.check(vehicleData);
+        } catch(VehicleDataException e) {
+            throw e;
+        }
 		this.vehicleData = vehicleData;
 		this.setWithdrawAddress(withdrawAddress);
 		this.setReturnAddresses(returnAddresses);
 		this.setAvailability(availability);
 		this.setRentPrice(rentPrice);
+        this.setPhotos(photos);
 	}
 	
 	@OneToOne(cascade=CascadeType.ALL)

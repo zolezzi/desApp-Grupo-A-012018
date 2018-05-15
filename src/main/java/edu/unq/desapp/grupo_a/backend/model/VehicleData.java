@@ -2,6 +2,8 @@ package edu.unq.desapp.grupo_a.backend.model;
 
 import java.util.List;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
+
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,11 +17,11 @@ import com.sun.istack.NotNull;
 
 public class VehicleData {
 	
-	private VehicleTypeEnum vehicleType;
+	private VehicleType vehicleType;
 	
 	private Integer passengerCapability;
 	
-	//private City city;
+	private City city;
 	
 	private String vehicleDescription;
 	
@@ -27,15 +29,45 @@ public class VehicleData {
 	
 	private List<Photo> photos;
 	
-	public VehicleData (VehicleTypeEnum vehicleType, int passengerCapability, /*City city,*/
+	public VehicleData (VehicleType vehicleType, int passengerCapability, City city,
 			String vehicleDescription, Phone contactPhone, List<Photo> photos) {
-		
+
 		this.vehicleType = vehicleType;
 		this.passengerCapability = passengerCapability;
-		//this.city = city;
+		this.city = city;
 		this.vehicleDescription = vehicleDescription;
 		this.contactPhone = contactPhone;
 		this.photos = photos;
+	}
+	
+		public static void check(VehicleData vehicleData) throws VehicleDataException {
+
+		if (null == vehicleData) {
+			throw new VehicleDataException();
+		} else {
+			try {
+				VehicleType.check(vehicleData.getVehicleType());
+				checkVehicleCapability(vehicleData.getPassengerCapability());
+				City.check(vehicleData.getCity());
+				checkVehicleDescription(vehicleData.getVehicleDescription());
+				Phone.check(vehicleData.getContactPhone());
+				Photo.check(vehicleData.getPhotos());
+			} catch (VehicleDataException e) {
+				throw e;
+			}
+		}
+	}
+	
+	private static void checkVehicleCapability(int vehicleCapability) throws VehicleDataException {
+		if (vehicleCapability <= 0) {
+			throw new VehicleDataException();
+		}
+	}
+
+	private static void checkVehicleDescription(String vehicleDescription) throws VehicleDataException {
+		if (vehicleDescription == null || vehicleDescription.trim().isEmpty()) {
+			throw new VehicleDataException();
+		}
 	}
 	
 	public Integer getPassengerCapability() {
@@ -46,13 +78,13 @@ public class VehicleData {
 		this.passengerCapability = passengerCapability;
 	}
 
-//	public City getCity() {
-//		return city;
-//	}
-//
-//	public void setCity(City city) {
-//		this.city = city;
-//	}
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
 
 	public String getVehicleDescription() {
 		return vehicleDescription;

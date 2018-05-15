@@ -8,15 +8,16 @@ import javax.persistence.Table;
 @Table(name = "credit_account")
 public class CreditAccount extends PersistenceEntity{
 	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Double currentAmount;
-	
+
 	private User user;
-	
+
 	public CreditAccount() {
 		this.currentAmount = (double) 0;
 	}
@@ -41,7 +42,5 @@ public class CreditAccount extends PersistenceEntity{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 
 }

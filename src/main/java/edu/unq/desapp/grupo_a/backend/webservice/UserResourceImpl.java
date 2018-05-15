@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +79,12 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 		return null;
 	}
 	
+	public UserServiceImpl getUserService() {
+		return userService;
+	}
 
+	public UserDao getUserDao() {
+		return userDao;
+	}
 
 }

@@ -1,5 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -102,6 +104,10 @@ public class Address implements java.io.Serializable{
 		this.betweenStreet2 = betweenStreet2;
 	}
 
-
+	public static void check(Address address) throws UserInitException {
+		if (address == null) {
+			throw new UserInitException();
+		}
+	}
 
 }

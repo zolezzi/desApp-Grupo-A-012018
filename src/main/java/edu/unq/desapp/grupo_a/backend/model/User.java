@@ -1,6 +1,9 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,22 +43,25 @@ public class User extends PersistenceEntity{
 	
 	private Integer reputation;
 	
-	private List<Vehicle> vehicles;
+	private Collection<Vehicle> vehicles;
 	
 	private CreditAccount creditAccount;
 	
-	public User(String cuil, String name, Address address, String email) {
-		
+	public User(String cuil, String name, Address address, String email) throws UserInitException{
+		try {
+			check(cuil, name, address, email);
+		} catch (UserInitException e) {
+			throw e;
+		}
 		this.cuil = cuil;
 		this.name = name;
 		this.address = address;
 		this.email = email;
 		this.reputation = 0;
+		this.vehicles = new ArrayList<>();
+		this.creditAccount = new CreditAccount();
 	}
-	
-	public User() {
-		
-	}
+
 	
 	@Column(name = "cuil", nullable = false)
 	public String getCuil() {
@@ -115,12 +121,35 @@ public class User extends PersistenceEntity{
 
 	@OneToMany(mappedBy="user", orphanRemoval=true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	public List<Vehicle> getVehicles() {
+	public Collection<Vehicle> getVehicles() {
 		return vehicles;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
 
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicles.add(vehicle);
+    }
+
+    public void removeVehicle(Vehicle vehicle) {
+        this.vehicles.remove(vehicle);
+    }
+
+    public void addCredit(Double amount) {
+        this.creditAccount.addAmount(amount);
+    }
+
+    public void loseCredit(Double amount) {
+        this.creditAccount.loseAmount(amount);
+    }
+
+    private static void check(String cuil, String name, Address address,
+                              String email) throws UserInitException {
+        if (name == null || name.trim().isEmpty() ||
+                cuil == null || cuil.trim().isEmpty() ||
+                email == null || email.trim().isEmpty()) {
+            throw new UserInitException();
+        } else {
+            Address.check(address);
+        }
+    }
 }
