@@ -69,7 +69,7 @@ public class UserTest {
     	//then its reputation is 0 (zero)
     	User user = UserBuilder.anUser()
     			.build();
-    	assertEquals(user.getReputation(), Double.valueOf(0));
+    	assertEquals(Double.valueOf(user.getReputation()), Double.valueOf(0));
     }
     
     @Test
