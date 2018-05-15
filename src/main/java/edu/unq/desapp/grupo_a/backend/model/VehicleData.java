@@ -112,14 +112,14 @@ public class VehicleData {
 		this.photos = photos;
 	}
 
-	public void setVehicleType(VehicleTypeEnum vehicleType) {
+	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
 	}
 	
 	@NotNull
 	@Column(name = "vehicle_type", length = 10,nullable=false)
 	@Enumerated(EnumType.STRING)
-	public VehicleTypeEnum getVehicleType() {
+	public VehicleType getVehicleType() {
 		return this.vehicleType;
 	}
 }

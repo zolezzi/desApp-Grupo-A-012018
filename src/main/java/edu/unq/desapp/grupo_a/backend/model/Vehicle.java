@@ -50,7 +50,6 @@ public class Vehicle extends PersistenceEntity{
 		this.setReturnAddresses(returnAddresses);
 		this.setAvailability(availability);
 		this.setRentPrice(rentPrice);
-        this.setPhotos(photos);
 	}
 	
 	@OneToOne(cascade=CascadeType.ALL)
