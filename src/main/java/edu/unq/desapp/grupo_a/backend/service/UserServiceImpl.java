@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.unq.desapp.grupo_a.backend.dao.UserDao;
+import edu.unq.desapp.grupo_a.backend.dao.UserRepository;
 import edu.unq.desapp.grupo_a.backend.model.User;
 
 @Transactional
@@ -12,20 +12,20 @@ import edu.unq.desapp.grupo_a.backend.model.User;
 public class UserServiceImpl extends GenericService<User> {
 
 	@Autowired
-	private UserDao repository;
+	private UserRepository repository;
 
 	public UserServiceImpl() {
 	}
 
-	public UserServiceImpl(UserDao repo) {
+	public UserServiceImpl(UserRepository repo) {
 		this.setRepository(repo);
 	}
 
-	public UserDao getRepository() {
+	public UserRepository getRepository() {
 		return repository;
 	}
 
-	public void setRepository(UserDao repository) {
+	public void setRepository(UserRepository repository) {
 		this.repository = repository;
 	}
 

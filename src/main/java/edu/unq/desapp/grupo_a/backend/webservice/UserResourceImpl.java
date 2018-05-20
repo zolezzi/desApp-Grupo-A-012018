@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.api.UserResource;
-import edu.unq.desapp.grupo_a.backend.dao.UserDao;
+import edu.unq.desapp.grupo_a.backend.dao.UserRepository;
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.service.GenericService;
@@ -26,7 +26,7 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 	private UserServiceImpl userService;
 	
 	@Autowired
-	private UserDao userDao;
+	private UserRepository userRepository;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -83,8 +83,8 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 		return userService;
 	}
 
-	public UserDao getUserDao() {
-		return userDao;
+	public UserRepository getUserRepository() {
+		return userRepository;
 	}
 
 }
