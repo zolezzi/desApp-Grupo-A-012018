@@ -1,14 +1,10 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,10 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.sun.istack.NotNull;
+
+import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 @Entity
 @Table(name = "users")
@@ -65,7 +60,7 @@ public class User extends PersistenceEntity{
 		this.address = address;
 		this.email = email;
 		this.reputation = 0;
-//		this.vehicles = new ArrayList<>();
+		this.vehicles = new ArrayList<>();
 		this.creditAccount = new CreditAccount();
 	}
 
@@ -118,23 +113,17 @@ public class User extends PersistenceEntity{
 		this.creditAccount = creditAccount;
 	}
 
-//	@OneToMany(mappedBy="user")
-	//@LazyCollection(LazyCollectionOption.FALSE)
-//	@Column(name = "vehicle_id")
-//	@ElementCollection(targetClass=Vehicle.class)
-//	@OneToMany(targetEntity=Vehicle.class, mappedBy="user", fetch=FetchType.EAGER)
 	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
-//
-//
-//    public void addVehicle(Vehicle vehicle) {
-//        this.vehicles.add(vehicle);
-//    }
-//
-//    public void removeVehicle(Vehicle vehicle) {
-//        this.vehicles.remove(vehicle);
-//    }
+	
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicles.add(vehicle);
+    }
+
+    public void removeVehicle(Vehicle vehicle) {
+        this.vehicles.remove(vehicle);
+    }
 
     public void addCredit(Double amount) {
         this.creditAccount.addAmount(amount);
