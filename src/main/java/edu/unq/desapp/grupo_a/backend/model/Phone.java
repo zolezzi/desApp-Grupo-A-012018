@@ -11,6 +11,10 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 @Table(name = "phone")
 public class Phone extends PersistenceEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn
 	private VehicleData vehicleData;

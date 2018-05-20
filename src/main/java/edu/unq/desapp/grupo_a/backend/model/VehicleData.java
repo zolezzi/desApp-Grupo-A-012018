@@ -2,8 +2,6 @@ package edu.unq.desapp.grupo_a.backend.model;
 
 import java.util.List;
 
-import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,10 +18,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.sun.istack.NotNull;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
+
 @Entity
 @Table(name = "vehicle_data")
 public class VehicleData extends PersistenceEntity{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotNull
 	@Column(name = "vehicle_type", length = 10,nullable=false)
 	@Enumerated(EnumType.STRING)
