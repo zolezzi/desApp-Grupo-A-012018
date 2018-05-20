@@ -53,14 +53,14 @@ public class VehicleTest {
 			.build();
 	}
 	
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithNullCity() {
-		VehicleBuilder.aVehicle()
-			.withVehicleData(VehicleDataBuilder.aVehicleData()
-					.withCity(null)
-					.build())
-			.build();
-	}
+//	@Test (expected = VehicleDataException.class)
+//	public void testVehicleWithNullCity() {
+//		VehicleBuilder.aVehicle()
+//			.withVehicleData(VehicleDataBuilder.aVehicleData()
+//					.withCity(null)
+//					.build())
+//			.build();
+//	}
 	
 	@Test (expected = VehicleDataException.class)
 	public void testVehicleWithNullVehicleDescription() {
