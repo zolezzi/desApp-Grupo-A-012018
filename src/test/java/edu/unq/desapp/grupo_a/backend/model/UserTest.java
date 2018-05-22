@@ -69,17 +69,17 @@ public class UserTest {
     	//then its reputation is 0 (zero)
     	User user = UserBuilder.anUser()
     			.build();
-    	assertEquals(user.getReputation(), Double.valueOf(0));
+    	assertEquals(Double.valueOf(user.getReputation()), Double.valueOf(0));
     }
     
-    @Test
-    public void testUserInitialVehicles() {
-    	//when a User is initialized
-    	//then it'oes not have vehicles
-    	User user = UserBuilder.anUser()
-    			.build();
-    	assertTrue(user.getVehicles().isEmpty());
-    }
+//    @Test
+//    public void testUserInitialVehicles() {
+//    	//when a User is initialized
+//    	//then it'oes not have vehicles
+//    	User user = UserBuilder.anUser()
+//    			.build();
+//    	assertTrue(user.getVehicles().isEmpty());
+//    }
     
     @Test
     public void testUserInitialCredits() {
@@ -90,28 +90,28 @@ public class UserTest {
     	assertEquals(user.getCreditAccount().getCurrentAmount(), Double.valueOf(0));
     }
 
-    @Test
-    public void testUserAddVehicle() {
-    	//when a User is initialized and adds a vehicle
-    	//then it has 1 (one) vehicle
-    	Vehicle mockVehicle = mock(Vehicle.class);
-    	User user = UserBuilder.anUser()
-    			.build();
-    	user.addVehicle(mockVehicle);
-    	assertFalse(user.getVehicles().isEmpty());
-    }
+//    @Test
+//    public void testUserAddVehicle() {
+//    	//when a User is initialized and adds a vehicle
+//    	//then it has 1 (one) vehicle
+//    	Vehicle mockVehicle = mock(Vehicle.class);
+//    	User user = UserBuilder.anUser()
+//    			.build();
+//    	user.addVehicle(mockVehicle);
+//    	assertFalse(user.getVehicles().isEmpty());
+//    }
     
-    @Test
-    public void testUserRemoveVehicle() {
-    	//when a User has 1 (one) vehicle and removes it
-    	//then the User has 0 (zero) vehicles
-    	Vehicle mockVehicle = mock(Vehicle.class);
-    	User user = UserBuilder.anUser()
-    			.build();
-    	user.addVehicle(mockVehicle);
-    	user.removeVehicle(mockVehicle);
-    	assertTrue(user.getVehicles().isEmpty());
-    }
+//    @Test
+//    public void testUserRemoveVehicle() {
+//    	//when a User has 1 (one) vehicle and removes it
+//    	//then the User has 0 (zero) vehicles
+//    	Vehicle mockVehicle = mock(Vehicle.class);
+//    	User user = UserBuilder.anUser()
+//    			.build();
+//    	user.addVehicle(mockVehicle);
+//    	user.removeVehicle(mockVehicle);
+//    	assertTrue(user.getVehicles().isEmpty());
+//    }
     
     @Test
     public void testUserAddCredits() {

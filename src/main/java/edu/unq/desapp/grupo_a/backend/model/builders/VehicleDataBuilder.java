@@ -25,7 +25,7 @@ public class VehicleDataBuilder {
 	public VehicleData build() {
 		
 		VehicleData vehicleData = new VehicleData(vehicleType, passengerCapability,
-				city, vehicleDescription, contactPhone, photos);
+				 vehicleDescription, contactPhone, photos);
 		return vehicleData;
 	}
 	

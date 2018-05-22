@@ -23,8 +23,7 @@ public class VehicleBuilder {
 	
 	public Vehicle build() {
 
-		Vehicle vehicle = new Vehicle(vehicleData, withdrawAddress, returnAddresses,
-				availability, rentPrice, photos);
+		Vehicle vehicle = new Vehicle(vehicleData);
 		return vehicle;
 	}
 
