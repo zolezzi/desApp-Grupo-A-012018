@@ -50,7 +50,7 @@ public class Vehicle extends PersistenceEntity{
         this.photos = photos;
 	}
 
-    public static void check(int passengerCapability, String vehicleDescription)
+    private static void check(int passengerCapability, String vehicleDescription)
             throws VehicleDataException {
         if (passengerCapability <= 0 ||
                 vehicleDescription == null || vehicleDescription.trim().isEmpty()) {

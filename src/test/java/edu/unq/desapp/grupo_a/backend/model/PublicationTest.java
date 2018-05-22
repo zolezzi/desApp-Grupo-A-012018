@@ -1,25 +1,31 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import org.junit.Test;
-
 import edu.unq.desapp.grupo_a.backend.model.builders.PublicationBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.UserBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.VehicleBuilder;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidAvailabilityException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PublicationTest {
 
 	@Test (expected = WrongPublicationException.class)
 	public void testPublicationWithNullOfferent() {
-		PublicationBuilder.anOffer()
+		PublicationBuilder.aPublication()
 			.withOfferent(null)
+			.addVehicle()
 			.build();
 	}
 	
 	@Test (expected = WrongPublicationException.class)
 	public void testPublicationWithNullVehicle() {
-		PublicationBuilder.anOffer()
+		PublicationBuilder.aPublication()
 			.withVehicle(null)
+			.addVehicle()
 			.build();
 	}
 	
@@ -28,21 +34,62 @@ public class PublicationTest {
 		User anUser = UserBuilder.anUser().build();
 		Vehicle aVehicle = VehicleBuilder.aVehicle().build();
 		
-		PublicationBuilder.anOffer()
+		PublicationBuilder.aPublication()
 			.withOfferent(anUser)
 			.withVehicle(aVehicle)
 			.build();
 	}
 	
-	@Test
-	public void testPublicationWithOfferentThatHasVehicle() {
-		User anUser = UserBuilder.anUser().build();
-		Vehicle aVehicle = VehicleBuilder.aVehicle().build();
-		anUser.addVehicle(aVehicle);
+	@Test (expected = WrongAddressException.class)
+	public void testPublicationWithNullWithdrawAddress() {
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withWithdrawAddress(null)
+			.build();
+	}
+	
+	@Test (expected = WrongAddressException.class)
+	public void testPublicationWithNullReturnAddresses() {
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withReturnAddresses(null)
+			.build();
+	}
+	
+	@Test (expected = WrongAddressException.class)
+	public void testPublicationWithEmptyReturnAddresses() {
+		List<Address> emptyAddresses = new ArrayList<Address>();
 		
-		PublicationBuilder.anOffer()
-			.withOfferent(anUser)
-			.withVehicle(aVehicle)
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withReturnAddresses(emptyAddresses)
+			.build();
+	}
+
+	@Test (expected = WrongAddressException.class)
+	public void testPublicationWithInvalidReturnAddresses() {
+		List<Address> invalidAddresses = new ArrayList<Address>();
+		invalidAddresses.add(null);
+		
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withReturnAddresses(invalidAddresses)
+			.build();
+	}
+	
+	@Test (expected = InvalidAvailabilityException.class)
+	public void testPublicationWithNullAvailability() {
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withAvailability(null)
+			.build();
+	}
+	
+	@Test (expected = WrongPublicationException.class)
+	public void testPublicationWithRentPriceZero() {
+		PublicationBuilder.aPublication()
+			.addVehicle()
+			.withRentPrice(0)
 			.build();
 	}
 }

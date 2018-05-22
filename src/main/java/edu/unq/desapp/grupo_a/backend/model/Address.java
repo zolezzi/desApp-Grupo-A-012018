@@ -1,6 +1,8 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import edu.unq.desapp.grupo_a.backend.dto.AddressDto;
+import java.util.List;
+
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 
 import javax.persistence.Column;
@@ -157,6 +159,15 @@ public class Address implements java.io.Serializable{
 		}
 	}
 
+	public static void check(List<Address> addresses) throws WrongAddressException{
+		if (addresses == null || addresses.isEmpty()) {
+			throw new WrongAddressException();
+		} else {
+			for (Address address : addresses) {
+				check(address);
+			}
+		}
+	}
 	public AddressDto toDto() {
 
 		AddressDto addressDto = new AddressDto();
