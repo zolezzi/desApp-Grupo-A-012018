@@ -29,6 +29,8 @@ public class Publication {
         this.vehicle = vehicle;
         this.withdrawAddress = withdrawAddress;
         this.returnAddresses = returnAddresses;
+        this.availability = availability;
+        this.rentPrice = rentPrice;
     }
 
     private void check(User offerent, Vehicle vehicle, double rentPrice) throws WrongPublicationException {

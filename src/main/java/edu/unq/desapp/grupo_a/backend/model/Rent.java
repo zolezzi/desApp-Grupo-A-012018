@@ -9,10 +9,11 @@ public class Rent {
 	private Address withdrawAddress;
 	private Address returnAddress;
 	private double rentPrice;
-	
-	public Rent(Publication publication, int returnAddressIndex) {
+	private User renter;
+
+	public Rent(Publication publication, int returnAddressIndex, User renter) {
 		try {
-			check(publication, returnAddressIndex);
+			check(publication, returnAddressIndex, renter);
 		} catch (InvalidRentException e) {
 			throw e;
 		}
@@ -21,17 +22,19 @@ public class Rent {
 		this.withdrawAddress = publication.getWithdrawAddress();
 		this.returnAddress = publication.getReturnAddresses().get(returnAddressIndex);
 		this.rentPrice = publication.getRentPrice();
+		this.renter = renter;
 	}
 
-	private void check(Publication publication, int returnAddressIndex)
+	private void check(Publication publication, int returnAddressIndex, User renter)
 			throws InvalidRentException {
-		if (publication == null) {
+		if (publication == null ||
+				publication.getOfferent() == renter) {
 			throw new InvalidRentException();
 		} else {
 			try {
 				publication.getReturnAddresses().get(returnAddressIndex);
 			} catch (IndexOutOfBoundsException e) {
-				throw new InvalidRentException();
+				throw e;
 			}
 		}
 	}
@@ -54,5 +57,9 @@ public class Rent {
 
 	public double getRentPrice() {
 		return this.rentPrice;
+	}
+
+	public User getRenter() {
+		return this.renter;
 	}
 }

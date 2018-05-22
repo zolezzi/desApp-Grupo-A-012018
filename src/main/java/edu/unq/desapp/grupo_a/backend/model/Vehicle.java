@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
 
 import java.util.List;
 
