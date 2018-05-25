@@ -27,13 +27,16 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+//	@Autowired
+//	private Mapper mapper;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		
 		try {
 			
-			//Mapper
+			//userService.createUser(userDto);
 
 		}catch(Exception e) {
 			
@@ -45,7 +48,15 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 
 	@Override
 	public UserDto update(Long id) {
-		// TODO Auto-generated method stub
+		try {
+			
+			//Mapper
+
+		}catch(Exception e) {
+			
+		}
+		
+		
 		return null;
 	}
 

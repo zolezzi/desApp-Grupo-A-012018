@@ -19,7 +19,7 @@ public interface UserService {
 	
 	public abstract void deleteUser(User user);
 
-	public abstract void update(User user);
+	public abstract User update(User user);
 	
 	public abstract void offerVehicle (User user);
 	
