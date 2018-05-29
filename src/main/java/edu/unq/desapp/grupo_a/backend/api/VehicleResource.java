@@ -12,7 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import edu.unq.desapp.grupo_a.backend.dto.VehicleDataDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 
@@ -20,11 +19,6 @@ import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 @Consumes({"application/xml", "application/json"})
 @Produces({"application/xml", "application/json"})
 public interface VehicleResource {
-	
-	
-	@POST
-	@Path("/add-data-vehicle")
-	public Response addVehicleData(VehicleDataDto vehicleDataDto);
 	
 	@POST
 	@Path("/add-vehicle")

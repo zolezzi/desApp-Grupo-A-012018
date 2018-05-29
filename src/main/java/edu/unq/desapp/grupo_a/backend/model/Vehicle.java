@@ -91,4 +91,7 @@ public class Vehicle extends PersistenceEntity{
 		return null;
 	}
 
+	public List<Photo> getPhotos() {
+		return photos;
+	}
 }

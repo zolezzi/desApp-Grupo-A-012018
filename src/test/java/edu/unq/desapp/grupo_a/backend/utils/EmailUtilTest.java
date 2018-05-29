@@ -1,5 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.utils;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -40,5 +42,6 @@ public class EmailUtilTest {
 		Session session = Session.getInstance(props, auth);
 		
 		EmailUtil.sendEmail(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
+		assertTrue(session != null);
 	}
 }
