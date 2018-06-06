@@ -7,29 +7,25 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.api.UserResource;
 import edu.unq.desapp.grupo_a.backend.dao.UserRepository;
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
-import edu.unq.desapp.grupo_a.backend.service.UserServiceImpl;
+import edu.unq.desapp.grupo_a.backend.service.UserService;
 
 @Service
 @Produces("application/json")
 @Consumes("application/json")
 @Path("/users")
 public class UserResourceImpl implements UserResource{
-	
-	@Autowired
-	private UserServiceImpl userService;
-	
-	@Autowired
+
+	private UserService userService;
+
 	private UserRepository userRepository;
-	
-	@Autowired
-	ModelMapper modelMapper; 
+
+	ModelMapper modelMapper = new ModelMapper(); 
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -78,7 +74,7 @@ public class UserResourceImpl implements UserResource{
 		return null;
 	}
 	
-	public UserServiceImpl getUserService() {
+	public UserService getUserService() {
 		return userService;
 	}
 
