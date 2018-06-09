@@ -80,5 +80,14 @@
 			<ref bean="persistence.dataSource" />
 		</constructor-arg>
 	</bean>
+	
+<!-- 	<bean id="userRepository" class="edu.unq.desapp.grupo_a.backend.repository.UserRepository"> -->
+
+<!-- 	</bean> -->
+	
+	<bean id="persistence.userRepository" class="edu.unq.desapp.grupo_a.backend.repository.UserRepository" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
 
 </beans>
