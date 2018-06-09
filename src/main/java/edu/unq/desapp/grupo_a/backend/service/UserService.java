@@ -15,9 +15,9 @@ public interface UserService {
 	
 	public abstract void createUser(User user);
 	
-	public abstract User getUser(User user);
+	public abstract User getUser(Long id);
 	
-	public abstract void deleteUser(User user);
+	public abstract void deleteUser(Long id);
 
 	public abstract User update(User user);
 	
