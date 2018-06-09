@@ -2,6 +2,7 @@ package edu.unq.desapp.grupo_a.backend.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 @Entity
@@ -142,5 +144,21 @@ public class User extends PersistenceEntity{
         } else {
             Address.check(address);
         }
+    }
+    
+    public UserDto toDto() {
+    	
+    	UserDto userDto = new UserDto();
+    	
+    	userDto.setId(this.getId());
+    	userDto.setCuil(this.getCuil());
+    	userDto.setName(this.getName());
+    	userDto.setEmail(this.getEmail());
+    	userDto.setReputation(this.getReputation());
+    	userDto.setCreditAmout(this.getCreditAccount().getCurrentAmount());
+    	userDto.setAddress(this.getAddress().toDto());
+    	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));
+    	
+    	return userDto;
     }
 }

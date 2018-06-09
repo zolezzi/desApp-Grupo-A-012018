@@ -15,6 +15,9 @@ public class Phone extends PersistenceEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String numberPhone;
+	
 	@ManyToOne
 	@JoinColumn
 	private VehicleData vehicleData;

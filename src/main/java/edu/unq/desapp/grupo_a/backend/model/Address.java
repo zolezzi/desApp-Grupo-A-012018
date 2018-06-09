@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import edu.unq.desapp.grupo_a.backend.dto.AddressDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 
 import javax.persistence.Column;
@@ -14,23 +15,46 @@ import javax.persistence.Table;
 public class Address implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private Long id;
-
-	private String streetName;
-	private String comments;
-	private Double coordLat;
-	private Double coordLong;
-	private String streetNumber;
-	private String department;
-	private String districtName;
-	private String zipCode;
-	private String floor;
-	private String betweenStreet1;
-	private String betweenStreet2;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+	
+	@Column(name = "street_name", nullable = false)
+	private String streetName;
+	
+	@Column(name = "comments")
+	private String comments;
+	
+	@Column(name = "coord_lat")
+	private Double coordLat;
+	
+	@Column(name = "coord_long")
+	private Double coordLong;
+	
+	@Column(name = "street_number")
+	private String streetNumber;
+	
+	@Column(name = "department")
+	private String department;
+	
+	@Column(name = "district_name")
+	private String districtName;
+	
+	@Column(name = "zip_code", nullable = false)
+	private String zipCode;
+
+	@Column(name = "floor")
+	private String floor;
+	
+	@Column(name = "between_street1")
+	private String betweenStreet1;
+	
+	@Column(name = "between_street2")
+	private String betweenStreet2;
+
+
 	public Long getId() {
 		return id;
 	}
@@ -131,6 +155,26 @@ public class Address implements java.io.Serializable{
 		if (address == null) {
 			throw new UserInitException();
 		}
+	}
+	
+	public AddressDto toDto() {
+		
+		AddressDto addressDto = new AddressDto();
+		
+		addressDto.setId(this.getId());
+		addressDto.setStreetName(this.getStreetName());
+		addressDto.setComments(this.getComments());
+		addressDto.setCoordLat(this.getCoordLat());
+		addressDto.setCoordLong(this.getCoordLong());
+		addressDto.setStreetNumber(this.getStreetNumber());
+		addressDto.setDepartment(this.getDepartment());
+		addressDto.setDistrictName(this.getDistrictName());
+		addressDto.setZipCode(this.getZipCode());
+		addressDto.setFloor(this.getFloor());
+		addressDto.setBetweenStreet1(this.getBetweenStreet1());
+		addressDto.setBetweenStreet2(this.getBetweenStreet2());
+		
+		return addressDto;
 	}
 
 }
