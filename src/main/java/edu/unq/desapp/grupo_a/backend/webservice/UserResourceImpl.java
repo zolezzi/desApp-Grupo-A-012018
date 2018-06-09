@@ -1,6 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.webservice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -10,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.api.UserResource;
-import edu.unq.desapp.grupo_a.backend.dao.UserRepository;
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
@@ -22,9 +22,7 @@ import edu.unq.desapp.grupo_a.backend.service.UserService;
 public class UserResourceImpl implements UserResource{
 
 	private UserService userService;
-
-	private UserRepository userRepository;
-
+	
 	ModelMapper modelMapper = new ModelMapper(); 
 
 	@Override
@@ -58,19 +56,24 @@ public class UserResourceImpl implements UserResource{
 
 	@Override
 	public List<UserDto> searchUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userService.searchUsers().stream().map(user -> user.toDto()).collect(Collectors.toList());
+		
 	}
 
 	@Override
-	public UserDto getUser(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto getUser(Long id) {	
+		
+		User user = userService.getUser(id); 
+		
+		return modelMapper.map(user, UserDto.class);
 	}
 
 	@Override
 	public UserDto deleteUser(Long id) {
-		// TODO Auto-generated method stub
+		
+		userService.deleteUser(id);
+
 		return null;
 	}
 	
@@ -78,8 +81,17 @@ public class UserResourceImpl implements UserResource{
 		return userService;
 	}
 
-	public UserRepository getUserRepository() {
-		return userRepository;
+	public ModelMapper getModelMapper() {
+		return modelMapper;
 	}
+
+	public void setModelMapper(ModelMapper modelMapper) {
+		this.modelMapper = modelMapper;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 
 }
