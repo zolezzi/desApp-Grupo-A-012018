@@ -1,4 +1,4 @@
-package edu.unq.desapp.grupo_a.backend.dao;
+package edu.unq.desapp.grupo_a.backend.repository;
 
 import java.io.Serializable;
 import java.util.List;
