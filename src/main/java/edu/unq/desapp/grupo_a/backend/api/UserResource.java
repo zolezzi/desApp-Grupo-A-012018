@@ -40,7 +40,7 @@ public interface UserResource {
 	public UserDto offerVehicle (@PathParam("id") final Long id);
 	
 	@GET
-	@Path("all-users")
+	@Path("/all-users")
 	public List<UserDto> searchUsers();
 	
 

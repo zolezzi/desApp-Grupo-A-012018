@@ -35,7 +35,7 @@
 
 	<jaxrs:server id="businessServiceJaxRs" address="/"  >
 		<jaxrs:serviceBeans>
-			<ref bean="userResourceImpl" />
+			<ref bean="webservice.userResourceImpl" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
