@@ -1,15 +1,14 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -19,8 +18,6 @@ import com.sun.istack.NotNull;
 
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
-
-import java.util.List;
 
 @Entity
 @Table(name = "vehicles")
@@ -97,9 +94,11 @@ public class Vehicle extends PersistenceEntity{
 		
 		VehicleDto vehicleDto = new VehicleDto();
 		vehicleDto.setId(this.getId());
-		vehicleDto.setUserDto(this.getUser().toDto());
+		vehicleDto.setUserName(this.getUser().getName());
+		vehicleDto.setUserId(this.getUser().getId());
+//		vehicleDto.setUserDto(this.getUser().toDto());
 		
-		return null;
+		return vehicleDto;
 	}
 
 	public List<Photo> getPhotos() {

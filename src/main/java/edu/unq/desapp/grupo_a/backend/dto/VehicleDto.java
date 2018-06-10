@@ -9,6 +9,10 @@ public class VehicleDto {
 	 * 
 	 * */
 	
+	public String userName;
+	
+	public Long userId;
+	
 	public UserDto userDto;
 	
 	public VehicleDto() {
@@ -29,6 +33,22 @@ public class VehicleDto {
 
 	public void setUserDto(UserDto userDto) {
 		this.userDto = userDto;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }
