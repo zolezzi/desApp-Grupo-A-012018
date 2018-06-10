@@ -51,6 +51,10 @@ public class User extends PersistenceEntity{
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private CreditAccount creditAccount;
 	
+	public User() {
+		
+	}
+	
 	public User(String cuil, String name, Address address, String email) throws UserInitException{
 		try {
 			check(cuil, name, address, email);
