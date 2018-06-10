@@ -3,7 +3,6 @@ package edu.unq.desapp.grupo_a.backend.model;
 import edu.unq.desapp.grupo_a.backend.model.builders.PublicationBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.UserBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.VehicleBuilder;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidAvailabilityException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
 import org.junit.Test;
@@ -77,7 +76,7 @@ public class PublicationTest {
 			.build();
 	}
 	
-	@Test (expected = InvalidAvailabilityException.class)
+	@Test (expected = WrongPublicationException.class)
 	public void testPublicationWithNullAvailability() {
 		PublicationBuilder.aPublication()
 			.addVehicle()

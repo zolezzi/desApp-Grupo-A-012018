@@ -18,10 +18,9 @@ public class Publication {
                        List<Address> returnAddresses, Availability availability, double rentPrice)
             throws WrongPublicationException, WrongAddressException {
         try {
-            check(offerent, vehicle, rentPrice);
+            check(offerent, vehicle, availability, rentPrice);
             Address.check(withdrawAddress);
             Address.check(returnAddresses);
-            Availability.check(availability);
         } catch (WrongPublicationException | WrongAddressException e) {
             throw e;
         }
@@ -33,10 +32,11 @@ public class Publication {
         this.rentPrice = rentPrice;
     }
 
-    private void check(User offerent, Vehicle vehicle, double rentPrice) throws WrongPublicationException {
+    private void check(User offerent, Vehicle vehicle, Availability availability, double rentPrice)
+            throws WrongPublicationException {
         if (offerent == null || vehicle == null ||
                 !offerent.getVehicles().contains(vehicle) ||
-                rentPrice <= 0) {
+                availability == null || rentPrice <= 0) {
             throw new WrongPublicationException();
         }
     }
