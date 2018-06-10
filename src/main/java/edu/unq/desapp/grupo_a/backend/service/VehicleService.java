@@ -5,12 +5,9 @@ import java.util.List;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
-import edu.unq.desapp.grupo_a.backend.model.VehicleData;
 import edu.unq.desapp.grupo_a.backend.model.VehicleFilter;
 
 public interface VehicleService {
-	
-	public abstract void addVehicleData(VehicleData vehicleData);
 	
 	public abstract void addVehicle(VehicleDto vehicleDto, User user );
 	

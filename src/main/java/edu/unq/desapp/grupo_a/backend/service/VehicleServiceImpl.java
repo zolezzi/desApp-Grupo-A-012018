@@ -5,16 +5,9 @@ import java.util.List;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
-import edu.unq.desapp.grupo_a.backend.model.VehicleData;
 import edu.unq.desapp.grupo_a.backend.model.VehicleFilter;
 
 public class VehicleServiceImpl implements VehicleService{
-
-	@Override
-	public void addVehicleData(VehicleData vehicleData) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void addVehicle(VehicleDto vehicleDto, User user) {

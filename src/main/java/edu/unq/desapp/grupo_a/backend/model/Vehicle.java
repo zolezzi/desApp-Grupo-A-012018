@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 
+import java.util.List;
+
 @Entity
 @Table(name = "vehicles")
 public class Vehicle extends PersistenceEntity{
@@ -21,24 +23,55 @@ public class Vehicle extends PersistenceEntity{
 
 	@OneToOne(cascade=CascadeType.ALL)
 	//@LazyCollection(LazyCollectionOption.FALSE)
-	private VehicleData vehicleData;
+    private VehicleType vehicleType;
+    private int passengerCapability;
+    private City city;
+    private String vehicleDescription;
+    private List<Photo> photos;
 	
 	@ManyToOne
 	private User user;
 	
-	public Vehicle (VehicleData vehicleData) throws VehicleDataException {
+	public Vehicle (VehicleType vehicleType, int passengerCapability, City city,
+                    String vehicleDescription, List<Photo> photos) throws VehicleDataException {
         try {
-            VehicleData.check(vehicleData);
+            VehicleType.check(vehicleType);
+            City.check(city);
+            Photo.check(photos);
+            check(passengerCapability, vehicleDescription);
         } catch(VehicleDataException e) {
             throw e;
         }
-		this.vehicleData = vehicleData;
+        this.vehicleType = vehicleType;
+        this.passengerCapability = passengerCapability;
+        this.city = city;
+        this.vehicleDescription = vehicleDescription;
+        this.photos = photos;
+	}
 
-	}
-	
-	public VehicleData getVehicleData() {
-		return this.vehicleData;
-	}
+    private static void check(int passengerCapability, String vehicleDescription)
+            throws VehicleDataException {
+        if (passengerCapability <= 0 ||
+                vehicleDescription == null || vehicleDescription.trim().isEmpty()) {
+            throw new VehicleDataException();
+        }
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public int getPassengerCapability() {
+        return passengerCapability;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public String getVehicleDescription() {
+        return vehicleDescription;
+    }
 	
 	public User getUser() {
 		return user;
@@ -58,4 +91,7 @@ public class Vehicle extends PersistenceEntity{
 		return null;
 	}
 
+	public List<Photo> getPhotos() {
+		return photos;
+	}
 }

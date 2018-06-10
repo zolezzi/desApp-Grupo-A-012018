@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import edu.unq.desapp.grupo_a.backend.model.builders.UserBuilder;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 import static org.junit.Assert.*;
 
 public class UserTest {
@@ -53,6 +54,13 @@ public class UserTest {
     			.withAddress(mockAddress)
     			.build();
     	assertEquals(user.getAddress(), mockAddress);
+    }
+    
+    @Test (expected = WrongAddressException.class)
+    public void testUserWithNullAddress() {
+    	UserBuilder.anUser()
+    			.withAddress(null)
+    			.build();
     }
     
     @Test

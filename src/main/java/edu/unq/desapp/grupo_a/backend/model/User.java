@@ -18,6 +18,7 @@ import com.sun.istack.NotNull;
 
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 
 @Entity
 @Table(name = "users")
@@ -70,7 +71,6 @@ public class User extends PersistenceEntity{
 		this.creditAccount = new CreditAccount();
 	}
 
-	
 	public String getCuil() {
 		return cuil;
 	}
@@ -78,7 +78,7 @@ public class User extends PersistenceEntity{
 	public void setCuil(String cuil) {
 		this.cuil = cuil;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -86,7 +86,7 @@ public class User extends PersistenceEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
@@ -94,7 +94,7 @@ public class User extends PersistenceEntity{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -140,13 +140,17 @@ public class User extends PersistenceEntity{
     }
 
     private static void check(String cuil, String name, Address address,
-                              String email) throws UserInitException {
+                              String email) throws UserInitException, WrongAddressException {
         if (name == null || name.trim().isEmpty() ||
                 cuil == null || cuil.trim().isEmpty() ||
                 email == null || email.trim().isEmpty()) {
             throw new UserInitException();
         } else {
-            Address.check(address);
+			try {
+				Address.check(address);
+			} catch (WrongAddressException e) {
+				throw e;
+			}
         }
     }
     

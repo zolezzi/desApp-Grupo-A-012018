@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.api.VehicleResource;
-import edu.unq.desapp.grupo_a.backend.dto.VehicleDataDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 
@@ -19,12 +18,6 @@ import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 @Consumes("application/json")
 @Path("/vehicles")
 public class VehicleResourceImpl implements VehicleResource{
-
-	@Override
-	public Response addVehicleData(VehicleDataDto vehicleDataDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Response addVehicle(VehicleDto vehicleDto, Long userId) {

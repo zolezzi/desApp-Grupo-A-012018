@@ -8,8 +8,6 @@ public class VehicleDto {
 	 * Ver que es mejor si usar Dto o solo los id, me parece que la primera opcion es mejor
 	 * 
 	 * */
-
-	public VehicleDataDto vehicleDataDto;
 	
 	public UserDto userDto;
 	
@@ -23,14 +21,6 @@ public class VehicleDto {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public VehicleDataDto getVehicleDataDto() {
-		return vehicleDataDto;
-	}
-
-	public void setVehicleDataDto(VehicleDataDto vehicleDataDto) {
-		this.vehicleDataDto = vehicleDataDto;
 	}
 
 	public UserDto getUserDto() {

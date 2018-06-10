@@ -1,7 +1,9 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import edu.unq.desapp.grupo_a.backend.dto.AddressDto;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
+import java.util.List;
+
+import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,42 +17,42 @@ import javax.persistence.Table;
 public class Address implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column(name = "street_name", nullable = false)
 	private String streetName;
-	
+
 	@Column(name = "comments")
 	private String comments;
-	
+
 	@Column(name = "coord_lat")
 	private Double coordLat;
-	
+
 	@Column(name = "coord_long")
 	private Double coordLong;
-	
+
 	@Column(name = "street_number")
 	private String streetNumber;
-	
+
 	@Column(name = "department")
 	private String department;
-	
+
 	@Column(name = "district_name")
 	private String districtName;
-	
+
 	@Column(name = "zip_code", nullable = false)
 	private String zipCode;
 
 	@Column(name = "floor")
 	private String floor;
-	
+
 	@Column(name = "between_street1")
 	private String betweenStreet1;
-	
+
 	@Column(name = "between_street2")
 	private String betweenStreet2;
 
@@ -151,16 +153,25 @@ public class Address implements java.io.Serializable{
 		this.betweenStreet2 = betweenStreet2;
 	}
 
-	public static void check(Address address) throws UserInitException {
+	public static void check(Address address) throws WrongAddressException {
 		if (address == null) {
-			throw new UserInitException();
+			throw new WrongAddressException();
 		}
 	}
-	
+
+	public static void check(List<Address> addresses) throws WrongAddressException{
+		if (addresses == null || addresses.isEmpty()) {
+			throw new WrongAddressException();
+		} else {
+			for (Address address : addresses) {
+				check(address);
+			}
+		}
+	}
 	public AddressDto toDto() {
-		
+
 		AddressDto addressDto = new AddressDto();
-		
+
 		addressDto.setId(this.getId());
 		addressDto.setStreetName(this.getStreetName());
 		addressDto.setComments(this.getComments());
@@ -173,7 +184,7 @@ public class Address implements java.io.Serializable{
 		addressDto.setFloor(this.getFloor());
 		addressDto.setBetweenStreet1(this.getBetweenStreet1());
 		addressDto.setBetweenStreet2(this.getBetweenStreet2());
-		
+
 		return addressDto;
 	}
 
