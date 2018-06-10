@@ -32,8 +32,8 @@ public interface UserResource {
 	public UserDto deleteUser(@PathParam("id")  Long id);
 
 	@PUT
-	@Path("/update/{id}")
-	public UserDto update(@PathParam("id") final Long id);
+	@Path("/update")
+	public UserDto update(UserDto userDto);
 	
 	@POST
 	@Path("/offer-vehicle/{id}")

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.unq.desapp.grupo_a.backend.dao.GenericDao;
+import edu.unq.desapp.grupo_a.backend.repository.GenericDao;
 
 public abstract class GenericService<T> {
 

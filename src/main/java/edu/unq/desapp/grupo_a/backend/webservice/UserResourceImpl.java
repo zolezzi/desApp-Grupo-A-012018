@@ -1,52 +1,51 @@
 package edu.unq.desapp.grupo_a.backend.webservice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.api.UserResource;
-import edu.unq.desapp.grupo_a.backend.dao.UserRepository;
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
-import edu.unq.desapp.grupo_a.backend.service.GenericService;
-import edu.unq.desapp.grupo_a.backend.service.UserServiceImpl;
+import edu.unq.desapp.grupo_a.backend.service.UserService;
 
 @Service
 @Produces("application/json")
 @Consumes("application/json")
 @Path("/users")
-public class UserResourceImpl extends GenericRest<User>  implements UserResource{
+public class UserResourceImpl implements UserResource{
+
+	private UserService userService;
 	
-	@Autowired
-	private UserServiceImpl userService;
-	
-	@Autowired
-	private UserRepository userRepository;
+	ModelMapper modelMapper = new ModelMapper(); 
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
-		
-		try {
-			
-			//Mapper
 
-		}catch(Exception e) {
 			
-		}
+		User user =	modelMapper.map(userDto, User.class);
 		
-		
-		return null;
+		userService.createUser(user);		
+	
+		return userDto;
+
 	}
 
 	@Override
-	public UserDto update(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto update(UserDto userDto) {
+			
+		User user =	modelMapper.map(userDto, User.class);
+		
+		User userUpdate = userService.update(user);
+		
+		return modelMapper.map(userUpdate, UserDto.class);
+	
 	}
 
 	@Override
@@ -57,34 +56,42 @@ public class UserResourceImpl extends GenericRest<User>  implements UserResource
 
 	@Override
 	public List<UserDto> searchUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userService.searchUsers().stream().map(user -> user.toDto()).collect(Collectors.toList());
+		
 	}
 
 	@Override
-	public GenericService<User> getService() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UserDto getUser(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto getUser(Long id) {	
+		
+		User user = userService.getUser(id); 
+		
+		return modelMapper.map(user, UserDto.class);
 	}
 
 	@Override
 	public UserDto deleteUser(Long id) {
-		// TODO Auto-generated method stub
+		
+		userService.deleteUser(id);
+
 		return null;
 	}
 	
-	public UserServiceImpl getUserService() {
+	public UserService getUserService() {
 		return userService;
 	}
 
-	public UserRepository getUserRepository() {
-		return userRepository;
+	public ModelMapper getModelMapper() {
+		return modelMapper;
 	}
+
+	public void setModelMapper(ModelMapper modelMapper) {
+		this.modelMapper = modelMapper;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 
 }

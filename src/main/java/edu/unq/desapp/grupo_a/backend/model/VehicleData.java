@@ -30,7 +30,7 @@ public class VehicleData extends PersistenceEntity{
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	@Column(name = "vehicle_type", length = 10,nullable=false)
+	@Column(name = "vehicle_type", length = 20, nullable=false)
 	@Enumerated(EnumType.STRING)
 	private VehicleType vehicleType;
 	

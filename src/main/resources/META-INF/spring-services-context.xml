@@ -16,6 +16,8 @@
 	<bean id="utils.responseGenerator" class="edu.unq.desapp.grupo_a.backend.utils.ResponseGenerator">
 	</bean>
 
+	<bean id="utils.errorHandler" class="edu.unq.desapp.grupo_a.backend.utils.ErrorHandler">
+	</bean>
 <!-- 	<bean id="utils.fileUtil" class="edu.unq.desapp.grupo_a.backend.utils.FileUtil"> -->
 <!-- 	</bean> -->
 	
@@ -24,11 +26,24 @@
 <!-- 		<property name="repository" ref="persistence.UserDao" /> -->
 <!-- 	</bean> -->
 	
+	<bean id="webservice.userResourceImpl" class="edu.unq.desapp.grupo_a.backend.webservice.UserResourceImpl">
+		<property name="userService" ref="services.userService" />
+	</bean>
+	
+
+	<bean id="services.userService" class="edu.unq.desapp.grupo_a.backend.service.UserServiceImpl">
+		<property name="userRepository" ref="persistence.userRepository" />
+		<property name="userValidator" ref="validators.userValidator" />
+	</bean>
+	
+	
+	<bean id="validators.userValidator" class="edu.unq.desapp.grupo_a.backend.validators.UserValidator">
+ 	</bean>
 	
 	<aop:aspectj-autoproxy />
 	
 	<context:component-scan base-package="edu.unq.desapp.grupo_a.backend.service
-	, edu.unq.desapp.grupo_a.backend.dao
+	, edu.unq.desapp.grupo_a.backend.repository
 	, edu.unq.desapp.grupo_a.backend.webservice">
    </context:component-scan>
 	

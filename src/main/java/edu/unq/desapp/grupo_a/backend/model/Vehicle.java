@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 
 @Entity
@@ -45,6 +46,16 @@ public class Vehicle extends PersistenceEntity{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public VehicleDto toDto() {
+		
+		VehicleDto vehicleDto = new VehicleDto();
+		vehicleDto.setId(this.getId());
+		vehicleDto.setUserDto(this.getUser().toDto());
+//		vehicleDto.setVehicleDataDto(this.getVehicleData().toDto());
+		
+		return null;
 	}
 
 }

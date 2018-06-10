@@ -308,6 +308,12 @@
 			<version>0.9.10</version>
 		</dependency>
 		
+		<dependency>
+ 		  <groupId>org.modelmapper</groupId>
+ 		  <artifactId>modelmapper</artifactId>
+ 	  	  <version>2.0.0</version>
+ 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -435,12 +441,13 @@
 			        <excludes>
 			            <exclude>**/beans/*</exclude>
 			            <exclude>**/webservice/*</exclude>
-			            <exclude>**/rest/*</exclude>
+			            <exclude>**/service/*</exclude>
 			            <exclude>**/dto/*</exclude>
 			            <exclude>**/exceptions/*</exclude>
-			            <exclude>**/dao/*</exclude>
+			            <exclude>**/repository/*</exclude>
 			            <exclude>**/utils/*</exclude>
 			            <exclude>**/service/provider/*</exclude>
+			            <exclude>**/validators/*</exclude>
 			        </excludes>
 			    </configuration>
 			</plugin> 
