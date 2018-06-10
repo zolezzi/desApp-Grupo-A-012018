@@ -2,6 +2,8 @@ package edu.unq.desapp.grupo_a.backend.model;
 
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 
+import java.time.LocalDate;
+
 public class Rent {
 
 	private User vehicleOwner;
@@ -10,6 +12,8 @@ public class Rent {
 	private Address returnAddress;
 	private double rentPrice;
 	private User renter;
+	private LocalDate withdrawDate;
+	private LocalDate returnDate;
 
 	public Rent(Publication publication, int returnAddressIndex, User renter) {
 		try {
@@ -23,6 +27,8 @@ public class Rent {
 		this.returnAddress = publication.getReturnAddresses().get(returnAddressIndex);
 		this.rentPrice = publication.getRentPrice();
 		this.renter = renter;
+		this.withdrawDate = publication.getAvailability().getStartingDate();
+		this.returnDate = publication.getAvailability().getEndingDate();
 	}
 
 	private void check(Publication publication, int returnAddressIndex, User renter)
@@ -31,11 +37,8 @@ public class Rent {
 				publication.getOfferent() == renter) {
 			throw new InvalidRentException();
 		} else {
-			try {
-				publication.getReturnAddresses().get(returnAddressIndex);
-			} catch (IndexOutOfBoundsException e) {
-				throw e;
-			}
+			Availability.check(publication);
+			publication.getReturnAddresses().get(returnAddressIndex);
 		}
 	}
 
@@ -61,5 +64,13 @@ public class Rent {
 
 	public User getRenter() {
 		return this.renter;
+	}
+
+	public LocalDate getWithdrawDate() {
+		return this.withdrawDate;
+	}
+
+	public LocalDate getReturnDate() {
+		return this.returnDate;
 	}
 }

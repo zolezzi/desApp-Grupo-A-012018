@@ -4,6 +4,8 @@ import edu.unq.desapp.grupo_a.backend.model.builders.*;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -93,5 +95,38 @@ public class RentTest {
 				.fromPublication(aPublication)
 				.withRenter(anUser)
 				.build();
+	}
+
+	@Test (expected = InvalidRentException.class)
+	public void testRentOfOldPublication() {
+		Availability anOldAvailability = AvailabilityBuilder.anAvailability()
+												.withStartDate(LocalDate.now().minusDays(1))
+												.withEndingDate(LocalDate.now().plusDays(2))
+												.build();
+		Publication aPublication = PublicationBuilder.aPublication()
+												.addVehicle()
+												.withAvailability(anOldAvailability)
+												.build();
+		RentBuilder.aRent()
+				.fromPublication(aPublication)
+				.build();
+	}
+	
+	@Test
+	public void testRentHasSameStartingAndEndingDateAsPublication() {
+		Availability anAvailability = AvailabilityBuilder.anAvailability()
+												.withStartDate(LocalDate.now().plusDays(1))
+												.withEndingDate(LocalDate.now().plusDays(2))
+												.build();
+		Publication aPublication = PublicationBuilder.aPublication()
+												.addVehicle()
+												.withAvailability(anAvailability)
+												.build();
+		Rent aRent = RentBuilder.aRent()
+							.fromPublication(aPublication)
+							.build();
+
+		assertEquals(anAvailability.getStartingDate(), aRent.getWithdrawDate());
+		assertEquals(anAvailability.getEndingDate(), aRent.getReturnDate());
 	}
 }
