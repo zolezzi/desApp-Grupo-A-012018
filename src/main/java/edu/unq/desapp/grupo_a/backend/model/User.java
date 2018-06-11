@@ -124,7 +124,9 @@ public class User extends PersistenceEntity{
 	}
 	
     public void addVehicle(Vehicle vehicle) {
-		vehicle.setUser(this);
+    	if (vehicle != null) {
+    		vehicle.setUser(this);
+    	}
 		this.vehicles.add(vehicle);
     }
 
