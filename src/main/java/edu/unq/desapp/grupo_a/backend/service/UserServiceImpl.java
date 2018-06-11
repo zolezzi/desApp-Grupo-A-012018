@@ -13,10 +13,8 @@ import edu.unq.desapp.grupo_a.backend.validators.UserValidator;
 @Service
 public class UserServiceImpl implements UserService {
 
-//	@Autowired
 	private UserRepository userRepository;
 
-	//@Autowired
 	private UserValidator userValidator;
 	
 	public UserServiceImpl() {
@@ -27,7 +25,7 @@ public class UserServiceImpl implements UserService {
 		
 		try {
 			
-			userValidator.ValidateUser(user);
+			userValidator.validateUser(user);
 			
 			userRepository.save(user);
 

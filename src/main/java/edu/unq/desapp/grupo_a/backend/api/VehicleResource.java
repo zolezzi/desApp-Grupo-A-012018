@@ -30,19 +30,11 @@ public interface VehicleResource {
 	
 	@PUT
 	@Path("/update-vehicle")
-	public Response updateVehicle(VehicleDto vehicleDto);
+	public VehicleDto updateVehicle(VehicleDto vehicleDto);
 	
 	@DELETE
 	@Path("/remove/{id}")
 	public Response deleteVehicle(@PathParam("id")  Long id);
-	
-	@POST
-	@Path("/publish-vehicle/{idUser}")
-	public Response publishVehicle(VehicleDto vehicleDto, @PathParam("idUser")  Long idUser);
-	
-	@POST
-	@Path("/rent-vehicle/{idUser}")
-	public Response rentVehicle(VehicleDto vehicleDto, @PathParam("idUser")  Long idUser);
 	
 	@GET
 	@Path("/search-vehicle")

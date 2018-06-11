@@ -34,14 +34,9 @@ public interface UserResource {
 	@PUT
 	@Path("/update")
 	public UserDto update(UserDto userDto);
-	
-	@POST
-	@Path("/offer-vehicle/{id}")
-	public UserDto offerVehicle (@PathParam("id") final Long id);
-	
+
 	@GET
 	@Path("/all-users")
 	public List<UserDto> searchUsers();
-	
 
 }

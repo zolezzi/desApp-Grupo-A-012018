@@ -31,7 +31,7 @@ public class UserValidator {
         } 
 		
 	}
-	
+
 	public void validationUserCuil(User user){
         if (user.getCuil() == null || user.getCuil().trim().isEmpty()) {
           
@@ -55,7 +55,7 @@ public class UserValidator {
 		}
 	}
 	
-	public void ValidateUser(User user) {
+	public void validateUser(User user) {
 		validationUserName(user);
 		validationUserCuil(user);
 		validationUserEmail(user);

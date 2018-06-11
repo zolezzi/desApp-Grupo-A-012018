@@ -49,7 +49,6 @@ public class Vehicle extends PersistenceEntity{
                     String vehicleDescription, List<Photo> photos) throws VehicleDataException {
         try {
             VehicleType.check(vehicleType);
-            City.check(city);
             Photo.check(photos);
             check(passengerCapability, vehicleDescription);
         } catch(VehicleDataException e) {
@@ -57,7 +56,6 @@ public class Vehicle extends PersistenceEntity{
         }
         this.vehicleType = vehicleType;
         this.passengerCapability = passengerCapability;
-        //this.city = city;
         this.vehicleDescription = vehicleDescription;
         this.photos = photos;
 	}

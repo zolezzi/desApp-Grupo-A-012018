@@ -49,12 +49,6 @@ public class UserResourceImpl implements UserResource{
 	}
 
 	@Override
-	public UserDto offerVehicle(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<UserDto> searchUsers() {
 		
 		return userService.searchUsers().stream().map(user -> user.toDto()).collect(Collectors.toList());
