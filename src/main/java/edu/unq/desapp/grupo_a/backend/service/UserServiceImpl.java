@@ -53,16 +53,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user) {
-		
-		return null;
-		
-	}
-
-	@Override
-	public void offerVehicle(User user) {
-		// TODO Auto-generated method stub
-		
+	public User update(User user) throws UserInitException {
+		userValidator.validateUser(user);
+		userRepository.update(user);
+		return user;
 	}
 
 	@Override

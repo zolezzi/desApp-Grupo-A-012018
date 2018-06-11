@@ -1,8 +1,8 @@
 package edu.unq.desapp.grupo_a.backend.service;
 
-import java.util.List;
-
 import edu.unq.desapp.grupo_a.backend.model.User;
+
+import java.util.List;
 
 /**
  * 
@@ -20,8 +20,6 @@ public interface UserService {
 	public abstract void deleteUser(Long id);
 
 	public abstract User update(User user);
-	
-	public abstract void offerVehicle (User user);
 	
 	public abstract List<User> searchUsers();
 
