@@ -20,17 +20,12 @@ public class VehicleServiceImpl implements VehicleService{
     private UserRepository userRepository;
 
 	@Override
-	public void addVehicle(Vehicle vehicle, User user) {
-
-	    try {
-	        vehicleValidator.validateVehicle(vehicle);
-	        userValidator.validateUser(user);
-	        user.addVehicle(vehicle);
-	        vehicleRepository.save(vehicle);
-	        userRepository.update(user);
-        } catch (VehicleDataException | UserInitException e) {
-
-        }
+	public void addVehicle(Vehicle vehicle, User user) throws VehicleDataException, UserInitException {
+		vehicleValidator.validateVehicle(vehicle);
+	    userValidator.validateUser(user);
+	    user.addVehicle(vehicle);
+	    vehicleRepository.save(vehicle);
+	    userRepository.update(user);
 	}
 
 	@Override
@@ -40,13 +35,9 @@ public class VehicleServiceImpl implements VehicleService{
 	}
 
 	@Override
-	public void updateVehicle(Vehicle vehicle) {
-		try {
-			vehicleValidator.validateVehicle(vehicle);
-			vehicleRepository.update(vehicle);
-		} catch (VehicleDataException e) {
-
-		}
+	public void updateVehicle(Vehicle vehicle) throws VehicleDataException {
+		vehicleValidator.validateVehicle(vehicle);
+		vehicleRepository.update(vehicle);
 	}
 
 	@Override

@@ -47,13 +47,9 @@ public class Vehicle extends PersistenceEntity{
 	
 	public Vehicle (VehicleType vehicleType, int passengerCapability, City city,
                     String vehicleDescription, List<Photo> photos) throws VehicleDataException {
-        try {
-            VehicleType.check(vehicleType);
-            Photo.check(photos);
-            check(passengerCapability, vehicleDescription);
-        } catch(VehicleDataException e) {
-            throw e;
-        }
+	    VehicleType.check(vehicleType);
+	    Photo.check(photos);
+	    check(passengerCapability, vehicleDescription);
         this.vehicleType = vehicleType;
         this.passengerCapability = passengerCapability;
         this.vehicleDescription = vehicleDescription;

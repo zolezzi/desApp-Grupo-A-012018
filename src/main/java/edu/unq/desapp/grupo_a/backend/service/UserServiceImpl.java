@@ -21,19 +21,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createUser(User user) {
-		
-		try {
-			
-			userValidator.validateUser(user);
-			
-			userRepository.save(user);
-
-		}catch(UserInitException e){
-			
-		}
-
-		
+	public void createUser(User user) throws UserInitException {
+		userValidator.validateUser(user);
+		userRepository.save(user);
 	}
 
 	@Override
@@ -53,10 +43,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user) throws UserInitException {
+	public void update(User user) throws UserInitException {
 		userValidator.validateUser(user);
 		userRepository.update(user);
-		return user;
 	}
 
 	@Override

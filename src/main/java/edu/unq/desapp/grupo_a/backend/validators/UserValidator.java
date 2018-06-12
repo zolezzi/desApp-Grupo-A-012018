@@ -13,18 +13,13 @@ public class UserValidator {
 	
 	@Autowired
 	ErrorHandler errorHandler;
-	
-	//@Autowired
-	//Logger logger;
-	
+
 	public UserValidator() {
 		
 	}
 	
-	public void validationUserName(User user) {
-		
-		//logger.info("Validacion de usuario con el nombre" + user.getName());
-		
+	public void validationUserName(User user) throws UserInitException {
+
         if (user.getName() == null || user.getName().trim().isEmpty()) {
             
         	throw new UserInitException();
@@ -32,7 +27,7 @@ public class UserValidator {
 		
 	}
 
-	public void validationUserCuil(User user){
+	public void validationUserCuil(User user) throws UserInitException {
         if (user.getCuil() == null || user.getCuil().trim().isEmpty()) {
           
         	throw new UserInitException();
@@ -40,7 +35,7 @@ public class UserValidator {
         } 
 	}
 	
-	public void validationUserEmail(User user){
+	public void validationUserEmail(User user) throws UserInitException {
        
 		if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new UserInitException();
@@ -48,14 +43,14 @@ public class UserValidator {
 
 	}
 	
-	public void validateAdrress(User user) {
+	public void validateAdrress(User user) throws UserInitException {
 	
 		if(user.getAddress() == null) {
 			throw new UserInitException();
 		}
 	}
 	
-	public void validateUser(User user) {
+	public void validateUser(User user) throws UserInitException{
 		validationUserName(user);
 		validationUserCuil(user);
 		validationUserEmail(user);

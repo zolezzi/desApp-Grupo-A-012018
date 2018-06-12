@@ -19,7 +19,7 @@ public interface UserService {
 	
 	public abstract void deleteUser(Long id);
 
-	public abstract User update(User user);
+	public abstract void update(User user);
 	
 	public abstract List<User> searchUsers();
 
