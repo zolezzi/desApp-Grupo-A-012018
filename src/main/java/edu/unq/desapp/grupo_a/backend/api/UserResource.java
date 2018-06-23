@@ -20,7 +20,7 @@ import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 public interface UserResource {
 	
 	@POST
-	@Path("/add-vehicle")
+	@Path("/add-user")
 	public UserDto createUser(UserDto userDto);
 	
 	@GET

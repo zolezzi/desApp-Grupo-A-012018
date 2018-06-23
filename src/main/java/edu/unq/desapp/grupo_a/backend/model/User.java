@@ -171,8 +171,11 @@ public class User extends PersistenceEntity{
     	if(this.getAddress() != null) {
         	userDto.setAddress(this.getAddress().toDto());
     	}
+    	
+    	if(this.getVehicles() != null) {
+        	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));
+    	}
 
-    	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));
     	
     	return userDto;
     }

@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
@@ -16,7 +17,7 @@ public class UserDto {
 	
 	public AddressDto address;
 	
-	public List<VehicleDto> vehicles;
+	public List<VehicleDto> vehicles = new ArrayList<>();
 	
 	public Double creditAmout; 
 	
