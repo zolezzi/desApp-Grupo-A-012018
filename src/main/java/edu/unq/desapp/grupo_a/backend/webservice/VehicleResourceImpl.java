@@ -1,17 +1,21 @@
 package edu.unq.desapp.grupo_a.backend.webservice;
 
-import java.util.List;
+import edu.unq.desapp.grupo_a.backend.api.VehicleResource;
+import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
+import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
+import edu.unq.desapp.grupo_a.backend.model.User;
+import edu.unq.desapp.grupo_a.backend.model.Vehicle;
+import edu.unq.desapp.grupo_a.backend.service.UserService;
+import edu.unq.desapp.grupo_a.backend.service.VehicleService;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
-import org.springframework.stereotype.Service;
-
-import edu.unq.desapp.grupo_a.backend.api.VehicleResource;
-import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
-import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
+import java.util.List;
 
 @Service
 @Produces("application/json")
@@ -19,39 +23,45 @@ import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 @Path("/vehicles")
 public class VehicleResourceImpl implements VehicleResource{
 
+	private VehicleService vehicleService;
+	private UserService userService;
+
+	ModelMapper modelMapper = new ModelMapper();
+
 	@Override
 	public Response addVehicle(VehicleDto vehicleDto, Long userId) {
-		// TODO Auto-generated method stub
+
+		Vehicle vehicle = modelMapper.map(vehicleDto, Vehicle.class);
+		
+		User user = userService.getUser(userId);
+		vehicleService.addVehicle(vehicle, user);
+
 		return null;
 	}
 
 	@Override
 	public VehicleDto getVehicle(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Vehicle vehicle = vehicleService.getVehicle(id);
+
+		return modelMapper.map(vehicle, VehicleDto.class);
 	}
 
 	@Override
-	public Response updateVehicle(VehicleDto vehicleDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public VehicleDto updateVehicle(VehicleDto vehicleDto) {
+
+		Vehicle vehicle = modelMapper.map(vehicleDto, Vehicle.class);
+
+		vehicleService.updateVehicle(vehicle);
+
+		return modelMapper.map(vehicle, VehicleDto.class);
 	}
 
 	@Override
 	public Response deleteVehicle(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Response publishVehicle(VehicleDto vehicleDto, Long idUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		vehicleService.deleteVehicle(id);
 
-	@Override
-	public Response rentVehicle(VehicleDto vehicleDto, Long idUser) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -61,4 +71,27 @@ public class VehicleResourceImpl implements VehicleResource{
 		return null;
 	}
 
+	public VehicleService getVehicleService() {
+		return vehicleService;
+	}
+
+	public void setVehicleService(VehicleService vehicleService) {
+		this.vehicleService = vehicleService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public ModelMapper getModelMapper() {
+		return modelMapper;
+	}
+
+	public void setModelMapper(ModelMapper modelMapper) {
+		this.modelMapper = modelMapper;
+	}
 }

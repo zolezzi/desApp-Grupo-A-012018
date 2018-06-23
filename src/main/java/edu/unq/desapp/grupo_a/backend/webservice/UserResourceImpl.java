@@ -42,16 +42,10 @@ public class UserResourceImpl implements UserResource{
 			
 		User user =	modelMapper.map(userDto, User.class);
 		
-		User userUpdate = userService.update(user);
+		userService.update(user);
 		
-		return modelMapper.map(userUpdate, UserDto.class);
+		return modelMapper.map(user, UserDto.class);
 	
-	}
-
-	@Override
-	public UserDto offerVehicle(Long id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

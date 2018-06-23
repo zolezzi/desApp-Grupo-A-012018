@@ -14,29 +14,17 @@ import edu.unq.desapp.grupo_a.backend.validators.UserValidator;
 @Service
 public class UserServiceImpl implements UserService {
 
-//	@Autowired
 	private UserRepository userRepository;
 
-	//@Autowired
 	private UserValidator userValidator;
 	
 	public UserServiceImpl() {
 	}
 
 	@Override
-	public void createUser(User user) {
-		
-		try {
-			
-			userValidator.ValidateUser(user);
-			
-			userRepository.save(user);
-
-		}catch(UserInitException e){
-			
-		}
-
-		
+	public void createUser(User user) throws UserInitException {
+		userValidator.validateUser(user);
+		userRepository.save(user);
 	}
 
 	@Override
@@ -56,16 +44,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user) {
-		
-		return null;
-		
-	}
-
-	@Override
-	public void offerVehicle(User user) {
-		// TODO Auto-generated method stub
-		
+	public void update(User user) throws UserInitException {
+		userValidator.validateUser(user);
+		userRepository.update(user);
 	}
 
 	@Override

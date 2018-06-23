@@ -124,7 +124,10 @@ public class User extends PersistenceEntity{
 	}
 	
     public void addVehicle(Vehicle vehicle) {
-        this.vehicles.add(vehicle);
+    	if (vehicle != null) {
+    		vehicle.setUser(this);
+    	}
+		this.vehicles.add(vehicle);
     }
 
     public void removeVehicle(Vehicle vehicle) {
@@ -163,19 +166,16 @@ public class User extends PersistenceEntity{
     	userDto.setName(this.getName());
     	userDto.setEmail(this.getEmail());
     	userDto.setReputation(this.getReputation());
-    	
-    	if(this.getCreditAccount() != null) {
-        	userDto.setCreditAmout(this.getCreditAccount().getCurrentAmount());
+    	if (this.getCreditAccount() != null) {
+    		userDto.setCreditAmout(this.getCreditAccount().getCurrentAmount());
     	}
-    	
-    	if(this.getAddress() != null) {
-        	userDto.setAddress(this.getAddress().toDto());
+    	if (this.getAddress() != null) {
+    		userDto.setAddress(this.getAddress().toDto());
     	}
     	
     	if(this.getVehicles() != null) {
         	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));
     	}
-
     	
     	return userDto;
     }
