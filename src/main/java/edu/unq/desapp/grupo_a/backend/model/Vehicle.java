@@ -45,11 +45,8 @@ public class Vehicle extends PersistenceEntity{
 	@ManyToOne
 	private User user;
 	
-	public Vehicle (VehicleType vehicleType, int passengerCapability, City city,
+	public Vehicle (VehicleType vehicleType, int passengerCapability,
                     String vehicleDescription, List<Photo> photos) throws VehicleDataException {
-	    VehicleType.check(vehicleType);
-	    Photo.check(photos);
-	    check(passengerCapability, vehicleDescription);
         this.vehicleType = vehicleType;
         this.passengerCapability = passengerCapability;
         this.vehicleDescription = vehicleDescription;

@@ -4,7 +4,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 
 import java.time.LocalDate;
 
-public class Rent {
+public class Rent extends PersistenceEntity {
 
 	private User vehicleOwner;
 	private Vehicle vehicle;
@@ -16,11 +16,7 @@ public class Rent {
 	private LocalDate returnDate;
 
 	public Rent(Publication publication, int returnAddressIndex, User renter) {
-		try {
-			check(publication, returnAddressIndex, renter);
-		} catch (InvalidRentException e) {
-			throw e;
-		}
+		check(publication, returnAddressIndex, renter);
 		this.vehicleOwner = publication.getOfferent();
 		this.vehicle = publication.getVehicle();
 		this.withdrawAddress = publication.getWithdrawAddress();

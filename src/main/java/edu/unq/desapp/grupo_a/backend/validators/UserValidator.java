@@ -9,7 +9,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 import edu.unq.desapp.grupo_a.backend.utils.ErrorHandler;
 
 @Service
-public class UserValidator {
+public class UserValidator extends Validator {
 	
 	@Autowired
 	ErrorHandler errorHandler;
@@ -57,4 +57,9 @@ public class UserValidator {
 		validateAdrress(user);
 	}
 
+	@Override
+	public void validate(Object object) throws ExceptionInInitializerError {
+		User user = (User) object;
+		validateUser(user);
+	}
 }

@@ -4,17 +4,18 @@ import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.User;
 
-public class RentBuilder {
+public class RentBuilder extends Builder {
 
-	private Publication publication = PublicationBuilder.aPublication().addVehicle().build();
+	private Publication publication = (Publication) PublicationBuilder.aPublication().addVehicle().build();
 	private int returnAddressIndex = 0;
-	private User renter = UserBuilder.anUser().build();
+	private User renter = (User) UserBuilder.anUser().build();
 
 	public static RentBuilder aRent() {
 		return new RentBuilder();
 	}
 
-	public Rent build() {
+	@Override
+	protected Rent fireBuild() {
 		return new Rent(publication, returnAddressIndex, renter);
 	}
 

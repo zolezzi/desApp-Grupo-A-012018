@@ -3,7 +3,7 @@ package edu.unq.desapp.grupo_a.backend.model.builders;
 import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.User;
 
-public class UserBuilder {
+public class UserBuilder extends Builder {
 
 	private String cuil = "no cuil";
 	private String name = "no name";
@@ -14,10 +14,9 @@ public class UserBuilder {
 		return new UserBuilder();
 	}
 	
-	public User build() {
+	protected User fireBuild() {
 
-		User user = new User(cuil, name, address, email);
-		return user;
+		return new User(cuil, name, address, email);
 	}
 
 	public UserBuilder withCuil(final String aCuil) {

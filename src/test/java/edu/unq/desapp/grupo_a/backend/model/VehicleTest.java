@@ -1,23 +1,24 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import edu.unq.desapp.grupo_a.backend.model.builders.VehicleBuilder;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.unq.desapp.grupo_a.backend.model.builders.VehicleBuilder;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
+import static org.junit.Assert.assertEquals;
 
 public class VehicleTest {
 
 	@Test
 	public void testVehicleWithValidVehicleData() {
-		Vehicle aVehicle = VehicleBuilder.aVehicle()
+		Vehicle aVehicle = (Vehicle) VehicleBuilder.aVehicle()
 				.withVehicleType(VehicleType.Moto)
 				.withPassengerCapability(2)
-				.withCity(new City())
 				.withVehicleDescription("Moto de prueba para testVehicleWithValidVehicleData")
 				.withPhotos(new ArrayList<>())
 				.build();

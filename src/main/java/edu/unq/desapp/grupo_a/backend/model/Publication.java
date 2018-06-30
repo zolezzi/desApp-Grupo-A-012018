@@ -5,7 +5,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException
 
 import java.util.List;
 
-public class Publication {
+public class Publication extends PersistenceEntity {
 
 	private User offerent;
 	private Vehicle vehicle;
@@ -17,28 +17,13 @@ public class Publication {
     public Publication(User offerent, Vehicle vehicle, Address withdrawAddress,
                        List<Address> returnAddresses, Availability availability, double rentPrice)
             throws WrongPublicationException, WrongAddressException {
-        try {
-            check(offerent, vehicle, availability, rentPrice);
-            Address.check(withdrawAddress);
-            Address.check(returnAddresses);
-        } catch (WrongPublicationException | WrongAddressException e) {
-            throw e;
-        }
+
         this.offerent = offerent;
         this.vehicle = vehicle;
         this.withdrawAddress = withdrawAddress;
         this.returnAddresses = returnAddresses;
         this.availability = availability;
         this.rentPrice = rentPrice;
-    }
-
-    private void check(User offerent, Vehicle vehicle, Availability availability, double rentPrice)
-            throws WrongPublicationException {
-        if (offerent == null || vehicle == null ||
-                !offerent.getVehicles().contains(vehicle) ||
-                availability == null || rentPrice <= 0) {
-            throw new WrongPublicationException();
-        }
     }
 
     public User getOfferent() {

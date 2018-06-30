@@ -57,11 +57,6 @@ public class User extends PersistenceEntity{
 	}
 	
 	public User(String cuil, String name, Address address, String email) throws UserInitException{
-		try {
-			check(cuil, name, address, email);
-		} catch (UserInitException e) {
-			throw e;
-		}
 		this.cuil = cuil;
 		this.name = name;
 		this.address = address;

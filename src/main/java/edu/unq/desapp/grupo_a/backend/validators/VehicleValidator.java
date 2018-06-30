@@ -5,7 +5,7 @@ import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.VehicleType;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 
-public class VehicleValidator {
+public class VehicleValidator extends Validator{
 
     public VehicleValidator() {
 
@@ -28,5 +28,11 @@ public class VehicleValidator {
         Photo.check(vehicle.getPhotos());
         validatePassengerCapability(vehicle.getPassengerCapability());
         validateVehicleDescription(vehicle.getVehicleDescription());
+    }
+
+    @Override
+    public void validate(Object object) throws ExceptionInInitializerError {
+        Vehicle vehicle = (Vehicle) object;
+        validateVehicle(vehicle);
     }
 }

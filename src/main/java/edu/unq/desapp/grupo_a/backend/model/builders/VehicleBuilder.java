@@ -1,18 +1,17 @@
 package edu.unq.desapp.grupo_a.backend.model.builders;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.unq.desapp.grupo_a.backend.model.City;
 import edu.unq.desapp.grupo_a.backend.model.Photo;
+import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.VehicleType;
 
-public class VehicleBuilder {
+import java.util.ArrayList;
+import java.util.List;
+
+public class VehicleBuilder extends Builder {
 
 	private VehicleType vehicleType = VehicleType.Car;
 	private int passengerCapability = 4;
-	private City city = new City();
 	private String vehicleDescription = "no description";
 	private List<Photo> photos = new ArrayList<>();
 	
@@ -20,11 +19,9 @@ public class VehicleBuilder {
 		return new VehicleBuilder();
 	}
 	
-	public Vehicle build() {
-
-		Vehicle vehicle = new Vehicle(vehicleType, passengerCapability,
-				city, vehicleDescription, photos);
-		return vehicle;
+	@Override
+	protected Vehicle fireBuild() {
+		return new Vehicle(vehicleType, passengerCapability, vehicleDescription, photos);
 	}
 
 	public VehicleBuilder withVehicleType(VehicleType aVehicleType) {
@@ -34,11 +31,6 @@ public class VehicleBuilder {
 
 	public VehicleBuilder withPassengerCapability(int aCapability) {
 		passengerCapability = aCapability;
-		return this;
-	}
-
-	public VehicleBuilder withCity(City aCity) {
-		city = aCity;
 		return this;
 	}
 

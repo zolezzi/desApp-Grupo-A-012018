@@ -30,8 +30,8 @@ public class PublicationTest {
 	
 	@Test (expected = WrongPublicationException.class)
 	public void testPublicationWithOfferentThatHasNotVehicle() {
-		User anUser = UserBuilder.anUser().build();
-		Vehicle aVehicle = VehicleBuilder.aVehicle().build();
+		User anUser = (User) UserBuilder.anUser().build();
+		Vehicle aVehicle = (Vehicle) VehicleBuilder.aVehicle().build();
 		
 		PublicationBuilder.aPublication()
 			.withOfferent(anUser)

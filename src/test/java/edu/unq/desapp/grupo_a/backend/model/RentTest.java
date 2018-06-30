@@ -20,13 +20,13 @@ public class RentTest {
 	
 	@Test
 	public void testRentFromPublicationHasSameVehicleOwner() {
-		User vehicleOwner = UserBuilder.anUser()
+		User vehicleOwner = (User) UserBuilder.anUser()
 									.build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.withOfferent(vehicleOwner)
 												.addVehicle()
 												.build();
-		Rent aRent = RentBuilder.aRent()
+		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
 							.build();
 		
@@ -35,13 +35,13 @@ public class RentTest {
 	
 	@Test
 	public void testRentFromPublicationHasSameVehicle() {
-		Vehicle aVehicle = VehicleBuilder.aVehicle()
+		Vehicle aVehicle = (Vehicle) VehicleBuilder.aVehicle()
 									.build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.withVehicle(aVehicle)
 												.addVehicle()
 												.build();
-		Rent aRent = RentBuilder.aRent()
+		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
 							.build();
 		
@@ -52,11 +52,11 @@ public class RentTest {
 	public void testRentFromPublicationHasSameWithdrawAddress() {
 		Address aWithdrawAddress = AddressBuilder.anAddress()
 											.build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
 												.withWithdrawAddress(aWithdrawAddress)
 												.build();
-		Rent aRent = RentBuilder.aRent()
+		Rent aRent = (Rent) RentBuilder.aRent()
 				.fromPublication(aPublication)
 				.build();
 
@@ -73,11 +73,11 @@ public class RentTest {
 	@Test
 	public void testRentFromPublicationHasSameRentPrice() {
 		double aRentPrice = 500;
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
 												.withRentPrice(aRentPrice)
 												.build();
-		Rent aRent = RentBuilder.aRent()
+		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
 							.build();
 
@@ -86,8 +86,8 @@ public class RentTest {
 
 	@Test (expected = InvalidRentException.class)
 	public void testRentWithSameVehicleOwnerAndRenter() {
-		User anUser = UserBuilder.anUser().build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		User anUser = (User) UserBuilder.anUser().build();
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.withOfferent(anUser)
 												.addVehicle()
 												.build();
@@ -99,11 +99,11 @@ public class RentTest {
 
 	@Test (expected = InvalidRentException.class)
 	public void testRentOfOldPublication() {
-		Availability anOldAvailability = AvailabilityBuilder.anAvailability()
+		Availability anOldAvailability = (Availability) AvailabilityBuilder.anAvailability()
 												.withStartDate(LocalDate.now().minusDays(1))
 												.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
 												.withAvailability(anOldAvailability)
 												.build();
@@ -114,15 +114,15 @@ public class RentTest {
 	
 	@Test
 	public void testRentHasSameStartingAndEndingDateAsPublication() {
-		Availability anAvailability = AvailabilityBuilder.anAvailability()
+		Availability anAvailability = (Availability) AvailabilityBuilder.anAvailability()
 												.withStartDate(LocalDate.now().plusDays(1))
 												.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
-		Publication aPublication = PublicationBuilder.aPublication()
+		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
 												.withAvailability(anAvailability)
 												.build();
-		Rent aRent = RentBuilder.aRent()
+		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
 							.build();
 

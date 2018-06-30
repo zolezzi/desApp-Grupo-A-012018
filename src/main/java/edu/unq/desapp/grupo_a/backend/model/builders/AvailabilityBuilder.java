@@ -4,7 +4,7 @@ import edu.unq.desapp.grupo_a.backend.model.Availability;
 
 import java.time.LocalDate;
 
-public class AvailabilityBuilder {
+public class AvailabilityBuilder extends Builder {
 
 	private LocalDate aStartingDate = LocalDate.now();
 	private LocalDate anEndingDate = LocalDate.now().plusDays(2);
@@ -13,7 +13,7 @@ public class AvailabilityBuilder {
 		return new AvailabilityBuilder();
 	}
 
-	public Availability build() {
+	public Availability fireBuild() {
 		return new Availability(aStartingDate, anEndingDate);
 	}
 

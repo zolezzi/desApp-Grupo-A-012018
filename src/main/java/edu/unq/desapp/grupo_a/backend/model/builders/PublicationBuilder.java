@@ -10,24 +10,23 @@ import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 
-public class PublicationBuilder {
+public class PublicationBuilder extends Builder {
 
-	private User offerent = UserBuilder.anUser().build();
-	private Vehicle vehicle = VehicleBuilder.aVehicle().build();
+	private User offerent = (User) UserBuilder.anUser().build();
+	private Vehicle vehicle = (Vehicle) VehicleBuilder.aVehicle().build();
 	private Address withdrawAddress = AddressBuilder.anAddress().build();
-	private List<Address> returnAddresses = new ArrayList<Address>(Arrays.asList(AddressBuilder.anAddress().build()));
-	private Availability availability = AvailabilityBuilder.anAvailability().build();
+	private List<Address> returnAddresses = new ArrayList<>(Arrays.asList(AddressBuilder.anAddress().build()));
+	private Availability availability = (Availability) AvailabilityBuilder.anAvailability().build();
 	private double rentPrice = 100;
 
 	public static PublicationBuilder aPublication() {
 		return new PublicationBuilder();
 	}
 	
-	public Publication build() {
+	protected Publication fireBuild() {
 
-		Publication publication = new Publication(offerent, vehicle, withdrawAddress,
+		return new Publication(offerent, vehicle, withdrawAddress,
 				returnAddresses, availability, rentPrice);
-		return publication;
 	}
 
 	public PublicationBuilder addVehicle() {
