@@ -1,7 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.repository;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -49,9 +49,7 @@ public abstract class HibernateGenericDao<T> extends HibernateDaoSupport impleme
     }
 
     public List<T> findAll() {
-        List<T> find = (List<T>) this.getHibernateTemplate().find("from " + this.persistentClass.getName() + " o");
-        return find;
-
+        return (List<T>) this.getHibernateTemplate().find("from " + this.persistentClass.getName() + " o");
     }
 
     public List<T> findByExample(final T exampleObject) {
@@ -64,6 +62,11 @@ public abstract class HibernateGenericDao<T> extends HibernateDaoSupport impleme
     }
 
     public abstract Class<T> getDomainClass();
+
+    public List<T> findBy(final String column, final String param) {
+	    return (List<T>) this.getHibernateTemplate().find("from" + this.persistentClass.getName() +
+                " where " + column + " = " + param);
+    }
 
     public void save(final T entity) {
         this.getHibernateTemplate().saveOrUpdate(entity);

@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model.builders;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,8 @@ public class PublicationBuilder extends Builder {
 	private Vehicle vehicle = (Vehicle) VehicleBuilder.aVehicle().build();
 	private Address withdrawAddress = AddressBuilder.anAddress().build();
 	private List<Address> returnAddresses = new ArrayList<>(Arrays.asList(AddressBuilder.anAddress().build()));
-	private Availability availability = (Availability) AvailabilityBuilder.anAvailability().build();
+	private LocalDate startingDate = LocalDate.now();
+	private LocalDate endingDate = LocalDate.now().plusDays(2);
 	private double rentPrice = 100;
 
 	public static PublicationBuilder aPublication() {
@@ -25,8 +27,7 @@ public class PublicationBuilder extends Builder {
 	
 	protected Publication fireBuild() {
 
-		return new Publication(offerent, vehicle, withdrawAddress,
-				returnAddresses, availability, rentPrice);
+		return new Publication(offerent, vehicle, withdrawAddress, returnAddresses, startingDate, endingDate, rentPrice);
 	}
 
 	public PublicationBuilder addVehicle() {
@@ -56,13 +57,18 @@ public class PublicationBuilder extends Builder {
 		return this;
 	}
 
-	public PublicationBuilder withAvailability(Availability anAvailability) {
-		availability  = anAvailability;
+	public PublicationBuilder withStartingDate(LocalDate aDate) {
+		startingDate = aDate;
 		return this;
 	}
 
 	public PublicationBuilder withRentPrice(double aPrice) {
 		rentPrice  = aPrice;
+		return this;
+	}
+
+	public PublicationBuilder withEndingDate(LocalDate aDate) {
+		endingDate = aDate;
 		return this;
 	}
 }

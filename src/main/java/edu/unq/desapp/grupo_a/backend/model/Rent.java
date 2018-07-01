@@ -23,8 +23,8 @@ public class Rent extends PersistenceEntity {
 		this.returnAddress = publication.getReturnAddresses().get(returnAddressIndex);
 		this.rentPrice = publication.getRentPrice();
 		this.renter = renter;
-		this.withdrawDate = publication.getAvailability().getStartingDate();
-		this.returnDate = publication.getAvailability().getEndingDate();
+		this.withdrawDate = publication.getStartingDate();
+		this.returnDate = publication.getEndingDate();
 	}
 
 	private void check(Publication publication, int returnAddressIndex, User renter)

@@ -1,14 +1,19 @@
 package edu.unq.desapp.grupo_a.backend.service;
 
-import java.util.List;
-
 import edu.unq.desapp.grupo_a.backend.model.Publication;
-import edu.unq.desapp.grupo_a.backend.model.User;
+
+import java.util.List;
 
 public interface PublicationService {
 	
-	public abstract List<Publication> getPublicationVehicles(User user);
-	
-	public abstract List<Publication> searchPublication(User user);
+	public abstract Publication getPublication(Long id);
+
+	public abstract void setPublication(Publication publication);
+
+	public abstract void updatePublication(Publication publication);
+
+	public abstract void deletePublication(Long id);
+
+	public abstract List<Publication> getUserPublications(Long id);
 
 }

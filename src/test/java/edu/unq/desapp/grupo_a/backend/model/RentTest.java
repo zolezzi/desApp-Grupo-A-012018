@@ -1,6 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import edu.unq.desapp.grupo_a.backend.model.builders.*;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidAvailabilityException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 import org.junit.Test;
 
@@ -97,15 +98,12 @@ public class RentTest {
 				.build();
 	}
 
-	@Test (expected = InvalidRentException.class)
+	@Test (expected = InvalidAvailabilityException.class)
 	public void testRentOfOldPublication() {
-		Availability anOldAvailability = (Availability) AvailabilityBuilder.anAvailability()
-												.withStartDate(LocalDate.now().minusDays(1))
-												.withEndingDate(LocalDate.now().plusDays(2))
-												.build();
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												.withAvailability(anOldAvailability)
+												.withStartingDate(LocalDate.now().minusDays(1))
+												.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
 		RentBuilder.aRent()
 				.fromPublication(aPublication)
@@ -114,19 +112,16 @@ public class RentTest {
 	
 	@Test
 	public void testRentHasSameStartingAndEndingDateAsPublication() {
-		Availability anAvailability = (Availability) AvailabilityBuilder.anAvailability()
-												.withStartDate(LocalDate.now().plusDays(1))
-												.withEndingDate(LocalDate.now().plusDays(2))
-												.build();
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												.withAvailability(anAvailability)
+												.withStartingDate(LocalDate.now().plusDays(1))
+												.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
 		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
 							.build();
 
-		assertEquals(anAvailability.getStartingDate(), aRent.getWithdrawDate());
-		assertEquals(anAvailability.getEndingDate(), aRent.getReturnDate());
+		assertEquals(aPublication.getStartingDate(), aRent.getWithdrawDate());
+		assertEquals(aPublication.getEndingDate(), aRent.getReturnDate());
 	}
 }

@@ -1,22 +1,35 @@
 package edu.unq.desapp.grupo_a.backend.api;
 
-import java.util.List;
+import edu.unq.desapp.grupo_a.backend.dto.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 
-import edu.unq.desapp.grupo_a.backend.dto.PublicationDto;
-import edu.unq.desapp.grupo_a.backend.dto.PublicationFilterDto;
+import java.util.List;
 
 public interface PublicationResource {
 
 	@GET
-	@Path("/publications-vehicle/{id}")
-	public List<PublicationDto> getPublicationVehicles(@PathParam("id")  Long id);
-	
+	@Path("/publication/{id}")
+	public PublicationDto getPublication(@PathParam("id") Long id);
+
+	@POST
+	@Path("/set-publication")
+	public void setPublication(PublicationDto publicationDto);
+
+	@POST
+    @Path("/update-publication")
+    public void updatePublication(PublicationDto publicationDto);
+
+	@DELETE
+    @Path("/delete-publication/{id}")
+    public void deletePublication(@PathParam("id") Long id);
+
 	@GET
-	@Path("/search-publications")
-	public List<PublicationDto> searchPublication(PublicationFilterDto publicationFilterDto);
+	@Path("/get-user-publications")
+	public List<PublicationDto> getUserPublications(Long id);
 	
 }

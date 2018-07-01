@@ -23,5 +23,5 @@ public interface GenericDao<T> {
 	
 	Class<T> getDomainClass();
 
-	
+	List<T> findBy(String column, String param);
 }

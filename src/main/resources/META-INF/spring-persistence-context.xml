@@ -60,6 +60,7 @@
                 <value>edu.unq.desapp.grupo_a.backend.model.Vehicle</value>
 				<value>edu.unq.desapp.grupo_a.backend.model.VehicleType</value>
                 <value>edu.unq.desapp.grupo_a.backend.model.User</value>
+                <value>edu.unq.desapp.grupo_a.backend.model.Publication</value>
 
             </list>
 	   </property>

@@ -77,10 +77,10 @@ public class PublicationTest {
 	}
 	
 	@Test (expected = WrongPublicationException.class)
-	public void testPublicationWithNullAvailability() {
+	public void testPublicationWithNullStartingDate() {
 		PublicationBuilder.aPublication()
 			.addVehicle()
-			.withAvailability(null)
+			.withStartingDate(null)
 			.build();
 	}
 	

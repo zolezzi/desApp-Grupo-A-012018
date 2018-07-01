@@ -3,6 +3,8 @@ package edu.unq.desapp.grupo_a.backend.validators;
 import edu.unq.desapp.grupo_a.backend.model.*;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
 
+import java.time.LocalDate;
+
 public class PublicationValidator extends Validator {
 
     @Override
@@ -14,17 +16,22 @@ public class PublicationValidator extends Validator {
     private void validatePublication(Publication publication) {
         check(  publication.getOfferent(),
                 publication.getVehicle(),
-                publication.getAvailability(),
+                publication.getStartingDate(),
+                publication.getEndingDate(),
                 publication.getRentPrice());
         Address.check(publication.getWithdrawAddress());
         Address.check(publication.getReturnAddresses());
+        Availability.check(publication);
     }
 
-    private void check(User offerent, Vehicle vehicle, Availability availability, double rentPrice)
+    private void check(User offerent, Vehicle vehicle, LocalDate startingDate, LocalDate endingDate, double rentPrice)
             throws WrongPublicationException {
-        if (offerent == null || vehicle == null ||
+        if (    offerent == null || vehicle == null ||
                 !offerent.getVehicles().contains(vehicle) ||
-                availability == null || rentPrice <= 0) {
+                startingDate == null ||
+                endingDate == null ||
+                endingDate.isBefore(startingDate) ||
+                rentPrice <= 0) {
             throw new WrongPublicationException();
         }
     }

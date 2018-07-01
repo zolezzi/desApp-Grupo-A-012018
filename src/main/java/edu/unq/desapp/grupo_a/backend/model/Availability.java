@@ -1,35 +1,20 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidAvailabilityException;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 
 import java.time.LocalDate;
 
 public class Availability extends PersistenceEntity {
 
-	private LocalDate startingDate;
-	private LocalDate endingDate;
+    private Availability(){
 
-	public Availability (LocalDate startingDate, LocalDate endingDate)
-			throws InvalidAvailabilityException {
-
-		this.startingDate = startingDate;
-		this.endingDate = endingDate;
-	}
+    }
 
 	public static void check(Publication publication)
-			throws InvalidRentException {
+			throws InvalidAvailabilityException {
 		LocalDate now = LocalDate.now();
-		if (publication.getAvailability().getStartingDate().isBefore(now)) {
-			throw new InvalidRentException();
+		if (publication.getStartingDate() != null && publication.getStartingDate().isBefore(now)) {
+			throw new InvalidAvailabilityException();
 		}
-	}
-
-	public LocalDate getStartingDate() {
-		return this.startingDate;
-	}
-
-	public LocalDate getEndingDate() {
-		return this.endingDate;
 	}
 }
