@@ -4,7 +4,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidAvailabilityExcept
 
 import java.time.LocalDate;
 
-public class Availability extends PersistenceEntity {
+public class Availability {
 
     private Availability(){
 
