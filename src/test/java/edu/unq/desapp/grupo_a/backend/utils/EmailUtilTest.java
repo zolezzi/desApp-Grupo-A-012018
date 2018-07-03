@@ -1,6 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.utils;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Properties;
 
@@ -20,10 +20,10 @@ public class EmailUtilTest {
 	 */
 	@Test
 	public void testSendEmail() {
-	
-		final String fromEmail = "carpnd.grupoa@gmail.com"; //requires valid gmail id
-		final String password = "p13dp1p3r"; // correct password for gmail id
-		final String toEmail = ""; // can be any email id 
+
+		final String fromEmail = "carpnd.grupoa@gmail.com";
+		final String password = "p13dp1p3r";
+		final String toEmail = "carpnd.grupoa@gmail.com";
 		
 		System.out.println("TLSEmail Start");
 		Properties props = new Properties();
@@ -42,6 +42,6 @@ public class EmailUtilTest {
 		Session session = Session.getInstance(props, auth);
 		
 		EmailUtil.sendEmail(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
-		assertTrue(session != null);
+		assertNotNull(session);
 	}
 }
