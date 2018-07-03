@@ -45,9 +45,9 @@ public class UserValidator {
 	
 	public void validateAdrress(User user) throws UserInitException {
 	
-		if(user.getAddress() == null) {
-			throw new UserInitException();
-		}
+//		if(user.getAddress() == null) {
+//			throw new UserInitException();
+//		}
 	}
 	
 	public void validateUser(User user) throws UserInitException{

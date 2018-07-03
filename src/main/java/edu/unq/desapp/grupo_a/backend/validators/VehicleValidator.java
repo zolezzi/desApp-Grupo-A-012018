@@ -17,16 +17,16 @@ public class VehicleValidator {
         }
     }
 
-    private void validateVehicleDescription(String vehicleDescription) throws VehicleDataException {
-        if (vehicleDescription == null || vehicleDescription.trim().isEmpty()) {
+    private void validateVehiclePatent(String vehiclePatent) throws VehicleDataException {
+        if (vehiclePatent == null || vehiclePatent.trim().isEmpty()) {
             throw new VehicleDataException();
         }
     }
 
     public void validateVehicle(Vehicle vehicle) throws VehicleDataException {
         VehicleType.check(vehicle.getVehicleType());
-        Photo.check(vehicle.getPhotos());
+        //Photo.check(vehicle.getPhotos());
         validatePassengerCapability(vehicle.getPassengerCapability());
-        validateVehicleDescription(vehicle.getVehicleDescription());
+        validateVehiclePatent(vehicle.getPatent());
     }
 }

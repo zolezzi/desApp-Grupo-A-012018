@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.unq.desapp.grupo_a.backend.model.City;
-import edu.unq.desapp.grupo_a.backend.model.Photo;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.VehicleType;
 
@@ -14,7 +13,7 @@ public class VehicleBuilder {
 	private int passengerCapability = 4;
 	private City city = new City();
 	private String vehicleDescription = "no description";
-	private List<Photo> photos = new ArrayList<>();
+	private List<String> photos = new ArrayList<>();
 	
 	public static VehicleBuilder aVehicle() {
 		return new VehicleBuilder();
@@ -47,7 +46,7 @@ public class VehicleBuilder {
 		return this;
 	}
 
-	public VehicleBuilder withPhotos(List<Photo> somePhotos) {
+	public VehicleBuilder withPhotos(List<String> somePhotos) {
 		photos = somePhotos;
 		return this;
 	}

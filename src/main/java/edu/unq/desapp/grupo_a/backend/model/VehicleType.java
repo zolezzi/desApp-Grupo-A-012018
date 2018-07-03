@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import edu.unq.desapp.grupo_a.backend.dto.VehicleTypeDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
 
 /**
@@ -35,5 +36,14 @@ public enum VehicleType {
 		if (vehicleType == null) {
 			throw new VehicleDataException();
 		}
+	}
+	
+	public VehicleTypeDto toDto(){
+		
+		VehicleTypeDto vehicleTypeDto = new VehicleTypeDto();
+		vehicleTypeDto.setDescription(description);
+		vehicleTypeDto.setI18nCode(i18nCode);
+		
+		return vehicleTypeDto;
 	}
 }

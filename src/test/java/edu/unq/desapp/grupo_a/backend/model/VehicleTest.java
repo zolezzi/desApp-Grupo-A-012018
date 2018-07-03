@@ -71,7 +71,6 @@ public class VehicleTest {
 		List<Photo> photos = new ArrayList<>();
 		photos.add(null);
 		VehicleBuilder.aVehicle()
-				.withPhotos(photos)
 				.build();
 	}
 }

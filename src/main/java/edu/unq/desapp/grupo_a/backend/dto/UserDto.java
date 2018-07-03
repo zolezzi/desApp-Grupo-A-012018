@@ -8,6 +8,8 @@ public class UserDto {
 	public Long id;
 	
 	public String name;
+	
+	public String lastName;
 
 	public String cuil;
 	
@@ -20,6 +22,12 @@ public class UserDto {
 	public List<VehicleDto> vehicles = new ArrayList<>();
 	
 	public Double creditAmout; 
+	
+	public String idGoogle;
+	
+	public String idFacebook;
+	
+	public Boolean isRegister;
 	
 	public UserDto() {
 		
@@ -87,6 +95,38 @@ public class UserDto {
 
 	public void setCreditAmout(Double creditAmout) {
 		this.creditAmout = creditAmout;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getIdGoogle() {
+		return idGoogle;
+	}
+
+	public void setIdGoogle(String idGoogle) {
+		this.idGoogle = idGoogle;
+	}
+
+	public String getIdFacebook() {
+		return idFacebook;
+	}
+
+	public void setIdFacebook(String idFacebook) {
+		this.idFacebook = idFacebook;
+	}
+
+	public Boolean getIsRegister() {
+		return isRegister;
+	}
+
+	public void setIsRegister(Boolean isRegister) {
+		this.isRegister = isRegister;
 	}
 
 }

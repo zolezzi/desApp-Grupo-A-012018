@@ -1,6 +1,11 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import static org.mockito.Mockito.*;
 
 import edu.unq.desapp.grupo_a.backend.model.builders.UserBuilder;
@@ -8,6 +13,9 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles(profiles = "test")
+@ContextConfiguration({ "/META-INF/spring-persistence-context.xml", "/META-INF/spring-services-context.xml" })
 public class UserTest {
 	
     @Test
@@ -47,15 +55,15 @@ public class UserTest {
     	assertEquals(user.getCuil(), "20-11111111-3");
     }
     
-    @Test
-    public void testUserAddress() {
-    	Address mockAddress = mock(Address.class);
-    	User user = UserBuilder.anUser()
-    			.withAddress(mockAddress)
-    			.build();
-    	assertEquals(user.getAddress(), mockAddress);
-    }
-    
+//    @Test
+//    public void testUserAddress() {
+//    	Address mockAddress = mock(Address.class);
+//    	User user = UserBuilder.anUser()
+//    			.withAddress(mockAddress)
+//    			.build();
+//    	assertEquals(user.getAddress(), mockAddress);
+//    }
+//    
     @Test (expected = WrongAddressException.class)
     public void testUserWithNullAddress() {
     	UserBuilder.anUser()
