@@ -9,8 +9,15 @@ import edu.unq.desapp.grupo_a.backend.model.User;
 
 public interface RentService {
 	
-	public abstract void rentVehicle(Publication publication, User user);
+	public Rent rentVehicle(Publication publication, int returnIndex, User renter);
 	
 	public List<Rent> searchRents(RentFilter rentFilter, User user);
 
+	public Rent getRent(Long rentId);
+
+	public Rent cancelRent(Rent rent, User user);
+
+	public Rent confirmWithdraw(Rent rent, User user);
+
+	public Rent confirmReturn(Rent rent, User user);
 }
