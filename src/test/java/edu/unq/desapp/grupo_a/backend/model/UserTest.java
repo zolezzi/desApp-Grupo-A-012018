@@ -54,7 +54,7 @@ public class UserTest {
     			.build();
     	assertEquals(user.getAddress(), mockAddress);
     }
-    
+
     @Test (expected = UserInitException.class)
     public void testUserWithNullAddress() {
     	UserBuilder.anUser()

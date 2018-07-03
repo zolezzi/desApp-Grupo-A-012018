@@ -36,6 +36,7 @@
 	<jaxrs:server id="businessServiceJaxRs" address="/"  >
 		<jaxrs:serviceBeans>
 			<ref bean="webservice.userResourceImpl" />
+			<ref bean="webservice.vehicleResourceImpl" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -44,6 +45,7 @@
 		<jaxrs:providers>
 			<ref bean="jaxbProvider" />
 			<ref bean="jacksonProvider" />
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
 		</jaxrs:providers>
 	</jaxrs:server>
 

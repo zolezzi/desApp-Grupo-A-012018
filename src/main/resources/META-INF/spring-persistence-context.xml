@@ -90,5 +90,9 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
+	<bean id="persistence.vehicleRepository" class="edu.unq.desapp.grupo_a.backend.repository.VehicleRepository" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
 
 </beans>

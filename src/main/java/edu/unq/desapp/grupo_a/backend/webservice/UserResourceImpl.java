@@ -9,10 +9,13 @@ import javax.ws.rs.Produces;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.unq.desapp.grupo_a.backend.api.UserResource;
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
+import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.model.User;
+import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
 
 @Service
@@ -26,6 +29,7 @@ public class UserResourceImpl implements UserResource{
 	ModelMapper modelMapper = new ModelMapper(); 
 
 	@Override
+	@Transactional(readOnly = false)
 	public UserDto createUser(UserDto userDto) {
 
 			
@@ -85,6 +89,37 @@ public class UserResourceImpl implements UserResource{
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	@Override
+	@Transactional
+	public UserDto getUserForSocialNetwork(UserDto userDto) {
+		
+		User user = userService.getUserForSocialNetwork(userDto.idFacebook, userDto.idGoogle);
+		
+		UserDto userDtoDefault;
+		
+		if(user == null) {
+			userDtoDefault = new UserDto();
+			userDtoDefault.setIdGoogle(userDto.getIdGoogle());
+			userDtoDefault.setIdFacebook(userDto.getIdFacebook());
+			userDtoDefault.setIsRegister(false);
+		}else {
+			userDtoDefault = user.toDto();
+			userDtoDefault.setIsRegister(true);
+		}
+		
+		return userDtoDefault;
+	}
+
+	@Override
+	public UserDto offerVehicle(VehicleDto vehicleDto, Long id) {
+		
+		Vehicle vehicle = modelMapper.map(vehicleDto, Vehicle.class);
+		
+		User user = userService.offerVehicle(vehicle, id); 
+		
+		return modelMapper.map(user , UserDto.class);
 	}
 
 

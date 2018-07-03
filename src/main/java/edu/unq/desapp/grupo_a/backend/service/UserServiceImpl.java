@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.model.User;
+import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 import edu.unq.desapp.grupo_a.backend.repository.UserRepository;
 import edu.unq.desapp.grupo_a.backend.validators.UserValidator;
+import edu.unq.desapp.grupo_a.backend.validators.VehicleValidator;
 
 
 @Service
@@ -18,12 +20,15 @@ public class UserServiceImpl implements UserService {
 
 	private UserValidator userValidator;
 	
+	private VehicleValidator vehicleValidator;
+	
 	public UserServiceImpl() {
 	}
 
 	@Override
 	public void createUser(User user) throws UserInitException {
 		userValidator.validateUser(user);
+		user.setReputation(5);
 		userRepository.save(user);
 	}
 
@@ -85,6 +90,32 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserValidator(UserValidator userValidator) {
 		this.userValidator = userValidator;
+	}
+
+	public VehicleValidator getVehicleValidator() {
+		return vehicleValidator;
+	}
+
+	public void setVehicleValidator(VehicleValidator vehicleValidator) {
+		this.vehicleValidator = vehicleValidator;
+	}
+
+	@Override
+	public User getUserForSocialNetwork(String facebookId, String googleId) {
+				
+		return userRepository.findByIdSocialNetwork(facebookId, googleId);
+	}
+
+	@Override
+	public User offerVehicle(Vehicle vehicle, Long id) {
+		
+		User user = userRepository.findById(id);
+		
+		vehicleValidator.validateVehicle(vehicle);
+		
+		user.addVehicle(vehicle);
+		
+		return user;
 	}
 
 }

@@ -13,7 +13,7 @@ public class VehicleBuilder extends Builder {
 	private VehicleType vehicleType = VehicleType.Car;
 	private int passengerCapability = 4;
 	private String vehicleDescription = "no description";
-	private List<Photo> photos = new ArrayList<>();
+	private List<String> photos = new ArrayList<>();
 	
 	public static VehicleBuilder aVehicle() {
 		return new VehicleBuilder();
@@ -39,7 +39,7 @@ public class VehicleBuilder extends Builder {
 		return this;
 	}
 
-	public VehicleBuilder withPhotos(List<Photo> somePhotos) {
+	public VehicleBuilder withPhotos(List<String> somePhotos) {
 		photos = somePhotos;
 		return this;
 	}

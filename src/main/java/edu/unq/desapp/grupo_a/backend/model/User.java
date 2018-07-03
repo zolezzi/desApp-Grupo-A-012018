@@ -8,13 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.sun.istack.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
@@ -22,6 +22,8 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 
 @Entity
 @Table(name = "users")
+@XmlRootElement(name = "vehicles")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User extends PersistenceEntity{
 
 	/**
@@ -35,10 +37,13 @@ public class User extends PersistenceEntity{
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
-	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
-	@JoinColumn(name = "address_id",nullable=false)
-	private Address address;
+	@Column(name = "last_name", length = 100, nullable = false)
+	private String lastName;
+	
+	//@NotNull
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
+//	@JoinColumn(name = "address_id",nullable=false)
+//	private Address address;
 
 	@Column(name = "user_email", length = 50)
 	private String email;
@@ -46,6 +51,13 @@ public class User extends PersistenceEntity{
 	@Column(name = "user_reputation", nullable = false)
 	private Integer reputation;
 	
+	@Column(name = "google_id")
+	public String idGoogle;
+	
+	@Column(name = "facebook_id")
+	public String idFacebook;
+	
+	@XmlElement(name = "vehicle")
 	@OneToMany(targetEntity=Vehicle.class, mappedBy="user", fetch=FetchType.EAGER)
 	private List<Vehicle> vehicles;
 	
@@ -59,7 +71,7 @@ public class User extends PersistenceEntity{
 	public User(String cuil, String name, Address address, String email) throws UserInitException{
 		this.cuil = cuil;
 		this.name = name;
-		this.address = address;
+		//this.address = address;
 		this.email = email;
 		this.reputation = 0;
 		this.vehicles = new ArrayList<>();
@@ -82,13 +94,13 @@ public class User extends PersistenceEntity{
 		this.name = name;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
 	public String getEmail() {
 		return email;
@@ -137,7 +149,35 @@ public class User extends PersistenceEntity{
         this.creditAccount.loseAmount(amount);
     }
 
-    private static void check(String cuil, String name, Address address,
+    public String getIdGoogle() {
+		return idGoogle;
+	}
+
+	public void setIdGoogle(String idGoogle) {
+		this.idGoogle = idGoogle;
+	}
+
+	public String getIdFacebook() {
+		return idFacebook;
+	}
+
+	public void setIdFacebook(String idFacebook) {
+		this.idFacebook = idFacebook;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+	private static void check(String cuil, String name, Address address,
                               String email) throws UserInitException, WrongAddressException {
         if (name == null || name.trim().isEmpty() ||
                 cuil == null || cuil.trim().isEmpty() ||
@@ -161,12 +201,13 @@ public class User extends PersistenceEntity{
     	userDto.setName(this.getName());
     	userDto.setEmail(this.getEmail());
     	userDto.setReputation(this.getReputation());
+    	userDto.setLastName(getLastName());
     	if (this.getCreditAccount() != null) {
     		userDto.setCreditAmout(this.getCreditAccount().getCurrentAmount());
     	}
-    	if (this.getAddress() != null) {
-    		userDto.setAddress(this.getAddress().toDto());
-    	}
+//    	if (this.getAddress() != null) {
+//    		userDto.setAddress(this.getAddress().toDto());
+//    	}
     	
     	if(this.getVehicles() != null) {
         	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));

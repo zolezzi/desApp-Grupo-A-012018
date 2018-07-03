@@ -48,7 +48,7 @@
 
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
-        <url-pattern>/services/*</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
