@@ -36,41 +36,26 @@ public class RentServiceImpl implements RentService {
 	}
 
 	@Override
-	public Rent cancelRent(Rent rent, User user) {
+	public Rent cancelRent(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
 
-		try {
-			rent.cancelBy(user);
-			rentRepository.update(rent);
-		} catch (IllegalRentAccessException | InvalidRentActionException e) {
-			//
-		}
-
+		rent.cancelBy(user);
+		rentRepository.update(rent);
 		return rent;
 	}
 
 	@Override
-	public Rent confirmWithdraw(Rent rent, User user) {
+	public Rent confirmWithdraw(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
 
-		try {
-			rent.confirmWithdrawBy(user);
-			rentRepository.update(rent);
-		} catch (IllegalRentAccessException | InvalidRentActionException e) {
-			//
-		}
-
+		rent.confirmWithdrawBy(user);
+		rentRepository.update(rent);
 		return rent;
 	}
 
 	@Override
-	public Rent confirmReturn(Rent rent, User user) {
+	public Rent confirmReturn(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
 
-		try {
-			rent.confirmReturnBy(user);
-			rentRepository.update(rent);
-		} catch (IllegalRentAccessException | InvalidRentActionException e) {
-			//
-		}
-
+		rent.confirmReturnBy(user);
+		rentRepository.update(rent);
 		return rent;
 	}
 

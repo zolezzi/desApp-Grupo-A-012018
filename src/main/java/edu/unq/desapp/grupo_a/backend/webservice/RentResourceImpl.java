@@ -11,6 +11,8 @@ import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.builders.RentBuilder;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 import edu.unq.desapp.grupo_a.backend.service.RentService;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -52,7 +54,7 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto cancelRent(Long rentId, Long userId) {
+	public RentDto cancelRent(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
 
 		Rent rent = rentService.getRent(rentId);
 		User user = userService.getUser(userId);
@@ -63,7 +65,7 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto confirmWithdraw(Long rentId, Long userId) {
+	public RentDto confirmWithdraw(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
 
 		Rent rent = rentService.getRent(rentId);
 		User user = userService.getUser(userId);
@@ -74,7 +76,7 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto confirmReturn(Long rentId, Long userId) {
+	public RentDto confirmReturn(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
 
 		Rent rent = rentService.getRent(rentId);
 		User user = userService.getUser(userId);
