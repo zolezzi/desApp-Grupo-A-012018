@@ -1,7 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.webservice;
 
 import edu.unq.desapp.grupo_a.backend.api.VehicleResource;
-import edu.unq.desapp.grupo_a.backend.dto.RegisterDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleTypeDto;
@@ -127,9 +126,7 @@ public class VehicleResourceImpl implements VehicleResource{
 		
 		List<Vehicle> vehiclesRegitered = vehicleService.allMyVehiclesRegitered(id);
 		
-		RegisterDto register = new RegisterDto();
-		
-		register.setVehiclesDtos(vehiclesRegitered.stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));
+
 		
 		return vehiclesRegitered.stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList());
 	}

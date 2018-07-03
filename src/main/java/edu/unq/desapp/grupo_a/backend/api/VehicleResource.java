@@ -13,7 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import edu.unq.desapp.grupo_a.backend.dto.RegisterDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleFilterDto;
 import edu.unq.desapp.grupo_a.backend.dto.VehicleTypeDto;

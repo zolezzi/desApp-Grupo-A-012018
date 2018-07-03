@@ -17,6 +17,13 @@ public class VehicleValidator extends Validator{
         }
     }
 
+
+    private void validateVehicleDescription(String vehicleDescription) throws VehicleDataException {
+        if (vehicleDescription == null || vehicleDescription.trim().isEmpty()) {
+            throw new VehicleDataException();
+        }
+    }
+
     private void validateVehiclePatent(String vehiclePatent) throws VehicleDataException {
         if (vehiclePatent == null || vehiclePatent.trim().isEmpty()) {
             throw new VehicleDataException();
@@ -25,9 +32,8 @@ public class VehicleValidator extends Validator{
 
     public void validateVehicle(Vehicle vehicle) throws VehicleDataException {
         VehicleType.check(vehicle.getVehicleType());
-        //Photo.check(vehicle.getPhotos());
         validatePassengerCapability(vehicle.getPassengerCapability());
-        validateVehiclePatent(vehicle.getPatent());
+        validateVehicleDescription(vehicle.getVehicleDescription());
     }
 
     @Override

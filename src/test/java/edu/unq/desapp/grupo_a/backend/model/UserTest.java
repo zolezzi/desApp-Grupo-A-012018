@@ -45,23 +45,7 @@ public class UserTest {
     			.build();
     	assertEquals(user.getCuil(), "20-11111111-3");
     }
-    
-    @Test
-    public void testUserAddress() {
-    	Address mockAddress = mock(Address.class);
-    	User user = (User) UserBuilder.anUser()
-    			.withAddress(mockAddress)
-    			.build();
-    	assertEquals(user.getAddress(), mockAddress);
-    }
 
-    @Test (expected = UserInitException.class)
-    public void testUserWithNullAddress() {
-    	UserBuilder.anUser()
-    			.withAddress(null)
-    			.build();
-    }
-    
     @Test
     public void testUserEmail() {
     	User user = (User) UserBuilder.anUser()

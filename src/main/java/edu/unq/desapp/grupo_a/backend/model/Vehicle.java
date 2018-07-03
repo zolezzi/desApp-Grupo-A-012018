@@ -66,7 +66,7 @@ public class Vehicle extends PersistenceEntity{
     }
 
 	public Vehicle (VehicleType vehicleType, int passengerCapability,
-                    String vehicleDescription, List<Photo> photos) throws VehicleDataException {
+                    String vehicleDescription, List<String> photos) throws VehicleDataException {
         this.vehicleType = vehicleType;
         this.passengerCapability = passengerCapability;
         this.vehicleDescription = vehicleDescription;

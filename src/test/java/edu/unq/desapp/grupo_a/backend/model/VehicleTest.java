@@ -59,19 +59,4 @@ public class VehicleTest {
 				.withVehicleDescription("   ")
 				.build();
 	}
-
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithNullPhotos() {
-		VehicleBuilder.aVehicle()
-				.withPhotos(null)
-				.build();
-	}
-	
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithInvalidPhotos() {
-		List<Photo> photos = new ArrayList<>();
-		photos.add(null);
-		VehicleBuilder.aVehicle()
-				.build();
-	}
 }
