@@ -18,12 +18,12 @@ public class Rent extends PersistenceEntity {
 	private LocalDate returnDate;
 	private RentState state;
 
-	public Rent(Publication publication, int returnAddressIndex, User renter) {
-		check(publication, returnAddressIndex, renter);
+	public Rent(Publication publication, Address returnAddress2, User renter) {
+		//check(publication, returnAddress2, renter);
 		this.vehicleOwner = publication.getOfferent();
 		this.vehicle = publication.getVehicle();
 		this.withdrawAddress = publication.getWithdrawAddress();
-		this.returnAddress = publication.getReturnAddresses().get(returnAddressIndex);
+		this.returnAddress = returnAddress2;
 		this.rentPrice = publication.getRentPrice();
 		this.renter = renter;
 		this.withdrawDate = publication.getStartingDate();

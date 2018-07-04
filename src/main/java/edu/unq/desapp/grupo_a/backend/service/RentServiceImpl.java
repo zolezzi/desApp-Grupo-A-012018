@@ -2,6 +2,7 @@ package edu.unq.desapp.grupo_a.backend.service;
 
 import java.util.List;
 
+import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.RentFilter;
@@ -16,11 +17,11 @@ public class RentServiceImpl implements RentService {
 	private RentRepository rentRepository;
 
 	@Override
-	public Rent rentVehicle(Publication publication, int returnIndex, User renter) {
+	public Rent rentVehicle(Publication publication, Address address, User renter) {
 
 		Rent rent = (Rent) RentBuilder.aRent()
 							.fromPublication(publication)
-							.withReturnAddressIndex(returnIndex)
+							.withReturnAddress(address)
 							.withRenter(renter)
 							.build();
 

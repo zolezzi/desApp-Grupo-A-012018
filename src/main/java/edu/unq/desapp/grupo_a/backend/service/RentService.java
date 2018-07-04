@@ -2,6 +2,7 @@ package edu.unq.desapp.grupo_a.backend.service;
 
 import java.util.List;
 
+import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.RentFilter;
@@ -11,7 +12,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionExceptio
 
 public interface RentService {
 	
-	public Rent rentVehicle(Publication publication, int returnIndex, User renter);
+	public Rent rentVehicle(Publication publication, Address returnIndex, User renter);
 	
 	public List<Rent> searchRents(RentFilter rentFilter, User user);
 

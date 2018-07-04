@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model.builders;
 
+import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.User;
@@ -7,7 +8,7 @@ import edu.unq.desapp.grupo_a.backend.model.User;
 public class RentBuilder extends Builder {
 
 	private Publication publication = (Publication) PublicationBuilder.aPublication().addVehicle().build();
-	private int returnAddressIndex = 0;
+	private Address returnAddress = (Address) AddressBuilder.anAddress().build();
 	private User renter = (User) UserBuilder.anUser().build();
 
 	public static RentBuilder aRent() {
@@ -16,7 +17,7 @@ public class RentBuilder extends Builder {
 
 	@Override
 	protected Rent fireBuild() {
-		return new Rent(publication, returnAddressIndex, renter);
+		return new Rent(publication, returnAddress, renter);
 	}
 
 	public RentBuilder fromPublication(Publication aPublication) {
@@ -24,8 +25,8 @@ public class RentBuilder extends Builder {
 		return this;
 	}
 
-	public RentBuilder withReturnAddressIndex(int anAddressIndex) {
-		this.returnAddressIndex = anAddressIndex;
+	public RentBuilder withReturnAddress(Address anAddress) {
+		this.returnAddress = anAddress;
 		return this;
 	}
 

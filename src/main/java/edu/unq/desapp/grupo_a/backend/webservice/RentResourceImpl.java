@@ -7,12 +7,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.builders.RentBuilder;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
+import edu.unq.desapp.grupo_a.backend.service.PublicationService;
 import edu.unq.desapp.grupo_a.backend.service.RentService;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -31,16 +33,20 @@ public class RentResourceImpl implements RentResource{
 
 	private RentService rentService;
 	private UserService userService;
+	private PublicationService publicationService;
 
 	ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public RentDto rentVehicle(PublicationDto publicationDto, int returnIndex, Long renterId) {
+	public RentDto rentVehicle(RentDto rentDto) {
+		
+		Publication publication = publicationService.getPublication(rentDto.getPublicationId());
 
-		Publication publication = modelMapper.map(publicationDto, Publication.class);
-		User renter = userService.getUser(renterId);
+		User renter = userService.getUser(rentDto.getRenterId());
+		
+		Address address = modelMapper.map(rentDto.getAddressDto(), Address.class);
 
-		Rent rent = rentService.rentVehicle(publication, returnIndex, renter);
+		Rent rent = rentService.rentVehicle(publication, address, renter);
 
 		return modelMapper.map(rent, RentDto.class);
 	}
@@ -54,10 +60,10 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto cancelRent(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto cancelRent(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
 
-		Rent rent = rentService.getRent(rentId);
-		User user = userService.getUser(userId);
+		Rent rent = rentService.getRent(rentDto.getRenterId());
+		User user = userService.getUser(rentDto.getUserId());
 
 		rent = rentService.cancelRent(rent, user);
 
@@ -65,10 +71,10 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto confirmWithdraw(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto confirmWithdraw(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
 
-		Rent rent = rentService.getRent(rentId);
-		User user = userService.getUser(userId);
+		Rent rent = rentService.getRent(rentDto.getRenterId());
+		User user = userService.getUser(rentDto.getUserId());
 
 		rent = rentService.confirmWithdraw(rent, user);
 
@@ -76,10 +82,10 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto confirmReturn(Long rentId, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto confirmReturn(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
 
-		Rent rent = rentService.getRent(rentId);
-		User user = userService.getUser(userId);
+		Rent rent = rentService.getRent(rentDto.getRenterId());
+		User user = userService.getUser(rentDto.getUserId());
 
 		rent = rentService.confirmReturn(rent, user);
 
