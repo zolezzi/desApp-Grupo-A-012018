@@ -7,7 +7,7 @@ import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
 import java.time.LocalDate;
 
 public class Rent extends PersistenceEntity {
-
+//http://sites.google.com/site/unqmatematica1
 	private User vehicleOwner;
 	private Vehicle vehicle;
 	private Address withdrawAddress;

@@ -67,7 +67,7 @@ public class RentInitializationTest {
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testRentWithInvalidReturnAddressIndex() {
 		RentBuilder.aRent()
-				.withReturnAddressIndex(-1)
+				//.withReturnAddressIndex(-1)
 				.build();
 	}
 	
