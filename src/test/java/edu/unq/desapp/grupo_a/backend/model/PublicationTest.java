@@ -61,7 +61,7 @@ public class PublicationTest {
 		
 		PublicationBuilder.aPublication()
 			.addVehicle()
-			.withReturnAddresses(emptyAddresses)
+			//.withReturnAddresses(emptyAddresses)
 			.build();
 	}
 
@@ -72,7 +72,7 @@ public class PublicationTest {
 		
 		PublicationBuilder.aPublication()
 			.addVehicle()
-			.withReturnAddresses(invalidAddresses)
+			//.withReturnAddresses(invalidAddresses)
 			.build();
 	}
 	
