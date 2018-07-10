@@ -12,9 +12,9 @@ public class Availability {
 
 	public static void check(Publication publication)
 			throws InvalidAvailabilityException {
-		LocalDate now = LocalDate.now();
-		if (publication.getStartingDate() != null && publication.getStartingDate().isBefore(now)) {
-			throw new InvalidAvailabilityException();
-		}
+//		LocalDate now = LocalDate.now();
+//		if (publication.getStartingDate() != null && publication.getStartingDate().isBefore(now)) {
+//			throw new InvalidAvailabilityException();
+//		}
 	}
 }
