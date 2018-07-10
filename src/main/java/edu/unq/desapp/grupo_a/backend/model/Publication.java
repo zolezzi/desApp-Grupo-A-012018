@@ -1,15 +1,26 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import com.sun.istack.NotNull;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import edu.unq.desapp.grupo_a.backend.dto.PublicationDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import edu.unq.desapp.grupo_a.backend.utils.JSONDateDeserialize;
+import edu.unq.desapp.grupo_a.backend.utils.JSONDateSerialize;
 
 @Entity
 @Table(name = "publications")
@@ -20,82 +31,144 @@ public class Publication extends PersistenceEntity {
      */
     private static final long serialVersionUID = 1L;
 
-    @NotNull
     @OneToOne
 	private User offerent;
 
-    @NotNull
     @OneToOne
 	private Vehicle vehicle;
 
-    @NotNull
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
 	private Address withdrawAddress;
 
-    @NotNull
-	@OneToMany(targetEntity=Address.class, mappedBy="publication", fetch=FetchType.EAGER)
-    @LazyCollection(LazyCollectionOption.FALSE)
-	private List<Address> returnAddresses;
+    @OneToOne(cascade=CascadeType.ALL)
+	private Address returnAddress;
 
-    @NotNull
-    @OneToOne
-    private LocalDate startingDate;
+    @Temporal(TemporalType.DATE)
+	@JsonDeserialize(using = JSONDateDeserialize.class)
+	@JsonSerialize(using = JSONDateSerialize.class)
+    private Date startingDate;
 
-    @NotNull
-    @OneToOne
-    private LocalDate endingDate;
+    @Temporal(TemporalType.DATE)
+	@JsonDeserialize(using = JSONDateDeserialize.class)
+	@JsonSerialize(using = JSONDateSerialize.class)
+    private Date endingDate;
 
-    @NotNull
+    @Column(name = "rent_price")
 	private Double rentPrice;
+   
+    @Column(name="photos")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> photos;
+    
+    public Publication() {
 
-    public Publication(User offerent, Vehicle vehicle, Address withdrawAddress, List<Address> returnAddresses,
-                       LocalDate startingDate, LocalDate endingDate, double rentPrice)
+	}
+
+	@Column(name="description")
+    private String description;
+
+    public Publication(User offerent, Vehicle vehicle, Address withdrawAddress, Address returnAddress,
+    		Date startingDate2, Date endingDate2, double rentPrice)
             throws WrongPublicationException, WrongAddressException {
 
         this.offerent = offerent;
         this.vehicle = vehicle;
         this.withdrawAddress = withdrawAddress;
-        this.returnAddresses = returnAddresses;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
+        this.returnAddress = returnAddress;
+        this.startingDate = startingDate2;
+        this.endingDate = endingDate2;
         this.rentPrice = rentPrice;
     }
 
     public User getOfferent() {
-        return offerent;
-    }
+		return offerent;
+	}
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
+	public void setOfferent(User offerent) {
+		this.offerent = offerent;
+	}
 
-    public Address getWithdrawAddress() {
-        return withdrawAddress;
-    }
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
 
-    public List<Address> getReturnAddresses() {
-        return returnAddresses;
-    }
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
 
-    public LocalDate getStartingDate() {
-        return startingDate;
-    }
+	public Address getWithdrawAddress() {
+		return withdrawAddress;
+	}
 
-    public LocalDate getEndingDate() {
-        return endingDate;
-    }
+	public void setWithdrawAddress(Address withdrawAddress) {
+		this.withdrawAddress = withdrawAddress;
+	}
 
-    public Double getRentPrice() {
-        return rentPrice;
-    }
+	public Address getReturnAddress() {
+		return returnAddress;
+	}
 
-    public PublicationDto getDto() {
+	public void setReturnAddress(Address returnAddress) {
+		this.returnAddress = returnAddress;
+	}
+
+	public Date getStartingDate() {
+		return startingDate;
+	}
+
+	public void setStartingDate(Date startingDate) {
+		this.startingDate = startingDate;
+	}
+
+	public Date getEndingDate() {
+		return endingDate;
+	}
+
+	public void setEndingDate(Date endingDate) {
+		this.endingDate = endingDate;
+	}
+
+	public Double getRentPrice() {
+		return rentPrice;
+	}
+
+	public void setRentPrice(Double rentPrice) {
+		this.rentPrice = rentPrice;
+	}
+
+	public List<String> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<String> photos) {
+		this.photos = photos;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public PublicationDto toDto() {
 
         PublicationDto publicationDto = new PublicationDto();
-        publicationDto.setId(this.getId());
-        publicationDto.setOfferentId(this.getOfferent().getId());
-        publicationDto.setVehicleId(this.getVehicle().getId());
-
+        publicationDto.setId(getId());
+        publicationDto.setUserOfferentId(getOfferent().getId());
+        publicationDto.setVehicleId(getVehicle().getId());
+        publicationDto.setBrand(getVehicle().getBrand());
+        publicationDto.setModel(getVehicle().getModel());
+        publicationDto.setPhotos(getPhotos());
+        publicationDto.setDescription(getDescription());
+        publicationDto.setRentPrice(getRentPrice());
+        publicationDto.setUserOfferentName(getOfferent().getName());
+        publicationDto.setStartingDate(getStartingDate());
+        publicationDto.setEndingDate(getEndingDate());
+        publicationDto.setReturnAddress(getReturnAddress().toDto());
+        publicationDto.setWithdrawAddress(getWithdrawAddress().toDto());
+        
         return publicationDto;
     }
 }

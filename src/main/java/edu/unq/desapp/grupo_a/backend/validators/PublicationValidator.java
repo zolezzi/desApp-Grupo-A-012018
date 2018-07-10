@@ -1,9 +1,13 @@
 package edu.unq.desapp.grupo_a.backend.validators;
 
-import edu.unq.desapp.grupo_a.backend.model.*;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
+import java.util.Date;
 
-import java.time.LocalDate;
+import edu.unq.desapp.grupo_a.backend.model.Address;
+import edu.unq.desapp.grupo_a.backend.model.Availability;
+import edu.unq.desapp.grupo_a.backend.model.Publication;
+import edu.unq.desapp.grupo_a.backend.model.User;
+import edu.unq.desapp.grupo_a.backend.model.Vehicle;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongPublicationException;
 
 public class PublicationValidator extends Validator {
 
@@ -20,17 +24,17 @@ public class PublicationValidator extends Validator {
                 publication.getEndingDate(),
                 publication.getRentPrice());
         Address.check(publication.getWithdrawAddress());
-        Address.check(publication.getReturnAddresses());
-        Availability.check(publication);
+        //Address.check(publication.getReturnAddresses());
+        //Availability.check(publication);
     }
 
-    private void check(User offerent, Vehicle vehicle, LocalDate startingDate, LocalDate endingDate, double rentPrice)
+    private void check(User offerent, Vehicle vehicle, Date startingDate, Date endingDate, double rentPrice)
             throws WrongPublicationException {
         if (    offerent == null || vehicle == null ||
                 !offerent.getVehicles().contains(vehicle) ||
-                startingDate == null ||
-                endingDate == null ||
-                endingDate.isBefore(startingDate) ||
+//                startingDate == null ||
+//                endingDate == null ||
+//                endingDate.isBefore(startingDate) ||
                 rentPrice <= 0) {
             throw new WrongPublicationException();
         }

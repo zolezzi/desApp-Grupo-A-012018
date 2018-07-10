@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.POST;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,8 +23,9 @@ public interface PublicationResource {
 	public PublicationDto getPublication(@PathParam("id") Long id);
 
 	@POST
+	@Produces({MediaType.APPLICATION_JSON}) 
 	@Path("/set-publication")
-	public void setPublication(PublicationDto publicationDto);
+	public PublicationDto setPublication(PublicationDto publicationDto);
 
 	@POST
     @Path("/update-publication")
@@ -34,7 +36,8 @@ public interface PublicationResource {
     public void deletePublication(@PathParam("id") Long id);
 
 	@GET
-	@Path("/get-user-publications")
-	public List<PublicationDto> getUserPublications(Long id);
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/get-user-publications/{id}")
+	public List<PublicationDto> getUserPublications(@PathParam("id") Long id);
 	
 }
