@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.unq.desapp.grupo_a.backend.dto.UserDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongAddressException;
 
 @Entity
 @Table(name = "users")
@@ -39,11 +38,6 @@ public class User extends PersistenceEntity{
 	
 	@Column(name = "last_name", length = 100, nullable = false)
 	private String lastName;
-	
-	//@NotNull
-//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
-//	@JoinColumn(name = "address_id",nullable=false)
-//	private Address address;
 
 	@Column(name = "user_email", length = 50)
 	private String email;
@@ -58,7 +52,7 @@ public class User extends PersistenceEntity{
 	public String idFacebook;
 	
 	@XmlElement(name = "vehicle")
-	@OneToMany(targetEntity=Vehicle.class, mappedBy="user", fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=Vehicle.class, cascade = CascadeType.ALL, mappedBy="user", fetch=FetchType.LAZY)
 	private List<Vehicle> vehicles;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -93,14 +87,6 @@ public class User extends PersistenceEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
 
 	public String getEmail() {
 		return email;
@@ -177,22 +163,7 @@ public class User extends PersistenceEntity{
 		this.vehicles = vehicles;
 	}
 
-	private static void check(String cuil, String name, Address address,
-                              String email) throws UserInitException, WrongAddressException {
-        if (name == null || name.trim().isEmpty() ||
-                cuil == null || cuil.trim().isEmpty() ||
-                email == null || email.trim().isEmpty()) {
-            throw new UserInitException();
-        } else {
-			try {
-				Address.check(address);
-			} catch (WrongAddressException e) {
-				throw e;
-			}
-        }
-    }
-    
-    public UserDto toDto() {
+	public UserDto toDto() {
     	
     	UserDto userDto = new UserDto();
     	
