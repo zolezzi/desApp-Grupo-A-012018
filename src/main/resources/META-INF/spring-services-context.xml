@@ -40,11 +40,26 @@
 
 	<bean id="persistence.userRepository" class="edu.unq.desapp.grupo_a.backend.repository.UserRepository">
 	</bean>
+	
+	<bean id="webservice.publicationResourceImpl" class="edu.unq.desapp.grupo_a.backend.webservice.PublicationResourceImpl">
+		<property name="publicationService" ref="services.publicationService" />
+		<property name="vehicleService" ref="services.vehicleService" />
+		<property name="userService" ref="services.userService" />
+	</bean>
+	
+	<bean id="services.publicationService" class="edu.unq.desapp.grupo_a.backend.service.PublicationServiceImpl">
+		<property name="publicationRepository" ref="persistence.publicationRepository" />
+		<property name="publicationValidator" ref="validators.publicationValidator" />
+	</bean>
 
 
 	<bean id="validators.vehicleValidator" class="edu.unq.desapp.grupo_a.backend.validators.VehicleValidator">
  	</bean>
+	
 	<bean id="validators.userValidator" class="edu.unq.desapp.grupo_a.backend.validators.UserValidator">
+ 	</bean>
+ 	
+ 	<bean id="validators.publicationValidator" class="edu.unq.desapp.grupo_a.backend.validators.PublicationValidator">
  	</bean>
 
     <aop:aspectj-autoproxy />

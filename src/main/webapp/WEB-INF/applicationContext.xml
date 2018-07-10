@@ -37,6 +37,7 @@
 		<jaxrs:serviceBeans>
 			<ref bean="webservice.userResourceImpl" />
 			<ref bean="webservice.vehicleResourceImpl" />
+			<ref bean="webservice.publicationResourceImpl" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
