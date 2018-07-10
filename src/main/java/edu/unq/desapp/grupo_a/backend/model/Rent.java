@@ -1,21 +1,25 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
-import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentException;
-
-import java.time.LocalDate;
 
 public class Rent extends PersistenceEntity {
-//http://sites.google.com/site/unqmatematica1
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//http://sites.google.com/site/unqmatematica1
 	private User vehicleOwner;
 	private Vehicle vehicle;
 	private Address withdrawAddress;
 	private Address returnAddress;
 	private double rentPrice;
 	private User renter;
-	private LocalDate withdrawDate;
-	private LocalDate returnDate;
+	private Date withdrawDate;
+	private Date returnDate;
 	private RentState state;
 
 	public Rent(Publication publication, Address returnAddress2, User renter) {
@@ -29,17 +33,6 @@ public class Rent extends PersistenceEntity {
 		this.withdrawDate = publication.getStartingDate();
 		this.returnDate = publication.getEndingDate();
 		this.state = RentState.Initial;
-	}
-
-	private void check(Publication publication, int returnAddressIndex, User renter)
-			throws InvalidRentException {
-		if (publication == null ||
-				publication.getOfferent() == renter) {
-			throw new InvalidRentException();
-		} else {
-			Availability.check(publication);
-			publication.getReturnAddresses().get(returnAddressIndex);
-		}
 	}
 
 	public User getVehicleOwner() {
@@ -66,11 +59,11 @@ public class Rent extends PersistenceEntity {
 		return this.renter;
 	}
 
-	public LocalDate getWithdrawDate() {
+	public Date getWithdrawDate() {
 		return this.withdrawDate;
 	}
 
-	public LocalDate getReturnDate() {
+	public Date getReturnDate() {
 		return this.returnDate;
 	}
 
