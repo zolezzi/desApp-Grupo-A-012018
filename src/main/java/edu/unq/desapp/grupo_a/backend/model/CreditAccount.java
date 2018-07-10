@@ -1,5 +1,6 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +15,10 @@ public class CreditAccount extends PersistenceEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="current_amount")
 	private Double currentAmount;
 
+	@ManyToOne
 	private User user;
 
 	public CreditAccount() {
@@ -34,7 +37,7 @@ public class CreditAccount extends PersistenceEntity{
 		this.currentAmount -= amount;
 	}
 	
-	@ManyToOne
+	
 	public User getUser() {
 		return user;
 	}
