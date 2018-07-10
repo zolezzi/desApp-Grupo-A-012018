@@ -8,9 +8,9 @@ public class AddressDto {
 
 	private String comments;
 
-	private Double coordLat;
+	private Double latitude;
 
-	private Double coordLong;
+	private Double longitude;
 	
 	private String streetNumber;
 	
@@ -44,28 +44,28 @@ public class AddressDto {
 		this.streetName = streetName;
 	}
 
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
 	public String getComments() {
 		return comments;
 	}
 
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public Double getCoordLat() {
-		return coordLat;
-	}
-
-	public void setCoordLat(Double coordLat) {
-		this.coordLat = coordLat;
-	}
-
-	public Double getCoordLong() {
-		return coordLong;
-	}
-
-	public void setCoordLong(Double coordLong) {
-		this.coordLong = coordLong;
 	}
 
 	public String getStreetNumber() {

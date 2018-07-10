@@ -23,17 +23,17 @@ public class Address implements java.io.Serializable{
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "street_name", nullable = false)
+	@Column(name = "street_name")
 	private String streetName;
 
 	@Column(name = "comments")
 	private String comments;
 
-	@Column(name = "coord_lat")
-	private Double coordLat;
+	@Column(name = "latitude")
+	private Double latitude;
 
-	@Column(name = "coord_long")
-	private Double coordLong;
+	@Column(name = "longitude")
+	private Double longitude;
 
 	@Column(name = "street_number")
 	private String streetNumber;
@@ -44,7 +44,7 @@ public class Address implements java.io.Serializable{
 	@Column(name = "district_name")
 	private String districtName;
 
-	@Column(name = "zip_code", nullable = false)
+	@Column(name = "zip_code")
 	private String zipCode;
 
 	@Column(name = "floor")
@@ -73,28 +73,28 @@ public class Address implements java.io.Serializable{
 		this.streetName = streetName;
 	}
 	
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
 	public String getComments() {
 		return comments;
 	}
 	
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-	
-	public Double getCoordLat() {
-		return coordLat;
-	}
-	
-	public void setCoordLat(Double coordLat) {
-		this.coordLat = coordLat;
-	}
-	
-	public Double getCoordLong() {
-		return coordLong;
-	}
-	
-	public void setCoordLong(Double coordLong) {
-		this.coordLong = coordLong;
 	}
 	
 	public String getStreetNumber() {
@@ -174,9 +174,9 @@ public class Address implements java.io.Serializable{
 
 		addressDto.setId(this.getId());
 		addressDto.setStreetName(this.getStreetName());
+		addressDto.setLatitude(getLatitude());
+		addressDto.setLongitude(getLongitude());
 		addressDto.setComments(this.getComments());
-		addressDto.setCoordLat(this.getCoordLat());
-		addressDto.setCoordLong(this.getCoordLong());
 		addressDto.setStreetNumber(this.getStreetNumber());
 		addressDto.setDepartment(this.getDepartment());
 		addressDto.setDistrictName(this.getDistrictName());
