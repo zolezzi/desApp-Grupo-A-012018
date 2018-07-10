@@ -12,13 +12,6 @@ import static org.junit.Assert.assertTrue;
 
 public class RentInitializationTest {
 
-	@Test (expected = InvalidRentException.class)
-	public void testRentFromNullPublication() {
-		RentBuilder.aRent()
-				.fromPublication(null)
-				.build();
-	}
-	
 	@Test
 	public void testRentFromPublicationHasSameVehicleOwner() {
 		User vehicleOwner = (User) UserBuilder.anUser()
@@ -63,14 +56,7 @@ public class RentInitializationTest {
 
 		assertEquals(aRent.getWithdrawAddress(), aWithdrawAddress);
 	}
-	
-	@Test (expected = IndexOutOfBoundsException.class)
-	public void testRentWithInvalidReturnAddressIndex() {
-		RentBuilder.aRent()
-				//.withReturnAddressIndex(-1)
-				.build();
-	}
-	
+
 	@Test
 	public void testRentFromPublicationHasSameRentPrice() {
 		double aRentPrice = 500;

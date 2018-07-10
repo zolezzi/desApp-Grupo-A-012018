@@ -1,23 +1,31 @@
 package edu.unq.desapp.grupo_a.backend.utils;
 
-import java.util.Date;
+import edu.unq.desapp.grupo_a.backend.model.Notification;
+import edu.unq.desapp.grupo_a.backend.model.User;
+import edu.unq.desapp.grupo_a.backend.repository.NotificationRepository;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.*;
 import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailUtil {
 
 	/**
-	 * Utility method to send simple HTML email
-	 * @param session
-	 * @param toEmail
+	 * Utility method to send HTML emails
+	 * @param toEmails
 	 * @param subject
 	 * @param body
 	 */
-	public static void sendEmail(Session session, String toEmail, String subject, String body){
+	public static void sendEmails(List<User> toEmails, String subject, String body){
+
+		Session session = getSession();
+
+		NotificationRepository notificationRepository = new NotificationRepository();
 		try
 	    {
 	      MimeMessage msg = new MimeMessage(session);
@@ -36,14 +44,35 @@ public class EmailUtil {
 
 	      msg.setSentDate(new Date());
 
-	      msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-	      System.out.println("Message is ready");
-    	  Transport.send(msg);  
-
-	      System.out.println("EMail Sent Successfully!!");
+	      for (User user : toEmails) {
+			  msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
+			  Transport.send(msg);
+			  notificationRepository.save(new Notification(body, user.getId()));
+		  }
 	    }
 	    catch (Exception e) {
 	      e.printStackTrace();
 	    }
+	}
+
+	private static Session getSession() {
+
+		final String fromEmail = "carpnd.grupoa@gmail.com";
+		final String password = "p13dp1p3r";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+		props.put("mail.smtp.port", "587"); //TLS Port
+		props.put("mail.smtp.auth", "true"); //enable authentication
+		props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+
+		//create Authenticator object to pass in Session.getInstance argument
+		Authenticator auth = new Authenticator() {
+			//override the getPasswordAuthentication method
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(fromEmail, password);
+			}
+		};
+		return Session.getInstance(props, auth);
 	}
 }
