@@ -3,7 +3,6 @@ package edu.unq.desapp.grupo_a.backend.model;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,14 +48,6 @@ public class Vehicle extends PersistenceEntity{
     @Column(name = "patent")
     private String patent;
 
-    @Column(name="photos")
-    @ElementCollection
-    private List<String> photos;
-
-//    @OneToMany(targetEntity=Photo.class, mappedBy="vehicle", fetch=FetchType.EAGER)
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<Photo> photos;
-	
 	@ManyToOne
 	@XmlAttribute(name = "mappedUser")
 	private User user;
@@ -70,16 +61,7 @@ public class Vehicle extends PersistenceEntity{
         this.vehicleType = vehicleType;
         this.passengerCapability = passengerCapability;
         this.vehicleDescription = vehicleDescription;
-        this.photos = photos;
 	}
-
-    private static void check(int passengerCapability, String vehicleDescription)
-            throws VehicleDataException {
-        if (passengerCapability <= 0 ||
-                vehicleDescription == null || vehicleDescription.trim().isEmpty()) {
-            throw new VehicleDataException();
-        }
-    }
 
     public VehicleType getVehicleType() {
         return vehicleType;
@@ -107,17 +89,23 @@ public class Vehicle extends PersistenceEntity{
 		vehicleDto.setId(this.getId());
 		vehicleDto.setUserName(this.getUser().getName());
 		vehicleDto.setUserId(this.getUser().getId());
+		vehicleDto.setBrand(getBrand());
+		vehicleDto.setModel(getModel());
+		vehicleDto.setPatent(getPatent());
+		vehicleDto.setPassengerCapability(getPassengerCapability());
+		vehicleDto.setVehicleDescription(getVehicleDescription());
+		vehicleDto.setVehicleType(getVehicleType().getDescription());
 		
 		return vehicleDto;
 	}
 
-	public List<String> getPhotos() {
-		return photos;
-	}
-
-	public void SetPhotos(List<String> photos) {
-		this.photos = photos;
-	}
+//	public List<String> getPhotos() {
+//		return photos;
+//	}
+//
+//	public void SetPhotos(List<String> photos) {
+//		this.photos = photos;
+//	}
 
 	public String getModel() {
 		return model;
@@ -155,7 +143,4 @@ public class Vehicle extends PersistenceEntity{
 		this.vehicleDescription = vehicleDescription;
 	}
 
-	public void setPhotos(List<String> photos) {
-		this.photos = photos;
-	}
 }

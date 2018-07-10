@@ -33,7 +33,7 @@ public class VehicleValidator extends Validator{
     public void validateVehicle(Vehicle vehicle) throws VehicleDataException {
         VehicleType.check(vehicle.getVehicleType());
         validatePassengerCapability(vehicle.getPassengerCapability());
-        validateVehicleDescription(vehicle.getVehicleDescription());
+//        validateVehicleDescription(vehicle.getVehicleDescription());
     }
 
     @Override

@@ -25,9 +25,9 @@ public interface VehicleResource {
 	@POST
 	@Produces({MediaType.APPLICATION_JSON}) 
 	@Path("/add-vehicle")
-	public Response addVehicle(VehicleDto vehicleDto);
+	public VehicleDto addVehicle(VehicleDto vehicleDto);
 	
-	@GET//x-www-form-urlencoded
+	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/get-vehicle/{id}/")
 	public VehicleDto getVehicle(@PathParam("id")  Long id);

@@ -29,6 +29,7 @@ public class VehicleServiceImpl implements VehicleService{
 		vehicleValidator.validateVehicle(vehicle);
 	    userValidator.validateUser(user);
 	    user.addVehicle(vehicle);
+	    vehicle.setUser(user);
 	    vehicleRepository.save(vehicle);
 	    userRepository.update(user);
 	}

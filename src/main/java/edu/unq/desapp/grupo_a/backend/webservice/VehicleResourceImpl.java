@@ -35,7 +35,7 @@ public class VehicleResourceImpl implements VehicleResource{
 
 	@Override
 	@Transactional(readOnly = false)
-	public Response addVehicle(VehicleDto vehicleDto) {
+	public VehicleDto addVehicle(VehicleDto vehicleDto) {
 
 		Vehicle vehicle = modelMapper.map(vehicleDto, Vehicle.class);
 		
@@ -48,7 +48,7 @@ public class VehicleResourceImpl implements VehicleResource{
 		
 		vehicleService.addVehicle(vehicle, user);
 
-		return null;
+		return vehicleDto;
 	}
 
 	@Override
@@ -125,8 +125,6 @@ public class VehicleResourceImpl implements VehicleResource{
 	public List<VehicleDto> allMyVehiclesRegitered(Long id) {
 		
 		List<Vehicle> vehiclesRegitered = vehicleService.allMyVehiclesRegitered(id);
-		
-
 		
 		return vehiclesRegitered.stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList());
 	}
