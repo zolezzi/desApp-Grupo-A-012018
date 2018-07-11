@@ -47,35 +47,6 @@ public class PublicationTest {
 			.build();
 	}
 	
-	@Test (expected = WrongAddressException.class)
-	public void testPublicationWithNullReturnAddresses() {
-		PublicationBuilder.aPublication()
-			.addVehicle()
-			.withReturnAddresses(null)
-			.build();
-	}
-	
-	@Test (expected = WrongAddressException.class)
-	public void testPublicationWithEmptyReturnAddresses() {
-		List<Address> emptyAddresses = new ArrayList<Address>();
-		
-		PublicationBuilder.aPublication()
-			.addVehicle()
-			//.withReturnAddresses(emptyAddresses)
-			.build();
-	}
-
-	@Test (expected = WrongAddressException.class)
-	public void testPublicationWithInvalidReturnAddresses() {
-		List<Address> invalidAddresses = new ArrayList<Address>();
-		invalidAddresses.add(null);
-		
-		PublicationBuilder.aPublication()
-			.addVehicle()
-			//.withReturnAddresses(invalidAddresses)
-			.build();
-	}
-	
 	@Test (expected = WrongPublicationException.class)
 	public void testPublicationWithNullStartingDate() {
 		PublicationBuilder.aPublication()
