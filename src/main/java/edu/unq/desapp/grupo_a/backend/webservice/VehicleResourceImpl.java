@@ -56,7 +56,7 @@ public class VehicleResourceImpl implements VehicleResource{
 
 		Vehicle vehicle = vehicleService.getVehicle(id);
 
-		return modelMapper.map(vehicle, VehicleDto.class);
+		return vehicle.toDto();
 	}
 
 	@Override
