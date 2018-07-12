@@ -58,6 +58,9 @@ public class User extends PersistenceEntity{
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private CreditAccount creditAccount;
 	
+	@Column(name = "description")
+	private String description;
+	
 	public User() {
 		
 	}
@@ -157,6 +160,14 @@ public class User extends PersistenceEntity{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setVehicles(List<Vehicle> vehicles) {
