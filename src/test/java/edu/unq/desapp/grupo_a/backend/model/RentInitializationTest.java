@@ -102,8 +102,8 @@ public class RentInitializationTest {
 	public void testRentOfOldPublication() {
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												.withStartingDate(LocalDate.now().minusDays(1))
-												.withEndingDate(LocalDate.now().plusDays(2))
+												//.withStartingDate(LocalDate.now().minusDays(1))
+												//.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
 		RentBuilder.aRent()
 				.fromPublication(aPublication)
@@ -114,8 +114,8 @@ public class RentInitializationTest {
 	public void testRentHasSameStartingAndEndingDateAsPublication() {
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												.withStartingDate(LocalDate.now().plusDays(1))
-												.withEndingDate(LocalDate.now().plusDays(2))
+												//.withStartingDate(LocalDate.now().plusDays(1))
+												//.withEndingDate(LocalDate.now().plusDays(2))
 												.build();
 		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)
