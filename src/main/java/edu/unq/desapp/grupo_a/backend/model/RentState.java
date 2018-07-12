@@ -7,7 +7,8 @@ public enum RentState {
     WithdrawPreconfirmed("WithdrawPreconfirmed", "rent.state.withdrawPreconfirmed", ""),
     WithdrawConfirmed("WithdrawConfirmed", "rent.state.withdrawConfirmed", ""),
     ReturnPreconfirmed("ReturnPreconfirmed", "rent.state.returnPreconfirmed", ""),
-    ReturnConfirmed("ReturnConfirmed", "rent.state.returnConfirmed", "");
+    ReturnConfirmed("ReturnConfirmed", "rent.state.returnConfirmed", ""),
+    Pending("Pending", "rent.state.pending", "");
 
     String description;
     String i18nCode;

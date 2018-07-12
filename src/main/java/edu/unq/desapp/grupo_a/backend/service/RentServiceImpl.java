@@ -6,6 +6,7 @@ import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.RentFilter;
+import edu.unq.desapp.grupo_a.backend.model.RentState;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.builders.RentBuilder;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
@@ -19,12 +20,15 @@ public class RentServiceImpl implements RentService {
 	@Override
 	public Rent rentVehicle(Publication publication, Address address, User renter) {
 
-		Rent rent = (Rent) RentBuilder.aRent()
-							.fromPublication(publication)
-							.withReturnAddress(address)
-							.withRenter(renter)
-							.build();
-
+		Rent rent = new Rent();
+		rent.setReturnAddress(publication.getReturnAddress());
+		rent.setRenter(renter);
+		rent.setVehicleOwner(publication.getOfferent());
+		rent.setVehicle(publication.getVehicle());
+		rent.setRentPrice(publication.getRentPrice());
+		rent.setWithdrawAddress(publication.getWithdrawAddress());
+		rent.setState(RentState.Pending);
+		
 		rentRepository.save(rent);
 
 		return rent;
@@ -64,5 +68,13 @@ public class RentServiceImpl implements RentService {
 	public List<Rent> searchRents(RentFilter rentFilter, User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public RentRepository getRentRepository() {
+		return rentRepository;
+	}
+
+	public void setRentRepository(RentRepository rentRepository) {
+		this.rentRepository = rentRepository;
 	}
 }

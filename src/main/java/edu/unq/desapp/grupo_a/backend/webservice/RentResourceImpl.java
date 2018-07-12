@@ -5,25 +5,23 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import edu.unq.desapp.grupo_a.backend.api.RentResource;
+import edu.unq.desapp.grupo_a.backend.dto.RentDto;
+import edu.unq.desapp.grupo_a.backend.dto.RentFilterDto;
 import edu.unq.desapp.grupo_a.backend.model.Address;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.User;
-import edu.unq.desapp.grupo_a.backend.model.builders.RentBuilder;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 import edu.unq.desapp.grupo_a.backend.service.PublicationService;
 import edu.unq.desapp.grupo_a.backend.service.RentService;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-
-import edu.unq.desapp.grupo_a.backend.api.RentResource;
-import edu.unq.desapp.grupo_a.backend.dto.PublicationDto;
-import edu.unq.desapp.grupo_a.backend.dto.RentDto;
-import edu.unq.desapp.grupo_a.backend.dto.RentFilterDto;
 
 @Service
 @Produces("application/json")
@@ -38,15 +36,16 @@ public class RentResourceImpl implements RentResource{
 	ModelMapper modelMapper = new ModelMapper();
 
 	@Override
+	@Transactional(readOnly = false)
 	public RentDto rentVehicle(RentDto rentDto) {
 		
 		Publication publication = publicationService.getPublication(rentDto.getPublicationId());
 
 		User renter = userService.getUser(rentDto.getRenterId());
 		
-		Address address = modelMapper.map(rentDto.getAddressDto(), Address.class);
+		//Address address = modelMapper.map(rentDto.getAddressDto(), Address.class);
 
-		Rent rent = rentService.rentVehicle(publication, address, renter);
+		Rent rent = rentService.rentVehicle(publication, publication.getReturnAddress(), renter);
 
 		return modelMapper.map(rent, RentDto.class);
 	}
@@ -96,6 +95,30 @@ public class RentResourceImpl implements RentResource{
 	public List<RentDto> searchRents(RentFilterDto rentFilterDto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public RentService getRentService() {
+		return rentService;
+	}
+
+	public void setRentService(RentService rentService) {
+		this.rentService = rentService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public PublicationService getPublicationService() {
+		return publicationService;
+	}
+
+	public void setPublicationService(PublicationService publicationService) {
+		this.publicationService = publicationService;
 	}
  
 }

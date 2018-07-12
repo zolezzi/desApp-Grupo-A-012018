@@ -3,27 +3,70 @@ package edu.unq.desapp.grupo_a.backend.model;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
+import edu.unq.desapp.grupo_a.backend.utils.JSONDateDeserialize;
+import edu.unq.desapp.grupo_a.backend.utils.JSONDateSerialize;
 
+@Table(name="rents")
+@Entity
 public class Rent extends PersistenceEntity {
-/**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//http://sites.google.com/site/unqmatematica1
+	
+	@OneToOne
 	private User vehicleOwner;
+	
+	@OneToOne	
 	private Vehicle vehicle;
+	
+	@OneToOne(cascade=CascadeType.ALL)
 	private Address withdrawAddress;
+	
+	@OneToOne(cascade=CascadeType.ALL)
 	private Address returnAddress;
-	private double rentPrice;
+	
+	@Column(name="rent_price")
+	private Double rentPrice;
+	
+	@OneToOne
 	private User renter;
+    
+	@Temporal(TemporalType.DATE)
+	@JsonDeserialize(using = JSONDateDeserialize.class)
+	@JsonSerialize(using = JSONDateSerialize.class)
 	private Date withdrawDate;
-	private Date returnDate;
-	private RentState state;
 
+    @Temporal(TemporalType.DATE)
+	@JsonDeserialize(using = JSONDateDeserialize.class)
+	@JsonSerialize(using = JSONDateSerialize.class)
+    private Date returnDate;
+	
+    @Column(name = "rent_state")
+    @Enumerated(EnumType.STRING)
+    private RentState state;
+    
+    public Rent() {
+    	
+    }
+    
 	public Rent(Publication publication, Address returnAddress2, User renter) {
-		//check(publication, returnAddress2, renter);
+
 		this.vehicleOwner = publication.getOfferent();
 		this.vehicle = publication.getVehicle();
 		this.withdrawAddress = publication.getWithdrawAddress();
@@ -70,6 +113,42 @@ public class Rent extends PersistenceEntity {
     public RentState getState() {
 		return this.state;
     }
+
+	public void setVehicleOwner(User vehicleOwner) {
+		this.vehicleOwner = vehicleOwner;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public void setWithdrawAddress(Address withdrawAddress) {
+		this.withdrawAddress = withdrawAddress;
+	}
+
+	public void setReturnAddress(Address returnAddress) {
+		this.returnAddress = returnAddress;
+	}
+
+	public void setRentPrice(Double rentPrice) {
+		this.rentPrice = rentPrice;
+	}
+
+	public void setRenter(User renter) {
+		this.renter = renter;
+	}
+
+	public void setWithdrawDate(Date withdrawDate) {
+		this.withdrawDate = withdrawDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public void setState(RentState state) {
+		this.state = state;
+	}
 
 	public void cancelBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
 		if (getVehicleOwner() == anUser || getRenter() == anUser) {
