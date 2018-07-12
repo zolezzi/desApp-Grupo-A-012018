@@ -21,6 +21,8 @@ public class UserDto {
 	
 	public List<VehicleDto> vehicles = new ArrayList<>();
 	
+	public String description;
+	
 	public Double creditAmout; 
 	
 	public String idGoogle;
@@ -127,6 +129,14 @@ public class UserDto {
 
 	public void setIsRegister(Boolean isRegister) {
 		this.isRegister = isRegister;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
