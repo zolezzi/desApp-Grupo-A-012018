@@ -15,5 +15,7 @@ public interface PublicationService {
 	public abstract void deletePublication(Long id);
 
 	public abstract List<Publication> getUserPublications(Long id);
+	
+	public abstract List<Publication> getAllPublications();
 
 }

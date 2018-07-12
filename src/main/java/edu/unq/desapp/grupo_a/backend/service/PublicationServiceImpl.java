@@ -64,4 +64,10 @@ public class PublicationServiceImpl implements PublicationService{
 		this.publicationRepository = publicationRepository;
 	}
 
+	@Override
+	public List<Publication> getAllPublications() {
+		
+		return publicationRepository.findAll();
+	}
+
 }

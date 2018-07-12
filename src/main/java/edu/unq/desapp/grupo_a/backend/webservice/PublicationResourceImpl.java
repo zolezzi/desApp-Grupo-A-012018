@@ -17,6 +17,7 @@ import edu.unq.desapp.grupo_a.backend.dto.PublicationDto;
 import edu.unq.desapp.grupo_a.backend.model.Publication;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
+import edu.unq.desapp.grupo_a.backend.repository.PublicationRepository;
 import edu.unq.desapp.grupo_a.backend.service.PublicationService;
 import edu.unq.desapp.grupo_a.backend.service.UserService;
 import edu.unq.desapp.grupo_a.backend.service.VehicleService;
@@ -113,5 +114,14 @@ public class PublicationResourceImpl implements PublicationResource {
 
 	public void setVehicleService(VehicleService vehicleService) {
 		this.vehicleService = vehicleService;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public List<PublicationDto> getallPublications() {
+		
+		List<Publication> publications = publicationService.getAllPublications();
+				
+		return publications.stream().map(publication -> publication.toDto()).collect(Collectors.toList());
 	}
 }
