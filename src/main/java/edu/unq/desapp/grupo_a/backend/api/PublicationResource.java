@@ -40,4 +40,9 @@ public interface PublicationResource {
 	@Path("/get-user-publications/{id}")
 	public List<PublicationDto> getUserPublications(@PathParam("id") Long id);
 	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/all-publications")
+	public List<PublicationDto> getallPublications();
+	
 }
