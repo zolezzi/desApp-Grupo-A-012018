@@ -12,13 +12,6 @@ import static org.junit.Assert.assertTrue;
 
 public class RentInitializationTest {
 
-	@Test (expected = InvalidRentException.class)
-	public void testRentFromNullPublication() {
-		RentBuilder.aRent()
-				.fromPublication(null)
-				.build();
-	}
-	
 	@Test
 	public void testRentFromPublicationHasSameVehicleOwner() {
 		User vehicleOwner = (User) UserBuilder.anUser()
@@ -63,14 +56,7 @@ public class RentInitializationTest {
 
 		assertEquals(aRent.getWithdrawAddress(), aWithdrawAddress);
 	}
-	
-	@Test (expected = IndexOutOfBoundsException.class)
-	public void testRentWithInvalidReturnAddressIndex() {
-		RentBuilder.aRent()
-				//.withReturnAddressIndex(-1)
-				.build();
-	}
-	
+
 	@Test
 	public void testRentFromPublicationHasSameRentPrice() {
 		double aRentPrice = 500;
@@ -102,8 +88,8 @@ public class RentInitializationTest {
 	public void testRentOfOldPublication() {
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												//.withStartingDate(LocalDate.now().minusDays(1))
-												//.withEndingDate(LocalDate.now().plusDays(2))
+												.withStartingDate(java.sql.Date.valueOf(LocalDate.now().minusDays(1)))
+												.withEndingDate(java.sql.Date.valueOf(LocalDate.now().plusDays(2)))
 												.build();
 		RentBuilder.aRent()
 				.fromPublication(aPublication)
@@ -114,8 +100,8 @@ public class RentInitializationTest {
 	public void testRentHasSameStartingAndEndingDateAsPublication() {
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
 												.addVehicle()
-												//.withStartingDate(LocalDate.now().plusDays(1))
-												//.withEndingDate(LocalDate.now().plusDays(2))
+												.withStartingDate(java.sql.Date.valueOf(LocalDate.now().plusDays(1)))
+												.withEndingDate(java.sql.Date.valueOf(LocalDate.now().plusDays(2)))
 												.build();
 		Rent aRent = (Rent) RentBuilder.aRent()
 							.fromPublication(aPublication)

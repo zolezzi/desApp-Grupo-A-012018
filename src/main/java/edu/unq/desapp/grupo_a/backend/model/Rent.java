@@ -1,6 +1,5 @@
 package edu.unq.desapp.grupo_a.backend.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -18,12 +17,19 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
+
 import edu.unq.desapp.grupo_a.backend.utils.JSONDateDeserialize;
 import edu.unq.desapp.grupo_a.backend.utils.JSONDateSerialize;
+
+import edu.unq.desapp.grupo_a.backend.utils.EmailUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="rents")
 @Entity
 public class Rent extends PersistenceEntity {
+
 	/**
 	 * 
 	 */
@@ -155,6 +161,14 @@ public class Rent extends PersistenceEntity {
 			switch (getState()) {
 				case Initial:
 					this.state = RentState.Canceled;
+					List<User> toEmails = new ArrayList<>();
+					toEmails.add(getVehicleOwner());
+					toEmails.add(getRenter());
+					EmailUtil.sendEmails(toEmails, "Renta Cancelada",
+						"Le informamos que la renta del vehículo " + getVehicle().getBrand() + " " +
+						getVehicle().getModel() + " para los días " + getWithdrawDate() + " al " + getReturnDate() +
+						" ha sido cancelada por " + anUser.getName() + " " + anUser.getLastName() + ".\n" +
+						"Esperamos sepa disculpar las molestias ocasionadas. El equipo de CARPND está para ayudarle.");
 					break;
 				case Canceled:
 					break;
@@ -169,15 +183,25 @@ public class Rent extends PersistenceEntity {
 	public void confirmWithdrawBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
 		if (!getState().userEmail.matches(anUser.getEmail()) &&
 				getVehicleOwner() == anUser || getRenter() == anUser) {
+			List<User> toEmails = new ArrayList<>();
+			toEmails.add(getVehicleOwner());
+			toEmails.add(getRenter());
 			switch (getState()) {
-				case WithdrawConfirmed:
-					break;
-				case WithdrawPreconfirmed:
-					this.state = RentState.WithdrawConfirmed;
-					break;
 				case Initial:
 					this.state = RentState.WithdrawPreconfirmed;
 					this.state.userEmail = anUser.getEmail();
+					EmailUtil.sendEmails(toEmails, "Retiro de Vehículo Pre-Confirmado",
+						"Le informamos que el retiro del vehículo " + getVehicle().getBrand() + " " + getVehicle().getModel() +
+						" ya fue pre-confirmado por " + anUser.getName() + " " + anUser.getLastName() + "." +
+						" Hace falta la confirmación de la otra parte para terminar de confirmar esta misma acción.\n");
+					break;
+				case WithdrawPreconfirmed:
+					this.state = RentState.WithdrawConfirmed;
+					EmailUtil.sendEmails(toEmails, "Retiro de Vehículo Confirmado",
+						"Le informamos que el retiro del vehículo " + getVehicle().getBrand() + " " + getVehicle().getModel() +
+						" ya fue confirmado por la contraparte: " + anUser.getName() + " " + anUser.getLastName() + ".");
+					break;
+				case WithdrawConfirmed:
 					break;
 				default:
 					throw new InvalidRentActionException();
@@ -190,15 +214,27 @@ public class Rent extends PersistenceEntity {
 	public void confirmReturnBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
 		if (!getState().userEmail.matches(anUser.getEmail()) &&
 				getVehicleOwner() == anUser || getRenter() == anUser) {
+			List<User> toEmails = new ArrayList<>();
+			toEmails.add(getVehicleOwner());
+			toEmails.add(getRenter());
 			switch (getState()) {
-				case ReturnConfirmed:
-					break;
-				case ReturnPreconfirmed:
-					this.state = RentState.ReturnConfirmed;
-					break;
 				case WithdrawConfirmed:
 					this.state = RentState.ReturnPreconfirmed;
 					this.state.userEmail = anUser.getEmail();
+					EmailUtil.sendEmails(toEmails, "Devolución de Vehículo Pre-Confirmada",
+						"Le informamos que la devolución del vehículo " + getVehicle().getBrand() + " " + getVehicle().getModel() +
+						" ya fue pre-confirmada por " + anUser.getName() + " " + anUser.getLastName() + "." +
+						" Hace falta la confirmación de la otra parte para terminar de confirmar esta misma acción.\n");
+					break;
+				case ReturnPreconfirmed:
+					this.state = RentState.ReturnConfirmed;
+					EmailUtil.sendEmails(toEmails, "Devolución de Vehículo Confirmada",
+						"Le informamos que la devolución del vehículo " + getVehicle().getBrand() + " " + getVehicle().getModel() +
+						" ya fue confirmada por la contraparte: " + anUser.getName() + " " + anUser.getLastName() + ".\n" +
+						" Agradecemos a ambos por haber confiado en nosotros para ponerlos en contacto y nos ponemos " +
+						"a su disposición para más acciones futuras.\n Los saludamos muy atentamente \n El equipo de CARPND");
+					break;
+				case ReturnConfirmed:
 					break;
 				default:
 					throw new InvalidRentActionException();

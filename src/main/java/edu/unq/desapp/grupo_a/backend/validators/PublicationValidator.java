@@ -25,16 +25,16 @@ public class PublicationValidator extends Validator {
                 publication.getRentPrice());
         Address.check(publication.getWithdrawAddress());
         //Address.check(publication.getReturnAddresses());
-        //Availability.check(publication);
+        Availability.check(publication);
     }
 
     private void check(User offerent, Vehicle vehicle, Date startingDate, Date endingDate, double rentPrice)
             throws WrongPublicationException {
         if (    offerent == null || vehicle == null ||
                 !offerent.getVehicles().contains(vehicle) ||
-//                startingDate == null ||
-//                endingDate == null ||
-//                endingDate.isBefore(startingDate) ||
+                startingDate == null ||
+                endingDate == null ||
+                endingDate.before(startingDate) ||
                 rentPrice <= 0) {
             throw new WrongPublicationException();
         }
