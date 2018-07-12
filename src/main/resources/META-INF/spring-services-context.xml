@@ -51,7 +51,16 @@
 		<property name="publicationRepository" ref="persistence.publicationRepository" />
 		<property name="publicationValidator" ref="validators.publicationValidator" />
 	</bean>
-
+	
+	<bean id="webservice.rentResourceImpl" class="edu.unq.desapp.grupo_a.backend.webservice.RentResourceImpl">
+		<property name="rentService" ref="services.rentService" />
+		<property name="publicationService" ref="services.publicationService" />
+		<property name="userService" ref="services.userService" />
+	</bean>
+	
+	<bean id="services.rentService" class="edu.unq.desapp.grupo_a.backend.service.RentServiceImpl">
+		<property name="rentRepository" ref="persistence.rentRepository" />
+	</bean>
 
 	<bean id="validators.vehicleValidator" class="edu.unq.desapp.grupo_a.backend.validators.VehicleValidator">
  	</bean>
@@ -68,6 +77,5 @@
 	, edu.unq.desapp.grupo_a.backend.repository
 	, edu.unq.desapp.grupo_a.backend.webservice">
    </context:component-scan>
-	
 
 </beans>

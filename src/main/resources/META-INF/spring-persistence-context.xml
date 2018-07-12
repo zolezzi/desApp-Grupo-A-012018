@@ -61,6 +61,7 @@
 				<value>edu.unq.desapp.grupo_a.backend.model.VehicleType</value>
                 <value>edu.unq.desapp.grupo_a.backend.model.User</value>
                 <value>edu.unq.desapp.grupo_a.backend.model.Publication</value>
+                <value>edu.unq.desapp.grupo_a.backend.model.Rent</value>
 
             </list>
 	   </property>
@@ -82,10 +83,6 @@
 		</constructor-arg>
 	</bean>
 	
-<!-- 	<bean id="userRepository" class="edu.unq.desapp.grupo_a.backend.repository.UserRepository"> -->
-
-<!-- 	</bean> -->
-	
 	<bean id="persistence.userRepository" class="edu.unq.desapp.grupo_a.backend.repository.UserRepository" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
@@ -95,6 +92,10 @@
 	</bean>
 	
 	<bean id="persistence.publicationRepository" class="edu.unq.desapp.grupo_a.backend.repository.PublicationRepository" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
+	<bean id="persistence.rentRepository" class="edu.unq.desapp.grupo_a.backend.repository.RentRepository" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
