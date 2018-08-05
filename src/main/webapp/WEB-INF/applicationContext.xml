@@ -39,6 +39,7 @@
 			<ref bean="webservice.vehicleResourceImpl" />
 			<ref bean="webservice.publicationResourceImpl" />
 			<ref bean="webservice.rentResourceImpl" />
+			<ref bean="webservice.creditAccountResourceImpl" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
