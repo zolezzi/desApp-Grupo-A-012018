@@ -58,6 +58,10 @@
 		<property name="userService" ref="services.userService" />
 	</bean>
 	
+	<bean id="webservice.creditAccountResourceImpl" class="edu.unq.desapp.grupo_a.backend.webservice.CreditAccountResourceImpl">
+		<property name="userService" ref="services.userService" />
+	</bean>
+	
 	<bean id="services.rentService" class="edu.unq.desapp.grupo_a.backend.service.RentServiceImpl">
 		<property name="rentRepository" ref="persistence.rentRepository" />
 	</bean>

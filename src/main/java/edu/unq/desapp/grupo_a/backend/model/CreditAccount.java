@@ -22,7 +22,7 @@ public class CreditAccount extends PersistenceEntity{
 	private User user;
 
 	public CreditAccount() {
-		this.currentAmount = (double) 0;
+		this.currentAmount =  0d;
 	}
 
 	public Double getCurrentAmount() {
