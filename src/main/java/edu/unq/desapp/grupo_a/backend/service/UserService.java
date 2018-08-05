@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface UserService {
 	
-	public abstract void createUser(User user);
+	public abstract User createUser(User user);
 	
 	public abstract User getUser(Long id);
 	
