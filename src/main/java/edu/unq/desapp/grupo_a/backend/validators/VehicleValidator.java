@@ -1,6 +1,5 @@
 package edu.unq.desapp.grupo_a.backend.validators;
 
-import edu.unq.desapp.grupo_a.backend.model.Photo;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.VehicleType;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.VehicleDataException;
@@ -33,7 +32,7 @@ public class VehicleValidator extends Validator{
     public void validateVehicle(Vehicle vehicle) throws VehicleDataException {
         VehicleType.check(vehicle.getVehicleType());
         validatePassengerCapability(vehicle.getPassengerCapability());
-        validateVehicleDescription(vehicle.getVehicleDescription());
+       // validateVehicleDescription(vehicle.getVehicleDescription());
     }
 
     @Override

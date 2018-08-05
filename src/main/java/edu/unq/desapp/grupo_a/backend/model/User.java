@@ -72,7 +72,6 @@ public class User extends PersistenceEntity{
 		this.email = email;
 		this.reputation = 0;
 		this.vehicles = new ArrayList<>();
-		this.creditAccount = new CreditAccount();
 	}
 
 	public String getCuil() {
@@ -187,9 +186,6 @@ public class User extends PersistenceEntity{
     	if (this.getCreditAccount() != null) {
     		userDto.setCreditAmout(this.getCreditAccount().getCurrentAmount());
     	}
-//    	if (this.getAddress() != null) {
-//    		userDto.setAddress(this.getAddress().toDto());
-//    	}
     	
     	if(this.getVehicles() != null) {
         	userDto.setVehicles(this.getVehicles().stream().map(vehicle -> vehicle.toDto()).collect(Collectors.toList()));

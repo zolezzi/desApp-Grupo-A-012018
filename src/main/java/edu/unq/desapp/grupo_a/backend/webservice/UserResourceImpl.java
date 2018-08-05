@@ -35,9 +35,9 @@ public class UserResourceImpl implements UserResource{
 			
 		User user =	modelMapper.map(userDto, User.class);
 		
-		userService.createUser(user);		
+		user = userService.createUser(user);		
 	
-		return userDto;
+		return user.toDto();
 
 	}
 

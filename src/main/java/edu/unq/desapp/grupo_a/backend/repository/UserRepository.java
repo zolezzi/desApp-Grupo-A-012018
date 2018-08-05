@@ -44,4 +44,24 @@ public class UserRepository extends HibernateGenericDao<User> implements Generic
 		return queryResult.get(0);
 
 	}
+	
+	public User findByEmail(String email) {
+		
+		List<User> queryResult = new ArrayList<>();
+
+		String hql = "SELECT user FROM User as user" +
+				" where user.email = :email";
+		Query query = this.getSessionFactory().getCurrentSession().createQuery(hql);		
+		query.setParameter("email", email);
+		
+		queryResult = query.list();
+		
+		if(queryResult.isEmpty()){
+			return null;
+		}
+		
+		
+		return queryResult.get(0);
+
+	}
 }

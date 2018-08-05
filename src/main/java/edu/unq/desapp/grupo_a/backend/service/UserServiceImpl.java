@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import edu.unq.desapp.grupo_a.backend.model.CreditAccount;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.Vehicle;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
@@ -26,10 +27,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createUser(User user) throws UserInitException {
+	public User createUser(User user) throws UserInitException {
 		userValidator.validateUser(user);
 		user.setReputation(5);
-		userRepository.save(user);
+		user.setCreditAccount(createCreditAmount(user));
+		
+		User userBBDD = userRepository.findByEmail(user.getEmail());
+			
+		if(userBBDD != null){
+			return userBBDD; 
+		}else {
+			userRepository.save(user);
+			userBBDD = userRepository.findByEmail(user.getEmail());
+		}
+		return userBBDD;
+	
 	}
 
 	@Override
@@ -116,6 +128,14 @@ public class UserServiceImpl implements UserService {
 		user.addVehicle(vehicle);
 		
 		return user;
+	}
+	
+	private CreditAccount createCreditAmount(User user) {
+		
+		CreditAccount creditAccount = new CreditAccount();
+		creditAccount.setUser(user);
+		
+		return creditAccount;
 	}
 
 }

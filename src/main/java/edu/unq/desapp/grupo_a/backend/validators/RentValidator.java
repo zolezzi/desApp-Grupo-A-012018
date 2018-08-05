@@ -14,8 +14,8 @@ public class RentValidator extends Validator {
     @Override
     public void validate(Object object) throws ExceptionInInitializerError {
         Rent rent = (Rent) object;
-        validateRentParts(rent.getVehicleOwner(), rent.getRenter());
-        validateRentVehicle(rent.getVehicleOwner(), rent.getVehicle());
+//        validateRentParts(rent.getVehicleOwner(), rent.getRenter());
+//        validateRentVehicle(rent.getVehicleOwner(), rent.getVehicle());
         validateWithdrawDate(rent.getWithdrawDate());
     }
 
