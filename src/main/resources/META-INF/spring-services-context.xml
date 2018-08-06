@@ -75,7 +75,14 @@
  	<bean id="validators.publicationValidator" class="edu.unq.desapp.grupo_a.backend.validators.PublicationValidator">
  	</bean>
 
-    <aop:aspectj-autoproxy />
+	<bean id="services.loader" class="edu.unq.desapp.grupo_a.backend.bootLoad.DataLoader" init-method="initialize">
+		<property name="userResource" ref="webservice.userResourceImpl" />
+        <property name="vehicleResource" ref="webservice.vehicleResourceImpl" />
+        <property name="publicationResource" ref="webservice.publicationResourceImpl" />
+        <property name="rentResource" ref="webservice.rentResourceImpl" />
+	</bean>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <context:component-scan base-package="edu.unq.desapp.grupo_a.backend.service
 	, edu.unq.desapp.grupo_a.backend.repository
