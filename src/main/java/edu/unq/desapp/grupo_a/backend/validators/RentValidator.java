@@ -14,30 +14,12 @@ public class RentValidator extends Validator {
     @Override
     public void validate(Object object) throws ExceptionInInitializerError {
         Rent rent = (Rent) object;
-//        validateRentParts(rent.getVehicleOwner(), rent.getRenter());
-//        validateRentVehicle(rent.getVehicleOwner(), rent.getVehicle());
         validateWithdrawDate(rent.getWithdrawDate());
     }
 
     private void validateWithdrawDate(Date withdrawDate) throws InvalidAvailabilityException {
         if (withdrawDate.before(java.sql.Date.valueOf(LocalDate.now()))){
             throw new InvalidAvailabilityException();
-        }
-    }
-
-    private void validateRentParts(User vehicleOwner, User renter) throws InvalidRentException {
-        if (    vehicleOwner == null ||
-                renter == null ||
-                vehicleOwner == renter) {
-            throw new InvalidRentException();
-        }
-    }
-
-    private void validateRentVehicle(User vehicleOwner, Vehicle vehicle) throws InvalidRentException {
-        if (    vehicleOwner == null ||
-                vehicle == null ||
-                !vehicleOwner.getVehicles().contains(vehicle)) {
-            throw new InvalidRentException();
         }
     }
 }

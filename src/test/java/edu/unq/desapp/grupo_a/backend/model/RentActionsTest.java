@@ -31,7 +31,7 @@ public class RentActionsTest {
         renter = (User) UserBuilder.anUser()
                 .withEmail("renter@email.com")
                 .build();
-        renter.setId(0);
+        renter.setId((long) 0);
 
         aRent = (Rent) RentBuilder.aRent()
                 .fromPublication(aPublication)
