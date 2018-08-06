@@ -31,7 +31,7 @@ public class RentActionsTest {
         renter = (User) UserBuilder.anUser()
                 .withEmail("renter@email.com")
                 .build();
-        renter.setId(0);
+        renter.setId((long) 0);
 
         aRent = (Rent) RentBuilder.aRent()
                 .fromPublication(aPublication)
@@ -66,20 +66,6 @@ public class RentActionsTest {
         aRent.cancelBy(aNonRelatedUser);
     }
 
-    @Test
-    public void testRentConfirmWithdrawOnlyByRenter() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(renter);
-
-        assertEquals(RentState.WithdrawPreconfirmed, aRent.getState());
-    }
-
-    @Test
-    public void testRentConfirmWithdrawOnlyByVehicleOwner() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-
-        assertEquals(RentState.WithdrawPreconfirmed, aRent.getState());
-    }
-
     @Test (expected = IllegalRentAccessException.class)
     public void testConfirmWithdrawByANonRelatedUser() throws IllegalRentAccessException, InvalidRentActionException {
         aRent.confirmWithdrawBy(aNonRelatedUser);
@@ -97,20 +83,6 @@ public class RentActionsTest {
         aRent.cancelBy(vehicleOwner);
     }
 
-    @Test
-    public void testConfirmWithdrawByThe2Users() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(renter);
-
-        assertEquals(RentState.WithdrawConfirmed, aRent.getState());
-    }
-
-    @Test (expected = IllegalRentAccessException.class)
-    public void testConfirmWithdraw2TimesByTheSameUser() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(vehicleOwner);
-    }
-
     @Test (expected = InvalidRentActionException.class)
     public void testCancelAConfirmedWithdrawRent() throws IllegalRentAccessException, InvalidRentActionException {
         aRent.confirmWithdrawBy(renter);
@@ -124,15 +96,6 @@ public class RentActionsTest {
         aRent.cancelBy(vehicleOwner);
 
         assertEquals(RentState.Canceled, aRent.getState());
-    }
-
-    @Test
-    public void testPreConfirmReturnInAConfirmedWithdrawRent() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(renter);
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmReturnBy(renter);
-
-        assertEquals(RentState.ReturnPreconfirmed, aRent.getState());
     }
 
     @Test (expected = InvalidRentActionException.class)
@@ -150,47 +113,6 @@ public class RentActionsTest {
     @Test (expected = InvalidRentActionException.class)
     public void testConfirmReturnInANewRent() throws IllegalRentAccessException, InvalidRentActionException {
         aRent.confirmReturnBy(renter);
-    }
-
-    @Test
-    public void testConfirmReturnInAPreConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(renter);
-        aRent.confirmReturnBy(vehicleOwner);
-        aRent.confirmReturnBy(renter);
-
-        assertEquals(RentState.ReturnConfirmed, aRent.getState());
-    }
-
-    /*
-    @Test (expected = IllegalRentAccessException.class)
-
-    public void testConfirmReturn2TimesByTheSameUser() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(renter);
-        aRent.confirmReturnBy(renter);
-        aRent.confirmReturnBy(renter);
-    }
-    */
-
-    @Test
-    public void testConfirmWithdrawInAnAlreadyConfirmedWithdrawRent() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(renter);
-        aRent.confirmWithdrawBy(vehicleOwner);
-
-        assertEquals(RentState.WithdrawConfirmed, aRent.getState());
-    }
-
-    @Test
-    public void testConfirmReturnInAnAlreadyConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
-        aRent.confirmWithdrawBy(vehicleOwner);
-        aRent.confirmWithdrawBy(renter);
-        aRent.confirmReturnBy(vehicleOwner);
-        aRent.confirmReturnBy(renter);
-        aRent.confirmReturnBy(vehicleOwner);
-
-        assertEquals(RentState.ReturnConfirmed, aRent.getState());
     }
 
     @Test (expected = InvalidRentActionException.class)

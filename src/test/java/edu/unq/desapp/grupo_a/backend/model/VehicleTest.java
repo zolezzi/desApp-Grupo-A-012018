@@ -34,25 +34,4 @@ public class VehicleTest {
 				.withPassengerCapability(0)
 				.build();
 	}
-	
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithNullVehicleDescription() {
-		VehicleBuilder.aVehicle()
-				.withVehicleDescription(null)
-				.build();
-	}
-	
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithEmptyVehicleDescription() {
-		VehicleBuilder.aVehicle()
-				.withVehicleDescription("")
-				.build();
-	}
-	
-	@Test (expected = VehicleDataException.class)
-	public void testVehicleWithBlankVehicleDescription() {
-		VehicleBuilder.aVehicle()
-				.withVehicleDescription("   ")
-				.build();
-	}
 }

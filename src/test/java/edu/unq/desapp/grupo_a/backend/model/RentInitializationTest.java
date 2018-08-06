@@ -71,19 +71,6 @@ public class RentInitializationTest {
 		assertTrue(aRent.getRentPrice() == aRentPrice);
 	}
 
-	@Test (expected = InvalidRentException.class)
-	public void testRentWithSameVehicleOwnerAndRenter() {
-		User anUser = (User) UserBuilder.anUser().build();
-		Publication aPublication = (Publication) PublicationBuilder.aPublication()
-												.withOfferent(anUser)
-												.addVehicle()
-												.build();
-		RentBuilder.aRent()
-				.fromPublication(aPublication)
-				.withRenter(anUser)
-				.build();
-	}
-
 	@Test (expected = InvalidAvailabilityException.class)
 	public void testRentOfOldPublication() {
 		Publication aPublication = (Publication) PublicationBuilder.aPublication()
