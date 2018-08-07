@@ -1,6 +1,7 @@
 package edu.unq.desapp.grupo_a.backend.webservice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -59,6 +60,7 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
+	@Transactional
 	public RentDto cancelRent(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
 
 		Rent rent = rentService.getRent(rentDto.getRenterId());
@@ -70,17 +72,25 @@ public class RentResourceImpl implements RentResource{
 	}
 
 	@Override
-	public RentDto confirmWithdraw(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
+	@Transactional(readOnly = false)
+	public RentDto confirmWithdraw(Long id, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
 
-		Rent rent = rentService.getRent(rentDto.getRenterId());
-		User user = userService.getUser(rentDto.getUserId());
-
+//		Rent rent = rentService.getRent(rentDto.getId());
+//		User user = userService.getUser(rentDto.getUserId());
+		Rent rent = rentService.getRent(id);
+		User user = userService.getUser(userId);
+		
+//		List<Rent> list = rentService.findAll().stream().filter(r -> !r.getId().equals(id) ).collect(Collectors.toList());
+//		
+//		Rent rent = list.get(0); 
+		
 		rent = rentService.confirmWithdraw(rent, user);
 
 		return modelMapper.map(rent, RentDto.class);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public RentDto confirmReturn(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
 
 		Rent rent = rentService.getRent(rentDto.getRenterId());
@@ -119,6 +129,24 @@ public class RentResourceImpl implements RentResource{
 
 	public void setPublicationService(PublicationService publicationService) {
 		this.publicationService = publicationService;
+	}
+
+	@Override
+	@Transactional
+	public List<RentDto> findAllRents(Long id) {
+		
+		List<Rent> rents = rentService.findAllRents(id);
+	
+		return rents.stream().map(rent -> rent.toDto()).collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public List<RentDto> findAllRentsByVehicleOwner(Long id) {
+		
+		List<Rent> rents = rentService.findAllRentsByVehicleOwner(id);
+		
+		return rents.stream().map(rent -> rent.toDto()).collect(Collectors.toList());
 	}
  
 }

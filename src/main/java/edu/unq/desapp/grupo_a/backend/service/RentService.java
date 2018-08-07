@@ -23,4 +23,11 @@ public interface RentService {
 	public Rent confirmWithdraw(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException;
 
 	public Rent confirmReturn(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException;
+	
+	public List<Rent> findAllRents(Long id);
+	
+	public List<Rent> findAllRentsByVehicleOwner(Long id);
+	
+	public List<Rent> findAll();
+	
 }

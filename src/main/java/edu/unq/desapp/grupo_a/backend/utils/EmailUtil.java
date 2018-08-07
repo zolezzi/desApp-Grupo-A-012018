@@ -47,7 +47,7 @@ public class EmailUtil {
 	      for (User user : toEmails) {
 			  msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail(), false));
 			  Transport.send(msg);
-			  notificationRepository.save(new Notification(body, user.getId()));
+			  //notificationRepository.save(new Notification(body, user.getId()));
 		  }
 	    }
 	    catch (Exception e) {

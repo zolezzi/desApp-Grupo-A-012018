@@ -33,7 +33,7 @@ public class PersistenceEntity implements Serializable {
 	protected Date creationDate = new Date();
 
 	// Getters and Setters
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

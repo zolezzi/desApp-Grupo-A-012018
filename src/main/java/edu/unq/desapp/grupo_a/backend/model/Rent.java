@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,6 +16,7 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import edu.unq.desapp.grupo_a.backend.dto.RentDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 
@@ -66,6 +68,9 @@ public class Rent extends PersistenceEntity {
     @Column(name = "rent_state")
     @Enumerated(EnumType.STRING)
     private RentState state;
+    
+    @ManyToOne
+    private Publication publication;
     
     public Rent() {
     	
@@ -155,6 +160,58 @@ public class Rent extends PersistenceEntity {
 	public void setState(RentState state) {
 		this.state = state;
 	}
+	
+	public Publication getPublication() {
+		return publication;
+	}
+
+	public void setPublication(Publication publication) {
+		this.publication = publication;
+	}
+
+	public RentDto toDto() {
+
+		RentDto rentDto = new RentDto();
+		rentDto.setId(getId());
+		rentDto.setAddressDto(getReturnAddress().toDto());
+		rentDto.setPublicationId(getPublication().getId());
+		rentDto.setRenterId(getRenter().getId());
+		rentDto.setUserRenterName(getRenter().getName());
+		rentDto.setUserId(getVehicleOwner().getId());
+		rentDto.setState(getState().description);
+		rentDto.setBrand(getVehicle().getBrand());
+		rentDto.setModel(getVehicle().getModel());
+		rentDto.setUserName(getVehicleOwner().getName() + " - " + getVehicleOwner().getLastName() );
+		rentDto.setRentPrice(getPublication().getRentPrice());
+		rentDto.setStartingDate(getPublication().getStartingDate());
+		rentDto.setEndingDate(getPublication().getEndingDate());
+		
+		return rentDto;
+	}
+	
+	public void pendingBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
+		if (getVehicleOwner() == anUser || getRenter() == anUser) {
+			switch (getState()) {
+				case Pending:
+					this.state = RentState.Pending;
+					List<User> toEmails = new ArrayList<>();
+					toEmails.add(getVehicleOwner());
+					toEmails.add(getRenter());
+					EmailUtil.sendEmails(toEmails, "Renta Pendiente",
+						"Le informamos que la renta del vehículo " + getVehicle().getBrand() + " " +
+						getVehicle().getModel() + " para los días " + getWithdrawDate() + " al " + getReturnDate() +
+						" ha sido reservado por " + anUser.getName() + " " + anUser.getLastName() + ".\n" +
+						"Esperamos la confirmacion. El equipo de CARPND está para ayudarle.");
+					break;
+				case Canceled:
+					break;
+				default:
+					throw new InvalidRentActionException();
+			}
+		} else {
+			throw new IllegalRentAccessException();
+		}
+	}
 
 	public void cancelBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
 		if (getVehicleOwner() == anUser || getRenter() == anUser) {
@@ -187,7 +244,7 @@ public class Rent extends PersistenceEntity {
 			toEmails.add(getVehicleOwner());
 			toEmails.add(getRenter());
 			switch (getState()) {
-				case Initial:
+				case Pending:
 					this.state = RentState.WithdrawPreconfirmed;
 					this.state.userEmail = anUser.getEmail();
 					EmailUtil.sendEmails(toEmails, "Retiro de Vehículo Pre-Confirmado",

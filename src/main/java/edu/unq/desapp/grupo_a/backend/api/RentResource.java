@@ -34,8 +34,8 @@ public interface RentResource {
 	public RentDto cancelRent(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException;
 
 	@POST
-	@Path("/confirm-withdraw")
-	public RentDto confirmWithdraw(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException;
+	@Path("/confirm-withdraw/{id}/{userId}")
+	public RentDto confirmWithdraw(@PathParam("id") Long id , @PathParam("userId") Long userId) throws IllegalRentAccessException, InvalidRentActionException;
 
 	@POST
 	@Path("/confirm-return")
@@ -44,5 +44,14 @@ public interface RentResource {
 	@GET
 	@Path("/search-rents")
 	public List<RentDto> searchRents(RentFilterDto rentFilterDto); 
+	
+	@GET
+	@Path("all-rents/{id}")
+	public List<RentDto> findAllRents(@PathParam("id") Long id);
+	
+	@GET
+	@Path("all-rents-owner-vehicle/{id}")
+	public List<RentDto> findAllRentsByVehicleOwner(@PathParam("id") Long id);
+	
 
 }
