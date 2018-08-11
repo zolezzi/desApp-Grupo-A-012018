@@ -1,12 +1,10 @@
 package edu.unq.desapp.grupo_a.backend.validators;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.apache.log4j.Logger;
-
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.UserInitException;
 import edu.unq.desapp.grupo_a.backend.utils.ErrorHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserValidator extends Validator {
@@ -18,7 +16,7 @@ public class UserValidator extends Validator {
 		
 	}
 	
-	public void validationUserName(User user) throws UserInitException {
+	private void validationUserName(User user) throws UserInitException {
 
         if (user.getName() == null || user.getName().trim().isEmpty()) {
             
@@ -27,34 +25,25 @@ public class UserValidator extends Validator {
 		
 	}
 
-	public void validationUserCuil(User user) throws UserInitException {
+	private void validationUserCuil(User user) throws UserInitException {
         if (user.getCuil() == null || user.getCuil().trim().isEmpty()) {
           
-        	throw new UserInitException("Cuild invalido");
+        	throw new UserInitException("CUIL invalido");
         
         } 
 	}
 	
-	public void validationUserEmail(User user) throws UserInitException {
+	private void validationUserEmail(User user) throws UserInitException {
        
 		if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
-            throw new UserInitException("Email invalido");
-        } 
-
-	}
-	
-	public void validateAdrress(User user) throws UserInitException {
-	
-//		if(user.getAddress() == null) {
-//			throw new UserInitException();
-//		}
+            throw new UserInitException("E-mail invalido");
+        }
 	}
 	
 	public void validateUser(User user) throws UserInitException{
 		validationUserName(user);
 		validationUserCuil(user);
 		validationUserEmail(user);
-		validateAdrress(user);
 	}
 
 	@Override

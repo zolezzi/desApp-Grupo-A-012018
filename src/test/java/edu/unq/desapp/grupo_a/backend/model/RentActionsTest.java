@@ -4,6 +4,7 @@ import edu.unq.desapp.grupo_a.backend.model.builders.PublicationBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.RentBuilder;
 import edu.unq.desapp.grupo_a.backend.model.builders.UserBuilder;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,50 +49,50 @@ public class RentActionsTest {
     }
 
     @Test
-    public void testCancelRentByRenter() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelRentByRenter() throws InvalidActionException {
         aRent.cancelBy(renter);
 
         assertEquals(RentState.Canceled, aRent.getState());
     }
 
     @Test
-    public void testCancelRentByVehicleOwner() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelRentByVehicleOwner() throws InvalidActionException {
         aRent.cancelBy(vehicleOwner);
 
         assertEquals (RentState.Canceled, aRent.getState());
     }
 
     @Test (expected = IllegalRentAccessException.class)
-    public void testCancelRentByANonRelatedUser() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelRentByANonRelatedUser() throws InvalidActionException {
         aRent.cancelBy(aNonRelatedUser);
     }
 
     @Test (expected = IllegalRentAccessException.class)
-    public void testConfirmWithdrawByANonRelatedUser() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmWithdrawByANonRelatedUser() throws InvalidActionException {
         aRent.confirmWithdrawBy(aNonRelatedUser);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testPreconfirmWithdrawOfACanceledRent () throws IllegalRentAccessException, InvalidRentActionException {
+    public void testPreconfirmWithdrawOfACanceledRent () throws InvalidActionException {
         aRent.cancelBy(vehicleOwner);
         aRent.confirmWithdrawBy(renter);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testCancelAPreconfirmedWithdrawRent () throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelAPreconfirmedWithdrawRent () throws InvalidActionException {
         aRent.confirmWithdrawBy(renter);
         aRent.cancelBy(vehicleOwner);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testCancelAConfirmedWithdrawRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelAConfirmedWithdrawRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(renter);
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.cancelBy(vehicleOwner);
     }
 
     @Test
-    public void testCancelACanceledRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelACanceledRent() throws InvalidActionException {
         aRent.cancelBy(renter);
         aRent.cancelBy(vehicleOwner);
 
@@ -99,24 +100,24 @@ public class RentActionsTest {
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testConfirmReturnInAPreConfirmedWithdrawRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmReturnInAPreConfirmedWithdrawRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.confirmReturnBy(renter);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testConfirmReturnInACanceledRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmReturnInACanceledRent() throws InvalidActionException {
         aRent.cancelBy(vehicleOwner);
         aRent.confirmReturnBy(renter);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testConfirmReturnInANewRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmReturnInANewRent() throws InvalidActionException {
         aRent.confirmReturnBy(renter);
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testCancelAPreConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelAPreConfirmedReturnedRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.confirmWithdrawBy(renter);
         aRent.confirmReturnBy(renter);
@@ -124,7 +125,7 @@ public class RentActionsTest {
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testCancelAConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testCancelAConfirmedReturnedRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(renter);
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.confirmReturnBy(vehicleOwner);
@@ -133,7 +134,7 @@ public class RentActionsTest {
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testConfirmWithdrawInAPreConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmWithdrawInAPreConfirmedReturnedRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.confirmWithdrawBy(renter);
         aRent.confirmReturnBy(renter);
@@ -141,7 +142,7 @@ public class RentActionsTest {
     }
 
     @Test (expected = InvalidRentActionException.class)
-    public void testConfirmWithdrawInAConfirmedReturnedRent() throws IllegalRentAccessException, InvalidRentActionException {
+    public void testConfirmWithdrawInAConfirmedReturnedRent() throws InvalidActionException {
         aRent.confirmWithdrawBy(renter);
         aRent.confirmWithdrawBy(vehicleOwner);
         aRent.confirmReturnBy(vehicleOwner);

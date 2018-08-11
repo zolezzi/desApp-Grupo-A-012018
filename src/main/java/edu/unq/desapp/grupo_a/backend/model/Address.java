@@ -155,13 +155,13 @@ public class Address implements java.io.Serializable{
 
 	public static void check(Address address) throws WrongAddressException {
 		if (address == null) {
-			throw new WrongAddressException();
+			throw new WrongAddressException("Dirección inválida");
 		}
 	}
 
 	public static void check(List<Address> addresses) throws WrongAddressException{
 		if (addresses == null || addresses.isEmpty()) {
-			throw new WrongAddressException();
+			throw new WrongAddressException("Direcciones inválidas");
 		} else {
 			for (Address address : addresses) {
 				check(address);

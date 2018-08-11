@@ -17,7 +17,7 @@ public class NotificationValidator extends Validator {
 
     private void validateNotificationMessage(String message) {
         if (null == message || message.isEmpty()) {
-            throw new InvalidNotificationException();
+            throw new InvalidNotificationException("El mensaje de notificación no puede estar vacío.");
         }
     }
 }

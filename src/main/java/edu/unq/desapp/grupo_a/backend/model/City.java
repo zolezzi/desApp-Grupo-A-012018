@@ -6,7 +6,7 @@ public class City {
 
 	public static void check(City city) throws VehicleDataException {
 		if (city == null) {
-			throw new VehicleDataException();
+			throw new VehicleDataException("Ciudad inválida");
 		}
 	}
 }

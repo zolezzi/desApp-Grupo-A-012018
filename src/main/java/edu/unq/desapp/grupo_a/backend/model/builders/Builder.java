@@ -1,13 +1,14 @@
 package edu.unq.desapp.grupo_a.backend.model.builders;
 
 import edu.unq.desapp.grupo_a.backend.model.PersistenceEntity;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InitializerException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.WrongValidatorException;
 import edu.unq.desapp.grupo_a.backend.validators.Validator;
 
 
 public abstract class Builder<PE extends PersistenceEntity> {
 
-    public final PE build() throws ExceptionInInitializerError {
+    public final PE build() throws InitializerException {
         PE object = fireBuild();
         Class<?> objectClass = object.getClass();
 
@@ -22,7 +23,7 @@ public abstract class Builder<PE extends PersistenceEntity> {
         } catch ( ClassNotFoundException
                 | InstantiationException
                 | IllegalAccessException e) {
-            throw new WrongValidatorException(e);
+            throw new WrongValidatorException("No se pudo validar el objeto creado.");
         }
 
         return object;

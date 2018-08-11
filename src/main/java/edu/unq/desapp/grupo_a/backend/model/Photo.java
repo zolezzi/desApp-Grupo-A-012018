@@ -24,7 +24,7 @@ public class Photo extends PersistenceEntity{
 
 	public static void check(List<Photo> photos) throws VehicleDataException {
 		if (photos == null) {
-			throw new VehicleDataException();
+			throw new VehicleDataException("Fotos inválidas");
 		} else {
 			for (Photo photo : photos) {
 				check(photo);
@@ -34,7 +34,7 @@ public class Photo extends PersistenceEntity{
 
 	public static void check(Photo photo) throws VehicleDataException {
 		if (photo == null) {
-			throw new VehicleDataException();
+			throw new VehicleDataException("Foto inválida");
 		}
 	}
 }

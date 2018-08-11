@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +62,7 @@ public class RentResourceImpl implements RentResource{
 
 	@Override
 	@Transactional
-	public RentDto cancelRent(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto cancelRent(RentDto rentDto) throws InvalidActionException {
 
 		Rent rent = rentService.getRent(rentDto.getRenterId());
 		User user = userService.getUser(rentDto.getUserId());
@@ -73,7 +74,7 @@ public class RentResourceImpl implements RentResource{
 
 	@Override
 	@Transactional(readOnly = false)
-	public RentDto confirmWithdraw(Long id, Long userId) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto confirmWithdraw(Long id, Long userId) throws InvalidActionException {
 
 //		Rent rent = rentService.getRent(rentDto.getId());
 //		User user = userService.getUser(rentDto.getUserId());
@@ -91,7 +92,7 @@ public class RentResourceImpl implements RentResource{
 
 	@Override
 	@Transactional(readOnly = false)
-	public RentDto confirmReturn(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException {
+	public RentDto confirmReturn(RentDto rentDto) throws InvalidActionException {
 
 		Rent rent = rentService.getRent(rentDto.getRenterId());
 		User user = userService.getUser(rentDto.getUserId());

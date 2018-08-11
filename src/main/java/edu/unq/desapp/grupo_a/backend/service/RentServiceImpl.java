@@ -2,6 +2,7 @@ package edu.unq.desapp.grupo_a.backend.service;
 
 import java.util.List;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import org.springframework.stereotype.Service;
 
 import edu.unq.desapp.grupo_a.backend.model.Address;
@@ -34,9 +35,7 @@ public class RentServiceImpl implements RentService {
 		
 		try {
 			rent.pendingBy(renter);
-		} catch (IllegalRentAccessException e) {
-			e.printStackTrace();
-		} catch (InvalidRentActionException e) {
+		} catch (InvalidActionException e) {
 			e.printStackTrace();
 		}
 		
@@ -52,7 +51,7 @@ public class RentServiceImpl implements RentService {
 	}
 
 	@Override
-	public Rent cancelRent(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
+	public Rent cancelRent(Rent rent, User user) throws InvalidActionException {
 
 		rent.cancelBy(user);
 		rentRepository.update(rent);
@@ -60,7 +59,7 @@ public class RentServiceImpl implements RentService {
 	}
 
 	@Override
-	public Rent confirmWithdraw(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
+	public Rent confirmWithdraw(Rent rent, User user) throws InvalidActionException {
 
 		rent.confirmWithdrawBy(user);
 		rentRepository.update(rent);
@@ -68,7 +67,7 @@ public class RentServiceImpl implements RentService {
 	}
 
 	@Override
-	public Rent confirmReturn(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException {
+	public Rent confirmReturn(Rent rent, User user) throws InvalidActionException {
 
 		rent.confirmReturnBy(user);
 		rentRepository.update(rent);

@@ -14,6 +14,7 @@ import edu.unq.desapp.grupo_a.backend.dto.PublicationDto;
 import edu.unq.desapp.grupo_a.backend.dto.RentDto;
 import edu.unq.desapp.grupo_a.backend.dto.RentFilterDto;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 
 @Path("/rents")
@@ -31,15 +32,15 @@ public interface RentResource {
 
 	@POST
 	@Path("/cancel-rent")
-	public RentDto cancelRent(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException;
+	public RentDto cancelRent(RentDto rentDto) throws InvalidActionException;
 
 	@POST
 	@Path("/confirm-withdraw/{id}/{userId}")
-	public RentDto confirmWithdraw(@PathParam("id") Long id , @PathParam("userId") Long userId) throws IllegalRentAccessException, InvalidRentActionException;
+	public RentDto confirmWithdraw(@PathParam("id") Long id , @PathParam("userId") Long userId) throws InvalidActionException;
 
 	@POST
 	@Path("/confirm-return")
-	public RentDto confirmReturn(RentDto rentDto) throws IllegalRentAccessException, InvalidRentActionException;
+	public RentDto confirmReturn(RentDto rentDto) throws InvalidActionException;
 
 	@GET
 	@Path("/search-rents")

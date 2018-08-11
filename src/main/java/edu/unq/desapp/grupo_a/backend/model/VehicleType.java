@@ -34,7 +34,7 @@ public enum VehicleType {
 
 	public static void check(VehicleType vehicleType) throws VehicleDataException {
 		if (vehicleType == null) {
-			throw new VehicleDataException();
+			throw new VehicleDataException("Tipo de Vehículo inválido");
 		}
 	}
 	

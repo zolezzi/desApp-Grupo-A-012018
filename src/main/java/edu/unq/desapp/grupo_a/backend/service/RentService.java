@@ -8,6 +8,7 @@ import edu.unq.desapp.grupo_a.backend.model.Rent;
 import edu.unq.desapp.grupo_a.backend.model.RentFilter;
 import edu.unq.desapp.grupo_a.backend.model.User;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.IllegalRentAccessException;
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidRentActionException;
 
 public interface RentService {
@@ -18,11 +19,11 @@ public interface RentService {
 
 	public Rent getRent(Long rentId);
 
-	public Rent cancelRent(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException;
+	public Rent cancelRent(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException, InvalidActionException;
 
-	public Rent confirmWithdraw(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException;
+	public Rent confirmWithdraw(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException, InvalidActionException;
 
-	public Rent confirmReturn(Rent rent, User user) throws IllegalRentAccessException, InvalidRentActionException;
+	public Rent confirmReturn(Rent rent, User user) throws InvalidActionException;
 	
 	public List<Rent> findAllRents(Long id);
 	

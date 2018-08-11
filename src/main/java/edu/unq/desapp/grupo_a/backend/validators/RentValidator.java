@@ -19,7 +19,7 @@ public class RentValidator extends Validator {
 
     private void validateWithdrawDate(Date withdrawDate) throws InvalidAvailabilityException {
         if (withdrawDate.before(java.sql.Date.valueOf(LocalDate.now()))){
-            throw new InvalidAvailabilityException();
+            throw new InvalidAvailabilityException("La fecha de retiro del vehículo no puede ser anterior al día de hoy");
         }
     }
 }

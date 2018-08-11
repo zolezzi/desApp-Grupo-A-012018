@@ -12,7 +12,7 @@ public class VehicleValidator extends Validator{
 
     private void validatePassengerCapability(int passengerCapability) throws VehicleDataException {
         if (passengerCapability <= 0) {
-            throw new VehicleDataException();
+            throw new VehicleDataException("La capacidad del vehículo debe ser de al menos 1 pasajero");
         }
     }
 

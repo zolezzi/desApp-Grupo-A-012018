@@ -16,7 +16,7 @@ public class Phone extends PersistenceEntity{
 	
 	public static void check(Phone phone) throws VehicleDataException {
 		if (phone == null) {
-			throw new VehicleDataException();
+			throw new VehicleDataException("Teléfono inválido");
 		}
 	}
 }

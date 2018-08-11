@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import edu.unq.desapp.grupo_a.backend.model.exceptions.InvalidActionException;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -189,7 +190,7 @@ public class Rent extends PersistenceEntity {
 		return rentDto;
 	}
 	
-	public void pendingBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
+	public void pendingBy(User anUser) throws InvalidActionException {
 		if (getVehicleOwner() == anUser || getRenter() == anUser) {
 			switch (getState()) {
 				case Pending:
@@ -206,14 +207,14 @@ public class Rent extends PersistenceEntity {
 				case Canceled:
 					break;
 				default:
-					throw new InvalidRentActionException();
+					throw new InvalidRentActionException("No se puede dejar pendiente una renta en el estado actual de la misma.");
 			}
 		} else {
-			throw new IllegalRentAccessException();
+			throw new IllegalRentAccessException("Usted no está autorizado para rentar dicho vehículo.");
 		}
 	}
 
-	public void cancelBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
+	public void cancelBy(User anUser) throws InvalidActionException {
 		if (getVehicleOwner() == anUser || getRenter() == anUser) {
 			switch (getState()) {
 				case Initial:
@@ -230,14 +231,14 @@ public class Rent extends PersistenceEntity {
 				case Canceled:
 					break;
 				default:
-					throw new InvalidRentActionException();
+					throw new InvalidRentActionException("La renta actual no puede cancelada, por ya estar en curso.");
 			}
 		} else {
-			throw new IllegalRentAccessException();
+			throw new IllegalRentAccessException("Usted no está autorizado para cancelar esta renta.");
 		}
 	}
 
-	public void confirmWithdrawBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
+	public void confirmWithdrawBy(User anUser) throws InvalidActionException {
 		if (!getState().userEmail.matches(anUser.getEmail()) &&
 				getVehicleOwner() == anUser || getRenter() == anUser) {
 			List<User> toEmails = new ArrayList<>();
@@ -261,14 +262,15 @@ public class Rent extends PersistenceEntity {
 				case WithdrawConfirmed:
 					break;
 				default:
-					throw new InvalidRentActionException();
+					throw new InvalidRentActionException("No se puede confirmar el retiro del vehículo dado el estado " +
+                            "actual de la renta");
 			}
 		} else {
-			throw new IllegalRentAccessException();
+			throw new IllegalRentAccessException("Usted no está autorizado para confirmar el retiro del vehículo.");
 		}
 	}
 
-	public void confirmReturnBy(User anUser) throws IllegalRentAccessException, InvalidRentActionException {
+	public void confirmReturnBy(User anUser) throws InvalidActionException {
 		if (!getState().userEmail.matches(anUser.getEmail()) &&
 				getVehicleOwner() == anUser || getRenter() == anUser) {
 			List<User> toEmails = new ArrayList<>();
@@ -294,10 +296,11 @@ public class Rent extends PersistenceEntity {
 				case ReturnConfirmed:
 					break;
 				default:
-					throw new InvalidRentActionException();
+					throw new InvalidRentActionException("No se puede confirmar la devolución del vehículo dado el " +
+                            "estado actual de la renta.");
 			}
 		} else {
-			throw new IllegalRentAccessException();
+			throw new IllegalRentAccessException("Usted no está autorizado para confirmar la devolución del vehículo");
 		}
 	}
 }

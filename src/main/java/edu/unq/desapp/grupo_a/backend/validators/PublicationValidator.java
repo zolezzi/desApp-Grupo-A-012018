@@ -36,7 +36,7 @@ public class PublicationValidator extends Validator {
                 endingDate == null ||
                 endingDate.before(startingDate) ||
                 rentPrice <= 0) {
-            throw new WrongPublicationException();
+            throw new WrongPublicationException("Publicación inválida");
         }
     }
 }

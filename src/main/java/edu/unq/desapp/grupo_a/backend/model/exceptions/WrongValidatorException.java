@@ -1,10 +1,8 @@
 package edu.unq.desapp.grupo_a.backend.model.exceptions;
 
-public class WrongValidatorException extends ExceptionInInitializerError {
+public class WrongValidatorException extends InitializerException {
 
-
-    public WrongValidatorException(ReflectiveOperationException e) {
-
-
+    public WrongValidatorException(String message) {
+        super(message);
     }
 }
