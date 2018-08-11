@@ -6,9 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
+
 import edu.unq.desapp.grupo_a.backend.error.CarpndError;
 
 @Service
@@ -28,8 +27,6 @@ public class ErrorHandler {
 	}
 
 	public boolean add(CarpndError e) {
-		
-//		logger.info("Add error " + e.getCode() + " " + e.getDescription());
 		
 		return errors.add(e);
 	}

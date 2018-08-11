@@ -22,7 +22,7 @@ public class UserValidator extends Validator {
 
         if (user.getName() == null || user.getName().trim().isEmpty()) {
             
-        	throw new UserInitException();
+        	throw new UserInitException("Nombre invalido");
         } 
 		
 	}
@@ -30,7 +30,7 @@ public class UserValidator extends Validator {
 	public void validationUserCuil(User user) throws UserInitException {
         if (user.getCuil() == null || user.getCuil().trim().isEmpty()) {
           
-        	throw new UserInitException();
+        	throw new UserInitException("Cuild invalido");
         
         } 
 	}
@@ -38,7 +38,7 @@ public class UserValidator extends Validator {
 	public void validationUserEmail(User user) throws UserInitException {
        
 		if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
-            throw new UserInitException();
+            throw new UserInitException("Email invalido");
         } 
 
 	}
